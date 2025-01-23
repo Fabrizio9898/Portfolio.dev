@@ -1,36 +1,40 @@
 ---
-import '@fontsource-variable/onest'
-import Header from '../components/Header/Header.astro'
+import "@fontsource-variable/onest";
+import Header from "../components/Header/Header.astro";
 ---
+
 <!doctype html>
 <html lang="es">
-	<head>
-		<meta charset="UTF-8" />
-		<meta name="viewport" content="width=device-width" />
-		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-		<meta name="generator" content={Astro.generator} />
-		<title>Astro Basics</title>
-	</head>
-	<body>
-		<Header/>
-		<slot />
-	</body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="generator" content={Astro.generator} />
+    <title>Portofolio</title>
+  </head>
+  <body>
+    <Header />
+    <slot />
+  </body>
 </html>
 
 <style is:global>
+  :root {
+  }
 
-	:root {
+  html {
+    background: #170d18;
+    font-family: "Onest Variable", sans-serif;
+  }
 
-	}
+  body {
+    margin: 0;
+    display: flex;
+    justify-content: center;
+  }
 
-	html {
-		font-family: system-ui, sans-serif;
-
-	}
-
-	body {
-		display: flex;
-		justify-content: center;
-
-	}
+  h1 {
+    font-size: 2em;
+    margin: 0.67em 0;
+  }
 </style>
