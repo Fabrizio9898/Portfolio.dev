@@ -1,20 +1,21 @@
-<header class="flex justify-between items-center w-[1980px]">
-  <img
+---
+import LanguageButton from "../Button/Language-Button.astro";
+---
+
+<header class="flex justify-between items-center w-full max-w-[1980px]">
+  <!-- <img
     class="rounded-full w-10 h-10 ml-[200px]"
     src="/fotodeperfil.png"
     alt="logo"
-  />
+  /> -->
 
-  <nav class="flex flex-row py-5 gap-x-10 mr-[200px]">
+  <nav class="flex text-white flex-row border py-5 gap-x-10 m-auto">
     <a href="/">Home</a>
     <a href="/about">About</a>
     <a href="/proyects">Proyects</a>
     <a href="/contact">Contact</a>
   </nav>
+  <div class="absolute right-0 mr-3">
+    <LanguageButton />
+  </div>
 </header>
-
-<style>
-  header {
-    background-color: #3d074e;
-  }
-</style>

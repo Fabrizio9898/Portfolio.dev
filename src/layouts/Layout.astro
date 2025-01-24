@@ -7,7 +7,7 @@ import Header from "../components/Header/Header.astro";
 <html lang="es">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
+    <meta name="viewport" content="initial-scale=1, width=device-width">
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>Portofolio</title>
@@ -24,7 +24,7 @@ import Header from "../components/Header/Header.astro";
   }
 
   html {
-    background: #170d18;
+    background: #010101;
     font-family: "Onest Variable", sans-serif;
   }
 
@@ -32,6 +32,7 @@ import Header from "../components/Header/Header.astro";
     margin: 0;
     display: flex;
     justify-content: center;
+    flex-direction: column;
   }
 
   h1 {
@@ -42,4 +43,11 @@ import Header from "../components/Header/Header.astro";
   a {
     background-color: transparent;
   }
+
+  @media (prefers-language: Español) {
+        body {
+          color: rgba(255, 255, 255, 0.9);
+        }
+      }
+
 </style>

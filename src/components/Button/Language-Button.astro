@@ -1,0 +1,123 @@
+---
+const LANGUAGES = [
+  {
+    name: "Español",
+    abbreviation: "ES",
+  },
+  {
+    name: "English",
+    abbreviation: "EN",
+  },
+];
+---
+
+<div class="relative flex">
+  <button
+    transition:persist
+    id="languages-menu-btn"
+    aria-label="Seleccionar idioma"
+    class="language-button appearance-none flex hover:scale-125 transition"
+  >
+    <span id="selected-language" class="button-text">ES</span>
+    <div class="arrow-icon">▼</div>
+  </button>
+  <div
+    transition:persist
+    id="languages-menu"
+    class="absolute hidden scale-80 top-8 right-0 text-sm p-1 min-w-[8rem] rounded-md border border-gray-100 bg-white/90 dark:bg-gray-900/90 dark:border-gray-500/20 shadow-[0_3px_10px_rgb(0,0,0,0.2)] backdrop-blur-md"
+  >
+    <ul>
+      {
+        LANGUAGES.map((lang) => (
+          <li class="languages-menu-option px-2 py-1.5 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm" data-abbreviation={lang.abbreviation}>
+            {lang.name}
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</div>
+
+<style>
+  .language-button {
+    display: flex;
+    align-items: center;
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 0.3rem;
+    z-index: 10;
+    font-size: 1rem;
+  }
+
+  .language-button:focus {
+    outline: none;
+  }
+
+  .button-text {
+    color: #ffffff;
+    font-weight: 600;
+    font-size: 1rem;
+    margin-right: 0.5rem;
+  }
+
+  .arrow-icon {
+    font-size: 0.8rem;
+    color: #ffffff;
+  }
+
+  #languages-menu.open {
+    display: inline;
+    animation: scale-up-center 0.15s cubic-bezier(0.25, 0.46, 0.45, 0.94) both;
+  }
+
+  @keyframes scale-up-center {
+    from {
+      transform: scale(0.8);
+      opacity: 0;
+    }
+
+    to {
+      transform: scale(1);
+      opacity: 1;
+    }
+  }
+</style>
+
+<script is:inline>
+  const languagesMenu = document.getElementById("languages-menu");
+  const languageButton = document.getElementById("languages-menu-btn");
+  const selectedLanguageSpan = document.getElementById("selected-language");
+
+  const getLanguagePreference = () => {
+    return localStorage.getItem("language") || "ES";
+  };
+
+  const updateLanguage = (abbreviation) => {
+    localStorage.setItem("language", abbreviation);
+    selectedLanguageSpan.textContent = abbreviation;
+  };
+
+  // Initialize with stored preference or default
+  updateLanguage(getLanguagePreference());
+
+  languageButton.addEventListener("click", (e) => {
+    e.stopPropagation();
+    languagesMenu.classList.toggle("open");
+  });
+
+  document.addEventListener("click", () => languagesMenu.classList.remove("open"));
+
+  document.querySelectorAll(".languages-menu-option").forEach((element) => {
+    element.addEventListener("click", (e) => {
+      const abbreviation = e.target.dataset.abbreviation;
+      updateLanguage(abbreviation);
+      languagesMenu.classList.remove("open");
+    });
+  });
+
+  document.addEventListener('astro:after-swap', () => {
+    updateLanguage(getLanguagePreference());
+  });
+</script>
+
