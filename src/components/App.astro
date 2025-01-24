@@ -1,0 +1,14 @@
+---
+import Main from "../components/Main_Section/Main_Section.astro";
+import Layout from "../layouts/Layout.astro";
+
+
+import { getI18 } from "../i18n";
+const {currentLocale}=Astro
+const i18n=getI18({currentLocale})
+---
+
+<Layout
+  title={i18n?.PORTFOLIO_TITLE}>
+  <Main />
+</Layout>
