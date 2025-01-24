@@ -1,14 +1,25 @@
 ---
-const LANGUAGES = [
+import { LANGUAGE_CODES } from "../../i18n";
+
+interface Language {
+  name: string;
+  abbreviation: string;
+  code: string;
+}
+
+const LANGUAGES: Language[] = [
   {
     name: "Español",
     abbreviation: "ES",
+    code: "es"
   },
   {
     name: "English",
     abbreviation: "EN",
+    code: "en"
   },
 ];
+
 ---
 
 <div class="relative flex">
@@ -29,7 +40,7 @@ const LANGUAGES = [
     <ul>
       {
         LANGUAGES.map((lang) => (
-          <li class="languages-menu-option px-2 py-1.5 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm" data-abbreviation={lang.abbreviation}>
+          <li class="languages-menu-option px-2 py-1.5 cursor-pointer hover:bg-neutral-400/40 dark:hover:bg-gray-500/50 rounded-sm" data-abbreviation={lang.abbreviation} data-code={lang.code}>
             {lang.name}
           </li>
         ))
@@ -83,41 +94,98 @@ const LANGUAGES = [
     }
   }
 </style>
+<script>
+  import { atom } from 'nanostores';
+  import { getI18 } from '../../i18n';
 
-<script is:inline>
-  const languagesMenu = document.getElementById("languages-menu");
-  const languageButton = document.getElementById("languages-menu-btn");
-  const selectedLanguageSpan = document.getElementById("selected-language");
+  interface Language {
+    name: string;
+    abbreviation: string;
+    code: string;
+  }
 
-  const getLanguagePreference = () => {
-    return localStorage.getItem("language") || "ES";
+  interface I18n {
+    PORTFOLIO_TITLE: string;
+    [key: string]: string;
+  }
+
+  const LANGUAGES: Language[] = [
+    {
+      name: "Español",
+      abbreviation: "ES",
+      code: "es"
+    },
+    {
+      name: "English",
+      abbreviation: "EN",
+      code: "en"
+    },
+  ];
+
+  const currentLanguage = atom<string>('es');
+
+  const languagesMenu = document.getElementById("languages-menu") as HTMLDivElement;
+  const languageButton = document.getElementById("languages-menu-btn") as HTMLButtonElement;
+  const selectedLanguageSpan = document.getElementById("selected-language") as HTMLSpanElement;
+
+  const getLanguagePreference = (): string => {
+    return localStorage.getItem("language") || "es";
   };
 
-  const updateLanguage = (abbreviation) => {
-    localStorage.setItem("language", abbreviation);
+  const updateLanguage = (code: string, abbreviation: string): void => {
+    localStorage.setItem("language", code);
     selectedLanguageSpan.textContent = abbreviation;
+    currentLanguage.set(code);
+    document.documentElement.lang = code;
+
+    const i18n = getI18({ currentLocale: code });
+    updateTranslations(i18n);
   };
 
-  // Initialize with stored preference or default
-  updateLanguage(getLanguagePreference());
+  const updateTranslations = (i18n: I18n): void => {
+    document.title = i18n.PORTFOLIO_TITLE;
 
-  languageButton.addEventListener("click", (e) => {
+    document.querySelectorAll('[data-i18n]').forEach((element) => {
+      const key = element.getAttribute('data-i18n');
+      if (key && i18n[key]) {
+        element.textContent = i18n[key];
+      }
+    });
+
+    window.dispatchEvent(new CustomEvent('languageChanged', { detail: { i18n } }));
+  };
+
+  const storedLanguage = getLanguagePreference();
+  const initialLanguage = LANGUAGES.find(lang => lang.code === storedLanguage) || LANGUAGES[0];
+  updateLanguage(initialLanguage.code, initialLanguage.abbreviation);
+
+  languageButton.addEventListener("click", (e: Event) => {
     e.stopPropagation();
     languagesMenu.classList.toggle("open");
   });
 
   document.addEventListener("click", () => languagesMenu.classList.remove("open"));
 
-  document.querySelectorAll(".languages-menu-option").forEach((element) => {
-    element.addEventListener("click", (e) => {
-      const abbreviation = e.target.dataset.abbreviation;
-      updateLanguage(abbreviation);
-      languagesMenu.classList.remove("open");
+  document.querySelectorAll<HTMLLIElement>(".languages-menu-option").forEach((element) => {
+    element.addEventListener("click", (e: Event) => {
+      const target = e.target as HTMLLIElement;
+      const abbreviation = target.dataset.abbreviation;
+      const code = target.dataset.code;
+      if (abbreviation && code) {
+        updateLanguage(code, abbreviation);
+        languagesMenu.classList.remove("open");
+      }
     });
   });
 
+  currentLanguage.subscribe(async (lang: string) => {
+    const i18n = getI18({ currentLocale: lang });
+    updateTranslations(i18n);
+  });
+
   document.addEventListener('astro:after-swap', () => {
-    updateLanguage(getLanguagePreference());
+    const storedLanguage = getLanguagePreference();
+    const language = LANGUAGES.find(lang => lang.code === storedLanguage) || LANGUAGES[0];
+    updateLanguage(language.code, language.abbreviation);
   });
 </script>
-

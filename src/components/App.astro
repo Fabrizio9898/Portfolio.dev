@@ -4,8 +4,8 @@ import Layout from "../layouts/Layout.astro";
 
 
 import { getI18 } from "../i18n";
-const {currentLocale}=Astro
-const i18n=getI18({currentLocale})
+import { currentLanguage } from "../store/languages";
+const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
 <Layout

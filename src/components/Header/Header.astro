@@ -1,9 +1,9 @@
 ---
+import { getI18 } from "../../i18n";
+import { currentLanguage } from "../../store/languages";
 import LanguageButton from "../Button/Language-Button.astro";
 
-import { getI18 } from "../../i18n";
-const {currentLocale}=Astro
-const i18n=getI18({currentLocale})
+const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
 <header class="flex justify-between items-center w-full max-w-[1980px]">
@@ -14,10 +14,10 @@ const i18n=getI18({currentLocale})
   /> -->
 
   <nav class="flex text-white flex-row border py-5 gap-x-10 m-auto">
-    <a href="/">{i18n?.NAVBAR_HOME}</a>
-    <a href="/about">{i18n?.NAVBAR_ABOUT}</a>
-    <a href="/proyects">{i18n?.NAVBAR_PROYECTS}</a>
-    <a href="/contact">{i18n?.NAVBAR_CONTACT}</a>
+    <a href="/" data-i18n="NAVBAR_HOME">Inicio</a>
+    <a href="/about" data-i18n="NAVBAR_ABOUT">Sobre mi</a>
+    <a href="/proyects" data-i18n="NAVBAR_PROYECTS">Proyectos</a>
+    <a href="/contact" data-i18n="NAVBAR_CONTACT">Contacto</a>
   </nav>
   <div class="absolute right-0 mr-3">
     <LanguageButton />
