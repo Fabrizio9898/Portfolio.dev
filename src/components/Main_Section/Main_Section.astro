@@ -3,14 +3,21 @@ const personalImageAlt = "Fabrizio Andrade";
 import Badge from "@/components/icons/Badge.astro";
 ---
 
-<div class="divprincipal max-w-xl relative">
-  <div class="divcontainer border">
+<div class="max-w-xl relative">
+  <div class="divcontainer">
     <h1
-      class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+      class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white mt-0 mb-0"
     >
       Hola! Soy Fabrizio
     </h1>
-    <a
+    
+    <div class="text-container">
+      <img
+        class="profile-image"
+        src="/fotodeperfil.png"
+        alt={personalImageAlt}
+      />
+      <a
       href="https://linkedin.com/in/midudev"
       target="_blank"
       rel="noopener"
@@ -18,24 +25,13 @@ import Badge from "@/components/icons/Badge.astro";
     >
       <Badge>Disponible para trabajar</Badge>
     </a>
-    <p
-      class="mt-4 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
-    >
-      Fullstack Web Developer y Estudiante de Ciencias de la Computacion de
-      Buenos Aires, Argentina 🇦🇷
-    </p>
-  </div>
-  <div
-    class="imageybadge flex items-start p-1 gap-4 w-full"
-  >
-    <!-- Imagen de perfil -->
-    <img
-      class="rounded-full shadow-lg w-20 h-20 md:w-32 md:h-32"
-      src="/fotodeperfil.png"
-      alt={personalImageAlt}
-    />
-
-    <!-- Enlace con Badge -->
+      <p
+        class="mt-4 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+      >
+        <strong>Fullstack Web Developer</strong> y <strong>Estudiante de Ciencias de la Computacion</strong> de
+        Buenos Aires, Argentina 🇦🇷.
+      </p>
+    </div>
   </div>
 </div>
 
@@ -46,17 +42,39 @@ import Badge from "@/components/icons/Badge.astro";
     border: 2px solid white;
   }
 
-  .imageybadge {
-    position: absolute;
-    width: fit-content; 
-    top: 0;
-    right: 0;
-    margin-top: 20px;
-  }
-
-  .divcontainer{
+  .divcontainer {
     display: flex;
     flex-direction: column;
+    align-items: baseline;
   }
- 
+
+  .text-container {
+    overflow: hidden;
+    position: relative;
+    padding-top: 60px; /* Add some padding to prevent text from overlapping with the image */
+  }
+
+  .profile-image {
+    float: right;
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    margin-left: 15px;
+    margin-top: -60px; /* Negative margin to move the image upwards */
+    shape-outside: circle(50%);
+    position: relative;
+    z-index: 1; /* Ensure the image stays on top of the text */
+  }
+
+  @media (max-width: 640px) {
+    .profile-image {
+      width: 100px;
+      height: 100px;
+      margin-top: -40px; /* Adjust the negative margin for smaller screens */
+    }
+
+    .text-container {
+      padding-top: 40px; /* Adjust padding for smaller screens */
+    }}
 </style>
+
