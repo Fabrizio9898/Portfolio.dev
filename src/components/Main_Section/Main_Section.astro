@@ -18,13 +18,13 @@ import Badge from "@/components/icons/Badge.astro";
         alt={personalImageAlt}
       />
       <a
-      href="https://linkedin.com/in/midudev"
-      target="_blank"
-      rel="noopener"
-      class="inline-flex items-center transition md:justify-center md:hover:scale-105"
-    >
-      <Badge>Disponible para trabajar</Badge>
-    </a>
+        href="https://linkedin.com/in/midudev"
+        target="_blank"
+        rel="noopener"
+        class="inline-flex items-center transition md:justify-center animated-badge"
+      >
+        <Badge>Disponible para trabajar</Badge>
+      </a>
       <p
         class="mt-4 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
       >
@@ -51,7 +51,7 @@ import Badge from "@/components/icons/Badge.astro";
   .text-container {
     overflow: hidden;
     position: relative;
-    padding-top: 60px; /* Add some padding to prevent text from overlapping with the image */
+    padding-top: 60px;
   }
 
   .profile-image {
@@ -60,21 +60,30 @@ import Badge from "@/components/icons/Badge.astro";
     height: 150px;
     border-radius: 50%;
     margin-left: 15px;
-    margin-top: -60px; /* Negative margin to move the image upwards */
+    margin-top: -60px;
     shape-outside: circle(50%);
     position: relative;
-    z-index: 1; /* Ensure the image stays on top of the text */
+    z-index: 1;
+  }
+
+  .animated-badge:hover :global(.badge-content) {
+    color: transparent;
+  }
+
+  .animated-badge:hover :global(.badge-overlay) {
+    transform: translateX(0);
   }
 
   @media (max-width: 640px) {
     .profile-image {
       width: 100px;
       height: 100px;
-      margin-top: -40px; /* Adjust the negative margin for smaller screens */
+      margin-top: -40px;
     }
 
     .text-container {
-      padding-top: 40px; /* Adjust padding for smaller screens */
-    }}
+      padding-top: 40px;
+    }
+  }
 </style>
 
