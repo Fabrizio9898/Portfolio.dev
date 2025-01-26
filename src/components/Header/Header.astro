@@ -6,20 +6,22 @@ import LanguageButton from "../Button/Language-Button.astro";
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
-<header class="flex justify-between items-center w-full max-w-[1980px]">
-  <!-- <img
-    class="rounded-full w-10 h-10 ml-[200px]"
-    src="/fotodeperfil.png"
-    alt="logo"
-  /> -->
+<header class="flex flex-col sm:flex-row justify-between items-center w-full max-w-[1980px] py-5 px-4">
+  <div class="w-full sm:w-auto flex justify-between items-center mb-4 sm:mb-0">
+    <div class="sm:hidden">
+      <LanguageButton />
+    </div>
+  </div>
 
-  <nav class="flex text-white flex-row border py-5 gap-x-10 m-auto">
+  <nav class="flex text-white flex-row py-2 gap-x-4 sm:gap-x-10">
     <a href="/" data-i18n="NAVBAR_HOME">Inicio</a>
     <a href="/about" data-i18n="NAVBAR_ABOUT">Sobre mi</a>
     <a href="/proyects" data-i18n="NAVBAR_PROYECTS">Proyectos</a>
     <a href="/contact" data-i18n="NAVBAR_CONTACT">Contacto</a>
   </nav>
-  <div class="absolute right-0 mr-3">
+
+  <div class="hidden sm:block">
     <LanguageButton />
   </div>
 </header>
+

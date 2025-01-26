@@ -1,6 +1,62 @@
-<main>
-  <section class="border w-full mx-auto lg:w-[740px]">
-    <h1 class="text-white">Hola, soy Fabrizio Andrade</h1>
-    <h2></h2>
-  </section>
-</main>
+---
+const personalImageAlt = "Fabrizio Andrade";
+import Badge from "@/components/icons/Badge.astro";
+---
+
+<div class="divprincipal max-w-xl relative">
+  <div class="divcontainer border">
+    <h1
+      class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+    >
+      Hola! Soy Fabrizio
+    </h1>
+    <a
+      href="https://linkedin.com/in/midudev"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center transition md:justify-center md:hover:scale-105"
+    >
+      <Badge>Disponible para trabajar</Badge>
+    </a>
+    <p
+      class="mt-4 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
+    >
+      Fullstack Web Developer y Estudiante de Ciencias de la Computacion de
+      Buenos Aires, Argentina 🇦🇷
+    </p>
+  </div>
+  <div
+    class="imageybadge flex items-start p-1 gap-4 w-full"
+  >
+    <!-- Imagen de perfil -->
+    <img
+      class="rounded-full shadow-lg w-20 h-20 md:w-32 md:h-32"
+      src="/fotodeperfil.png"
+      alt={personalImageAlt}
+    />
+
+    <!-- Enlace con Badge -->
+  </div>
+</div>
+
+<style>
+  .divprincipal {
+    display: flex;
+    flex-direction: column;
+    border: 2px solid white;
+  }
+
+  .imageybadge {
+    position: absolute;
+    width: fit-content; 
+    top: 0;
+    right: 0;
+    margin-top: 20px;
+  }
+
+  .divcontainer{
+    display: flex;
+    flex-direction: column;
+  }
+ 
+</style>
