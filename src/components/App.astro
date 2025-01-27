@@ -1,17 +1,28 @@
 ---
-import Main from "../components/Main_Section/Main_Section.astro";
-import Layout from "../layouts/Layout.astro";
-
-
+import Hero from "@/components/Hero/Hero.astro";
+import Layout from "@/layouts/Layout.astro";
+import TitleSection from '@/components/TitleSection/TitleSection.astro'
+import  CodeIcon from '@/components/icons/Code.astro'
 import { getI18 } from "../i18n";
 import { currentLanguage } from "../store/languages";
 import SectionContainer from "./Section_Container.astro";
+
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
-<Layout
-  title={i18n?.PORTFOLIO_TITLE}>
-  <SectionContainer class="py-16 md:py-36">
-  <Main />
-</SectionContainer>
+<Layout title={i18n?.PORTFOLIO_TITLE}>
+  <main class="px-4">
+    <SectionContainer class="py-16 md:py-36">
+      <Hero />
+    </SectionContainer>
+    <div class="space-y-24">
+      <SectionContainer id="proyectos">
+        <TitleSection>
+          <CodeIcon class="size-7" />
+          Proyectos
+        </TitleSection>
+        <!-- <Projects /> -->
+      </SectionContainer>
+    </div>
+  </main>
 </Layout>
