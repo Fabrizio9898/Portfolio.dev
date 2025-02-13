@@ -4,7 +4,6 @@ import Badge from "@/components/icons/Badge.astro";
 ---
 
 <div class="max-w-xl relative">
-  <div class="divcontainer">
     <h1
       class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white mt-0 mb-0"
     >
@@ -21,7 +20,7 @@ import Badge from "@/components/icons/Badge.astro";
         project-id="806fc6da99594d7a8dea726d9d8c60f7"
         export-id="86b24db287dd47b5b2c72b05ec6a9fc3"
         style="overflow: visible;"
-  preserveAspectRatio="xMidYMid meet"
+        preserveAspectRatio="xMidYMid meet"
         ><path
           d="M84.801892,150.887049c16.03474,0,53.391443-5.982154,57.764188-26.162379c1.448374-6.684249-5.581936-42.726667-17.34582-38.82159-19.12919,6.350025-16.770611,42.266518-1.65198,49.55947c11.878066,5.729763,39.728816,12.066256,52.926706,12.066256"
           transform="matrix(.985665 0 0 0.943086-23.964912 7.700539)"
@@ -59,7 +58,6 @@ import Badge from "@/components/icons/Badge.astro";
         > de Buenos Aires, Argentina 🇦🇷.
       </p>
     </div>
-  </div>
 </div>
 
 <style>
@@ -69,11 +67,7 @@ import Badge from "@/components/icons/Badge.astro";
     border: 2px solid white;
   }
 
-  .divcontainer {
-    display: flex;
-    flex-direction: column;
-    align-items: baseline;
-  }
+
 
   .textybadge {
     overflow: hidden;
@@ -102,29 +96,36 @@ import Badge from "@/components/icons/Badge.astro";
   }
 
   #svgdiv {
-  position: absolute;
-  top: 80px;
-  left: 320px;
-  bottom: 0;
-  right: 0;
-  width: 150px;
-  height: 130px;
-  overflow: visible;
-  z-index: 2;
-}
+    position: absolute;
+    top: 80px;
+    left: 320px;
+    bottom: 0;
+    right: 0;
+    width: 150px;
+    height: 130px;
+    overflow: visible;
+    z-index: 2;
+  }
 
-#svgdiv svg {
-  width: 100%;
-  height: 100%;
-  margin-left:20px ;
-  transform: rotate(42deg);
-}
+  #svgdiv svg {
+    width: 100%;
+    height: 100%;
+    margin-left: 20px;
+    transform: rotate(42deg);
+  }
+  
+  
+ 
 
   @media (max-width: 640px) {
+    #svgdiv {
+      transform: rotate(30deg) scale(0.8);
+      margin-right: -20px;
+    }
     .profile-image {
       width: 100px;
       height: 100px;
-      margin-top: -40px;
+      margin-top: -60px;
     }
 
     .text-container {

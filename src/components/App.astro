@@ -6,6 +6,7 @@ import  CodeIcon from '@/components/icons/Code.astro'
 import { getI18 } from "../i18n";
 import { currentLanguage } from "../store/languages";
 import SectionContainer from "./Section_Container.astro";
+import Projects from './Proyects/Proyects.astro'
 
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
@@ -14,6 +15,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
   <main class="px-4">
     <SectionContainer class="py-16 md:py-36">
       <Hero />
+    </slot>
     </SectionContainer>
     <div class="space-y-24">
       <SectionContainer id="proyectos">
@@ -21,7 +23,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
           <CodeIcon class="size-7" />
           Proyectos
         </TitleSection>
-        <!-- <Projects /> -->
+        <Projects />
       </SectionContainer>
     </div>
   </main>

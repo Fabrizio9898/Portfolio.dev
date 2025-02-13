@@ -3,25 +3,120 @@ import { getI18 } from "../../i18n";
 import { currentLanguage } from "../../store/languages";
 import LanguageButton from "../Button/Language-Button.astro";
 
+const navItems = [
+  {
+    title: "Inicio",
+    label: "inicio",
+    url: "/#",
+    data: "NAVBAR_HOME",
+  },
+  {
+    title: "Proyectos",
+    label: "proyectos",
+    url: "/#proyectos",
+    data: "NAVBAR_PROYECTS",
+  },
+  {
+    title: "Sobre mí",
+    label: "sobre-mi",
+    url: "/#sobre-mi",
+    data: "NAVBAR_ABOUT",
+  },
+  {
+    title: "Contacto",
+    label: "contacto",
+    url: "mailto:fabrizioandrade9898@gmail.com",
+    data: "NAVBAR_CONTACT",
+  },
+];
+
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
-<header class="flex justify-between items-center w-full max-w-[1980px]">
-  <!-- <img
-    class="rounded-full w-10 h-10 ml-[200px]"
-    src="/fotodeperfil.png"
-    alt="logo"
-  /> -->
-
+<header
+  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
+>
   <nav
-    class="flex text-gray-600 dark:text-gray-200 flex-row border py-5 gap-x-10 m-auto"
+    class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
   >
-    <a href="/" data-i18n="NAVBAR_HOME">Inicio</a>
-    <a href="/about" data-i18n="NAVBAR_ABOUT">Sobre mi</a>
-    <a href="/proyects" data-i18n="NAVBAR_PROYECTS">Proyectos</a>
-    <a href="/contact" data-i18n="NAVBAR_CONTACT">Contacto</a>
+    {
+      navItems.map((link) => (
+        <a
+          class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
+          aria-label={link.label}
+          href={link.url}
+          data-i18n={link.data}
+        >
+          {link.title}
+        </a>
+      ))
+    }
   </nav>
-  <div class="lg:absolute lg:right-0 lg:mr-3 ml-auto lg:ml-0">
-    <LanguageButton />
-  </div>
+
+  <!-- <LanguageButton /> -->
 </header>
+
+
+
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const sections = document.querySelectorAll("section")
+    const navItems = document.querySelectorAll("header nav a")
+
+    const callback = (entries: any[]) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          navItems.forEach((item) => {
+            if (item.getAttribute("aria-label") == entry.target.id) {
+              item.classList.add("text-blue-500")
+            } else {
+              item.classList.remove("text-blue-500")
+            }
+          })
+        }
+      })
+    }
+
+    const observer = new IntersectionObserver(callback, {
+      root: null,
+      rootMargin: "0px",
+      threshold: 0.3,
+    })
+
+    sections.forEach((section) => {
+      observer.observe(section)
+    })
+
+    // Cleanup function
+    document.onvisibilitychange = () => {
+      if (document.visibilityState === "hidden") {
+        observer.disconnect()
+      } else {
+        sections.forEach((section) => {
+          observer.observe(section)
+        })
+      }
+    }
+  })
+</script>
+
+<style>
+  nav {
+    animation: nav-shadown 1s linear both;
+    animation-timeline: scroll();
+    animation-range: 0 100px;
+  }
+
+  nav {
+    @apply dark:bg-gray-800/90 bg-white/50;
+  }
+
+  @keyframes nav-shadown {
+    0% {
+      @apply dark:bg-gray-800/0 bg-white/0;
+    }
+    to {
+      @apply shadow-lg ring-1 backdrop-blur ring-white/10;
+    }
+  }
+</style>
