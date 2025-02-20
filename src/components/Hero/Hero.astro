@@ -1,6 +1,9 @@
 ---
 const personalImageAlt = "Fabrizio Andrade";
 import Badge from "@/components/icons/Badge.astro";
+import LinkedInIcon from "@/components/icons/Linkedin.astro"
+import MailIcon from "@/components/icons/Mail.astro"
+import SocialPill from "@/components/SocialPill.astro"
 ---
 
 <div class="max-w-xl relative">
@@ -24,7 +27,20 @@ import Badge from "@/components/icons/Badge.astro";
     <strong>Fullstack Web Developer</strong> y <strong
       >Estudiante de Ciencias de la Computacion</strong
     > de Buenos Aires, Argentina 🇦🇷.
-  </p></div>
+    
+  </p>
+  <nav class="flex flex-wrap gap-4 mt-2">
+    <SocialPill href="mailto:fabrizioandrade9898@gmail.com">
+      <MailIcon class="size-4" />
+      Contáctame
+    </SocialPill>
+    <SocialPill href="https://www.linkedin.com/in/fabrizio-andrade/">
+      <LinkedInIcon class="size-4" />
+      LinkedIn
+    </SocialPill>
+  </nav>
+
+</div>
 
 
   <style>

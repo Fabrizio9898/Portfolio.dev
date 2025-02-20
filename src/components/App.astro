@@ -7,6 +7,8 @@ import { getI18 } from "../i18n";
 import { currentLanguage } from "../store/languages";
 import SectionContainer from "./Section_Container.astro";
 import Projects from './Proyects/Proyects.astro'
+import ProfileCheck from "@/components/icons/ProfileCheck.astro"
+
 
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
@@ -24,6 +26,14 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
           Proyectos
         </TitleSection>
         <Projects />
+      </SectionContainer>
+
+      <SectionContainer id="sobre-mi">
+        <TitleSection>
+          <ProfileCheck class="size-8" />
+          Sobre mí
+        </TitleSection>
+        <!-- <AboutMe /> -->
       </SectionContainer>
     </div>
   </main>
