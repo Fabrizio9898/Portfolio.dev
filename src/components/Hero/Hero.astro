@@ -1,33 +1,43 @@
 ---
 const personalImageAlt = "Fabrizio Andrade";
 import Badge from "@/components/icons/Badge.astro";
-import LinkedInIcon from "@/components/icons/Linkedin.astro"
-import MailIcon from "@/components/icons/Mail.astro"
-import SocialPill from "@/components/SocialPill.astro"
+import LinkedInIcon from "@/components/icons/Linkedin.astro";
+import MailIcon from "@/components/icons/Mail.astro";
+import SocialPill from "@/components/SocialPill.astro";
 ---
 
 <div class="max-w-xl relative">
-  <img class="profile-image" src="/fotodeperfil.png" alt={personalImageAlt} />
-  <h1
-    class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white mt-0 mb-1"
-  >
-    Hola! Soy Fabrizio 
-  </h1>
-  <a
-    href="https://linkedin.com/in/fabrizio-andrade"
-    target="_blank"
-    rel="noopener"
-    class="inline-flex items-center transition md:justify-center animated-badge mt-1 "
-  >
-    <Badge>Disponible para trabajar</Badge>
-  </a>
+  <div id="image-badge-container">
+    <img
+      class="profile-image sm:mt-8 shadow-lg"
+      src="/fotodeperfil.webp"
+      alt={personalImageAlt}
+    />
+      <h1
+        class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
+      >
+        Hola! Soy Fabrizio
+      </h1>
+    <a
+      href="https://linkedin.com/in/fabrizio-andrade"
+      target="_blank"
+      rel="noopener"
+      class="inline-flex items-center transition md:justify-center animated-badge mt-1"
+    >
+      <Badge>Disponible para trabajar</Badge>
+    </a>
+  </div>
+<div class="h1-container"> <h1
+  class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
+>
+  Hola! Soy Fabrizio
+</h1></div>
   <p
     class="mt-2 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
   >
     <strong>Fullstack Web Developer</strong> y <strong
       >Estudiante de Ciencias de la Computacion</strong
     > de Buenos Aires, Argentina 🇦🇷.
-    
   </p>
   <nav class="flex flex-wrap gap-4 mt-2">
     <SocialPill href="mailto:fabrizioandrade9898@gmail.com">
@@ -39,29 +49,71 @@ import SocialPill from "@/components/SocialPill.astro"
       LinkedIn
     </SocialPill>
   </nav>
-
 </div>
 
+<style>
+ 
+  .profile-image {
+    float: left;
+    width: 5rem;
+    height: 5rem;
+    border-radius: 50%;
+    shape-outside: url("/public/fotodeperfil.png");
+    shape-margin: 10px;
+    margin-right: 0.5rem;
+    z-index: 1;
+  }
 
-  <style>
+  .animated-badge:hover :global(.badge-content) {
+    color: transparent;
+  }
 
+  .animated-badge:hover :global(.badge-overlay) {
+    transform: translateX(0);
+  }
+
+  .h1-container{
+    visibility: hidden;
+  }
+
+  @media (480px<= width < 640px) {
     .profile-image {
-      float: left;
-      width: 6rem;
-      height: 6rem;
-      border-radius: 50%;
-      margin-top: 25px;
-      shape-outside: url("/public/fotodeperfil.png");
-      shape-margin: 10px;
-      margin-right: 0.5rem;
-      z-index: 1;
+      margin-top: 29px;
+    }
+  }
+ @media(width>419px){
+  .h1-container{
+    display: none;
+  }
+ }
+
+  @media (width < 420px) {
+    #image-badge-container {
+      position: relative;
+      display: flex;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    .profile-image {
+      float: none;
+      width: 4rem;
+      height: 4rem;
+      border-radius: 9999px;
     }
 
-    .animated-badge:hover :global(.badge-content) {
-      color: transparent;
-    }
+     h1{
+      position: absolute;
+      bottom: 0;
+      top: 72px;
+     }
 
-    .animated-badge:hover :global(.badge-overlay) {
-      transform: translateX(0);
+  
+   .h1-container {
+      visibility: hidden;
+      display: block;
     }
-  </style>
+    .h1-container h1{
+      position: relative;
+    }
+  }
+</style>

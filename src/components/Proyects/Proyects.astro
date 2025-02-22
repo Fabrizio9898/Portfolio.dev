@@ -2,26 +2,32 @@
 import LinkButton from "../LinkButton/LinkButton.astro";
 import Link from "../icons/Link.astro";
 import GitHub from "../icons/Github.astro";
+import NextJS from "../icons/NextJS.astro";
+import NestJS from "../icons/NestJS.astro";
+import Tailwind from "../icons/Tailwind.astro";
 
 const TAGS = {
+  NEST: { name: "Nest.js", class: "bg-black text-white", icon: NestJS },
   NEXT: {
     name: "Next.js",
     class: "bg-black text-white",
+    icon: NextJS,
   },
   TAILWIND: {
     name: "Tailwind CSS",
     class: "bg-[#003159] text-white",
+    icon: Tailwind,
   },
 };
 const PROJECTS = [
   {
     title: "Active - Gestion de Centros Deportivos",
     description:
-      "Plataforma para gestionar centros deportivos y reservar canchas. Creada desde cero con Next.js, NestJS y Tailwind CSS.",
-    link: "https://svgl.vercel.app/",
-    github: "https://github.com/pheralb/svgl",
+      "Plataforma para gestionar centros deportivos y reservar canchas.",
+    link: "https://frontend-actives-projects-11ce1f6a.vercel.app/",
+    github: "",
     image: "/projects/svgl.webp",
-    tags: [TAGS.NEXT, TAGS.TAILWIND],
+    tags: [TAGS.NEST,TAGS.NEXT, TAGS.TAILWIND],
   },
 ];
 ---
@@ -45,18 +51,18 @@ const PROJECTS = [
             {title}
           </h3>
           <div class="flex flex-wrap mt-2">
-            {/* <ul class="flex flex-row mb-2 gap-x-2">
-          {tags.map((tag) => (
-            <li>
-              <span
-                class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-              >
-                <tag.icon class="size-4" />
-                {tag.name}
-              </span>
-            </li>
-          ))}
-        </ul> */}
+            <ul class="flex flex-row mb-2 gap-x-2">
+              {tags.map((tag) => (
+                <li>
+                  <span
+                    class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
+                  >
+                    <tag.icon class="size-4" />
+                    {tag.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
 
             <div class="mt-2 text-gray-700 dark:text-gray-400">
               {description}
@@ -82,17 +88,4 @@ const PROJECTS = [
   }
 </div>
 
-<style>
-  /* #proyectcard {
-    box-shadow:
-      0px 0px 10px 0px rgb(138 75 236 / 50%),
-      0px 0px 10px 0px rgb(233 29 207 / 100%);
-  }
-
-  @media (prefers-color-scheme: dark) {
-    #proyectcard {
-      box-shadow: 0px 0px 10px 0px rgba(255 255 0 / 50%);
-    }
-  } */
-</style>
-
+<style></style>
