@@ -14,7 +14,7 @@ import SocialPill from "@/components/SocialPill.astro";
       alt={personalImageAlt}
     />
       <h1
-        class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
+        class="original-text text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
       >
         Hola! Soy Fabrizio
       </h1>
@@ -27,11 +27,12 @@ import SocialPill from "@/components/SocialPill.astro";
       <Badge>Disponible para trabajar</Badge>
     </a>
   </div>
-<div class="h1-container"> <h1
-  class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
+<div class="h1-container"><h1
+class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
 >
-  Hola! Soy Fabrizio
-</h1></div>
+Hola! Soy Fabrizio
+</h1>
+</div>
   <p
     class="mt-2 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
   >
@@ -101,19 +102,21 @@ import SocialPill from "@/components/SocialPill.astro";
       border-radius: 9999px;
     }
 
-     h1{
+    .original-text{
       position: absolute;
       bottom: 0;
-      top: 72px;
+      top: 84px;
      }
 
   
    .h1-container {
       visibility: hidden;
       display: block;
+      margin-bottom: 20px;
     }
     .h1-container h1{
       position: relative;
+      margin: 0;
     }
   }
 </style>
