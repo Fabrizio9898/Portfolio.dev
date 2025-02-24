@@ -13,13 +13,15 @@ import ProfileCheck from "@/components/icons/ProfileCheck.astro"
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
-<Layout title={i18n?.PORTFOLIO_TITLE}>
+<Layout title={i18n?.PORTFOLIO_TITLE} description="El catalogo de componentes de nuestro portfolio">
   <main class="px-4">
-    <SectionContainer class="py-16 md:py-36">
+    <SectionContainer id="inicio" class="py-16 md:py-36">
       <Hero />
     </slot>
     </SectionContainer>
     <div class="space-y-24">
+
+
       <SectionContainer id="proyectos">
         <TitleSection>
           <CodeIcon class="size-7" />

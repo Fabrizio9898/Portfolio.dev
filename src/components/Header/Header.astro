@@ -9,7 +9,7 @@ const navItems = [
   {
     title: "Inicio",
     label: "inicio",
-    url: "/#",
+    url: "/#inicio",
     data: "NAVBAR_HOME",
   },
   {
@@ -65,6 +65,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
   document.addEventListener("astro:page-load", () => {
     const sections = document.querySelectorAll("section")
     const navItems = document.querySelectorAll("header nav a")
+console.log('jola');
 
     const callback = (entries: any[]) => {
       entries.forEach((entry) => {
