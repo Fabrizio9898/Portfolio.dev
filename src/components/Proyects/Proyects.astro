@@ -2,38 +2,12 @@
 import LinkButton from "../LinkButton/LinkButton.astro";
 import Link from "../icons/Link.astro";
 import GitHub from "../icons/Github.astro";
-import NextJS from "../icons/NextJS.astro";
-import NestJS from "../icons/NestJS.astro";
-import Tailwind from "../icons/Tailwind.astro";
+import {PROJECTS} from '../../data/proyects'
 
-const TAGS = {
-  NEST: { name: "Nest.js", class: "bg-black text-white", icon: NestJS },
-  NEXT: {
-    name: "Next.js",
-    class: "bg-black text-white",
-    icon: NextJS,
-  },
-  TAILWIND: {
-    name: "Tailwind CSS",
-    class: "bg-[#003159] text-white",
-    icon: Tailwind,
-  },
-};
-const PROJECTS = [
-  {
-    title: "Active - Gestion de Centros Deportivos",
-    description:
-      "Plataforma para gestionar centros deportivos y reservar canchas.",
-    link: "https://frontend-actives-projects-11ce1f6a.vercel.app/",
-    github: "https://github.com/Active04-star/Frontend",
-    image: "/svgl1.webp",
-    tags: [TAGS.NEST, TAGS.NEXT, TAGS.TAILWIND],
-    id:"Active"
-  },
-];
+
 ---
 
-<div class="flex flex-col gap-y-16">
+<div class="article-container flex flex-col gap-y-16">
   {
     PROJECTS.map(({id, image, title, description, tags, link, github }) => (
       <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
@@ -41,7 +15,7 @@ const PROJECTS = [
           <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl 
           md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
              <a class="h-full w-full" href={`/${id}`}>
-            <img alt="Recién llegado vs 5 años en Nueva Zelanda" class=" object-top w-full h-56 transition duration-500  md:scale-110 md:group-hover:scale-105" loading="eager"  src={image} />
+            <img alt="Recién llegado vs 5 años en Nueva Zelanda" class=" object-top w-full h-[13rem] transition duration-500  md:scale-110 md:group-hover:scale-105" loading="eager"  src={image} />
           </a>
           </div>
         </div>
@@ -64,9 +38,9 @@ const PROJECTS = [
             </ul>
 
             <div class="mt-2 text-gray-700 dark:text-gray-400">
-              {description}
+              {description} 
             </div>
-            <footer class="flex items-end justify-start mt-4 gap-x-4">
+            <footer class="flex items-end justify-start mt-2 gap-x-4">
               {github && (
                 <LinkButton href={github}>
                   <GitHub class="size-6" />
@@ -86,3 +60,11 @@ const PROJECTS = [
     ))
   }
 </div>
+
+
+<style>
+@media (width >= 1024px) {
+.article-container article:nth-of-type(2) img{
+  height: 180px;
+}}
+</style>
