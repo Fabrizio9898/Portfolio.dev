@@ -1,7 +1,6 @@
 ---
 import { getI18 } from "../../i18n";
 import { currentLanguage } from "../../store/languages";
-import LanguageButton from "../Button/Language-Button.astro";
 import ThemeToggle from "../ThemeToggle/ThemeToggle.astro"
 
 
@@ -56,7 +55,6 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
     <ThemeToggle/>
   </nav>
 
-  <!-- <LanguageButton /> -->
 </header>
 
 

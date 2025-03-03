@@ -3,20 +3,19 @@ import LinkButton from "../LinkButton/LinkButton.astro";
 import Link from "../icons/Link.astro";
 import GitHub from "../icons/Github.astro";
 import {PROJECTS} from '../../data/proyects'
+import LinkInline from "../icons/LinkInline.astro";
 
 
 ---
 
 <div class="article-container flex flex-col gap-y-16">
   {
-    PROJECTS.map(({id, image, title, description, tags, link, github }) => (
-      <article class="flex flex-col space-x-0 space-y-8 group md:flex-row md:space-x-8 md:space-y-0">
+    PROJECTS.map(({id, image, title, description, tags, link, github ,dinamicPage}) => (
+      <article class="flex flex-col space-x-0 space-y-8  md:flex-row md:space-x-8 md:space-y-0">
         <div class="w-full md:w-1/2">
           <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl 
-          md:group-hover:-translate-y-1 md:group-hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
-             <a class="h-full w-full" href={`/${id}`}>
-            <img alt="Recién llegado vs 5 años en Nueva Zelanda" class=" object-top w-full h-[13rem] transition duration-500  md:scale-110 md:group-hover:scale-105" loading="eager"  src={image} />
-          </a>
+          md:hover:-translate-y-1 md:hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50">
+            <img alt="Recién llegado vs 5 años en Nueva Zelanda" class=" object-top w-full h-[13rem] transition duration-500  md:scale-110 md:hover:scale-105" loading="eager"  src={image} />
           </div>
         </div>
         <div class="w-full md:w-1/2 md:max-w-lg">
@@ -39,6 +38,30 @@ import {PROJECTS} from '../../data/proyects'
 
             <div class="mt-2 text-gray-700 dark:text-gray-400">
               {description} 
+              {
+      dinamicPage && (
+        <LinkInline href={dinamicPage}>
+          Saber más{" "}
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 icon icon-tabler icon-tabler-chevron-right"
+            width="24"
+            height="24"
+            viewBox="0 0 24 24"
+            stroke-width="2"
+            stroke="currentColor"
+            fill="none"
+            stroke-linecap="round"
+            stroke-linejoin="round"
+          >
+            <>
+              <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+              <path d="M9 6l6 6l-6 6" />
+            </>
+          </svg>
+        </LinkInline>
+      )
+    }
             </div>
             <footer class="flex items-end justify-start mt-2 gap-x-4">
               {github && (

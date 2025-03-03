@@ -1,24 +1,26 @@
 ---
 import ExperienceItem from "./ExperienceItem.astro"
+import {StackUrls} from '../../data/stack'
 const EXPERIENCE = [
   {
     date: "Septiembre 2024",
     title: "Web developer",
     company: "SoyHenry",
     description:
-      "Pasantia de 3 meses en la que puse en practica un stack de tecnologia amplio y que me dio una buena base de programacion ",
+      "Pasantia de 3 meses en la que puse en practica un stack de tecnologia amplio y que me dio una buena base de programación",
+      stack:StackUrls
   },
   {
-    date: "Septiembre 2022",
-    title: "Principal Frontend Engineer",
-    company: "Adevinta Spain",
+    date: "2010-2018",
+    title: "Level Proficient C2",
+    company: "Denver",
     description:
-      "Responsable de la plataforma, componentes y utilidades para la creación y desarrollo de aplicaciones web. Mejora de un 30% en la entrega de software. Implantación de medidas de integración continua y despliegue con A/B testing en más de 15 equipos.",
+      "Dominio del inglés a nivel C2, con habilidades avanzadas en comunicación oral y escrita. ",
   },
 ]
 ---
 
-<ol class="relative mt-6">
+<ol class=" ranking-list relative mt-6">
   {
     EXPERIENCE.map((experience) => (
       <li class="">
@@ -27,3 +29,10 @@ const EXPERIENCE = [
     ))
   }
 </ol>
+
+
+<style>
+  .ranking-list > li{
+
+}
+</style>

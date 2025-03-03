@@ -31,7 +31,8 @@ const TAGS = {
       tags: [TAGS.NEXT, TAGS.TAILWIND],
       id:"Active",
       fullDescription:"Plataforma desarrollada desde cero para conectar centros deportivos con jugadores. Permite a los propietarios de instalaciones deportivas publicar y gestionar sus canchas, atrayendo clientes y optimizando sus reservas. Por otro lado, los usuarios pueden explorar centros deportivos, verificar disponibilidad y alquilar canchas de forma rápida y sencilla. La aplicación está diseñada para mejorar la experiencia de ambos públicos, ofreciendo una interfaz intuitiva y un proceso de reserva eficiente.",
-      images:[]
+      images:[],
+      dinamicPage:"http://localhost:4321/Active"
     },
 
     {
