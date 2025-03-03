@@ -4,7 +4,7 @@
   <ul class="hidden lg:flex">
     <a href=""
       ><li
-        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90"
+        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#183749]"
         style="clip-path:polygon(3% 0%, 0% 100%, 100% 97%, 90% 0);"
       >
         Español
@@ -12,19 +12,40 @@
     >
     <a href=""
       ><li
-        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90"
+        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#183749]"
         style="clip-path:polygon(0% 0%, 10% 97%, 99% 100%, 100% 0%);"
       >
         English
       </li></a
     >
   </ul>
+  <div class="relative inline-block lg:hidden">
+    <div class="relative cursor-pointer" id="language-toggle">
+        <div class="flex h-16 min-w-[175px] items-center justify-center gap-2 bg-[#183749] dark:bg-[#183749] px-10" style="clip-path: polygon(3% 0%, 0% 100%, 100% 100%, 90% 0);"> Español <svg role="img" fill="currentColor" id="locale-caret" class="size-4 shrink-0 transition-transform duration-200 ease-in-out motion-reduce:transition-none rotate-180"><symbol viewBox="0 0 256 256" id="a:1">
+            <path =""="" d="M216.49,104.49l-80,80a12,12,0,0,1-17,0l-80-80a12,12,0,0,1,17-17L128,159l71.51-71.52a12,12,0,0,1,17,17Z"></path>
+          </symbol><use href="#a:1"></use></svg> </div>
+          <ul id="locale-options" role="listbox" class="absolute left-0 top-full z-10 max-h-80 w-full overflow-auto scrollbar-hide">
+
+
+            <a href=""
+            ><li
+              class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#333]"
+              style="clip-path:polygon(0% 0%, 10% 100%, 90% 100%, 100% 0%);"
+            >
+              English
+            </li></a
+          >
+          </ul>
+
+    </div>
+  </div>
 </nav>
 
 <style>
   li {
-    background-color: #183749;
+    background-color:#dddad2;
   }
+ 
 
   nav {
     view-timeline: --scroll;
@@ -42,12 +63,42 @@
     }
   }
 
+  @media (min-width: 1024px) { /* lg */
   li {
     animation:
       scale-up both ease-in-out,
       fade-away both linear;
-      animation-timeline: --scroll;
-      animation-range: exit 0% exit 100%,
-      exit 50% exit 90%
+    animation-timeline: --scroll;
+    animation-range: exit 0% exit 100%, exit 50% exit 90%;
   }
+}
+
+/* Desactiva la animación en pantallas menores */
+@media (max-width: 1023px) { /* md y menores */
+  li {
+    animation: none 
+  }
+}
 </style>
+
+
+<script>
+     document.addEventListener('DOMContentLoaded', () => {
+    // Get the language toggle element
+    const languageToggle = document.getElementById('language-toggle');
+    
+    // Get the SVG caret element
+    const localeCaret = document.getElementById('locale-caret');
+    
+    // Add click event listener to the language toggle
+    if (languageToggle && localeCaret) {
+      languageToggle.addEventListener('click', () => {
+        // Toggle the rotate-180 class on the SVG
+        localeCaret.classList.toggle('rotate-180');
+      });
+    }
+  });
+
+
+  
+</script>
