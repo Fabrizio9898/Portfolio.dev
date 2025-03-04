@@ -1,0 +1,93 @@
+---
+import { getI18 } from "../../i18n";
+import { currentLanguage } from "../../store/languages";
+
+const navItems = [
+  {
+    title: "Proyectos",
+    label: "proyectos",
+    url: "/#proyectos",
+    data: "NAVBAR_PROYECTS",
+  },
+  {
+    title: "Trayectoria",
+    label: "trayectoria",
+    url: "/#trayectoria",
+    data: "NAVBAR_TRAYECTORIA",
+  },
+  {
+    title: "Sobre mí",
+    label: "sobre-mi",
+    url: "/#sobre-mi",
+    data: "NAVBAR_ABOUT",
+  },
+  {
+    title: "Contacto",
+    label: "contacto",
+    url: "mailto:fabrizioandrade9898@gmail.com",
+    data: "NAVBAR_CONTACT",
+  },
+];
+
+const i18n = getI18({ currentLocale: currentLanguage.get() });
+---
+
+<div
+  id="menu"
+  data-state="open"
+  class="invisible fixed inset-0 z-10 overflow-y-auto px-2 opacity-0 scrollbar-hide md:hidden transition-[visibility,opacity] duration-300 ease-in-out motion-reduce:transition-none data-[state=open]:visible data-[state=open]:opacity-100"
+>
+  <div class="flex h-16 items-center justify-between px-2">
+    <span class="typography-lg font-semibold uppercase">Menú</span>
+    <div class="flex items-center ps-3 pointer-events-none">
+
+    <button
+      aria-expanded="true"
+      aria-label="Cerrar menú."
+      class="group inline-grid [&_svg]:col-start-1 [&_svg]:row-start-1 [&_svg]:pointer-events-none [&_svg]:size-8 [&_svg]:shrink-0 [&_svg]:transition-[transform,opacity] [&_svg]:duration-300 [&_svg]:ease-out"
+      data-state="open"
+      type="button"
+      id="menu-close"
+      aria-controls="menu"
+      data-astro-cid-5ql2mvdm="true"
+    >
+      <svg
+        role="img"
+        fill="currentColor"
+        class="group-data-[state=open]:-rotate-45 group-data-[state=open]:opacity-0"
+        ><use href="#a:2"></use></svg
+      >
+      <svg
+        role="img"
+        fill="currentColor"
+        class="rotate-45 opacity-0 group-data-[state=open]:rotate-0 group-data-[state=open]:opacity-100"
+        ><use href="#a:3"></use></svg
+      >
+    </button>
+</div>
+  </div>
+  <hr
+    aria-hidden="true"
+    class="w-full border-t-2 border-primary"
+    data-astro-cid-5ql2mvdm="true"
+  />
+  <nav class="flex flex-col gap-6 py-6">
+    {
+      navItems.map((link) => (
+        <a
+          class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
+          aria-label={link.label}
+          href={link.url}
+          data-i18n={link.data}
+        >
+          {link.title}
+        </a>
+      ))
+    }
+  </nav>
+  <hr
+    aria-hidden="true"
+    class="w-full border-t-2 border-primary"
+    data-astro-cid-5ql2mvdm="true"
+  />
+</div>

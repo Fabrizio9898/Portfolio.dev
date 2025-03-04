@@ -1,51 +1,109 @@
+---
+interface Language {
+  name: string;
+  abbreviation: string;
+  code: string;
+}
+
+const LANGUAGES: Language[] = [
+  {
+    name: "Español",
+    abbreviation: "ES",
+    code: "es",
+  },
+  {
+    name: "English",
+    abbreviation: "EN",
+    code: "en",
+  },
+];
+---
+
 <nav
   class="z-20 font-medium tracking-wide text-secondary absolute start-2 top-0 md:start-10"
 >
-  <ul class="hidden lg:flex">
-    <a href=""
-      ><li
-        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#183749]"
+  <ul id="lista-menu" class="hidden">
+    <a
+      href="#"
+      class="language-link-desktop"
+      data-code="es"
+      data-abbreviation="ES"
+    >
+      <li
+        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#333] selected-language"
         style="clip-path:polygon(3% 0%, 0% 100%, 100% 97%, 90% 0);"
+        data-language-name="Español"
       >
         Español
-      </li></a
+      </li>
+    </a>
+    <a
+      href="#"
+      class="language-link-desktop"
+      data-code="en"
+      data-abbreviation="EN"
     >
-    <a href=""
-      ><li
-        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#183749]"
-        style="clip-path:polygon(0% 0%, 10% 97%, 99% 100%, 100% 0%);"
+      <li
+        class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#333]"
+        style="clip-path: polygon(0% 0%, 10% 97%, 99% 100%, 100% 0%);"
+        data-language-name="English"
       >
         English
-      </li></a
-    >
+      </li>
+    </a>
   </ul>
-  <div class="relative inline-block lg:hidden">
-    <div class="relative cursor-pointer" id="language-toggle">
-        <div class="flex h-16 min-w-[175px] items-center justify-center gap-2 bg-[#183749] dark:bg-[#183749] px-10" style="clip-path: polygon(3% 0%, 0% 100%, 100% 100%, 90% 0);"> Español <svg role="img" fill="currentColor" id="locale-caret" class="size-4 shrink-0 transition-transform duration-200 ease-in-out motion-reduce:transition-none rotate-180"><symbol viewBox="0 0 256 256" id="a:1">
-            <path =""="" d="M216.49,104.49l-80,80a12,12,0,0,1-17,0l-80-80a12,12,0,0,1,17-17L128,159l71.51-71.52a12,12,0,0,1,17,17Z"></path>
-          </symbol><use href="#a:1"></use></svg> </div>
-          <ul id="locale-options" role="listbox" class="absolute left-0 top-full z-10 max-h-80 w-full overflow-auto scrollbar-hide">
-
-
-            <a href=""
-            ><li
-              class="flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none opacity-90 dark:bg-[#333]"
-              style="clip-path:polygon(0% 0%, 10% 100%, 90% 100%, 100% 0%);"
+  <div id="menu-desplegable" class="relative inline-block">
+    <div class="relative cursor-pointer" id="languages-menu-btn">
+      <div
+        class="flex h-16 min-w-[175px] items-center justify-center gap-2 bg-[#183749] dark:bg-[#183749] px-10"
+        style="clip-path: polygon(3% 0%, 0% 100%, 100% 100%, 90% 0);"
+        id="selected-language-mobile"
+      >
+        Español <svg
+          role="img"
+          fill="currentColor"
+          id="locale-caret"
+          class="size-4 shrink-0 transition-transform duration-200 ease-in-out motion-reduce:transition-none rotate-180"
+          ><symbol viewBox="0 0 256 256" id="a:1">
+            <path
+              d="M216.49,104.49l-80,80a12,12,0,0,1-17,0l-80-80a12,12,0,0,1,17-17L128,159l71.51-71.52a12,12,0,0,1,17,17Z"
+            ></path>
+          </symbol><use href="#a:1"></use></svg
+        >
+      </div>
+      <ul
+        id="locale-options"
+        role="listbox"
+        class="absolute left-0 top-full z-10 max-h-80 w-full overflow-auto scrollbar-hide hidden"
+        data-current-language="es"
+      >
+        {
+          LANGUAGES.filter((lang) => lang.code !== "es").map((lang) => (
+            <a
+              href="#"
+              class="language-link-mobile"
+              data-code={lang.code}
+              data-abbreviation={lang.abbreviation}
             >
-              English
-            </li></a
-          >
-          </ul>
-
+              <li
+                class="languages-menu-option flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none hover:opacity-90 dark:bg-[#333]"
+                style="clip-path: polygon(0% 0%, 10% 100%, 90% 100%, 100% 0%); background-color: #dddad2;"
+                data-language-name={lang.name}
+              >
+                {lang.name}
+              </li>
+            </a>
+          ))
+        }
+      </ul>
     </div>
   </div>
 </nav>
 
 <style>
   li {
-    background-color:#dddad2;
+    background-color: #dddad2;
   }
- 
 
   nav {
     view-timeline: --scroll;
@@ -63,42 +121,280 @@
     }
   }
 
-  @media (min-width: 1024px) { /* lg */
-  li {
-    animation:
-      scale-up both ease-in-out,
-      fade-away both linear;
-    animation-timeline: --scroll;
-    animation-range: exit 0% exit 100%, exit 50% exit 90%;
+  @media (min-width: 1024px) {
+    /* lg */
+    li {
+      animation:
+        scale-up both ease-in-out,
+        fade-away both linear;
+      animation-timeline: --scroll;
+      animation-range:
+        exit 0% exit 100%,
+        exit 50% exit 90%;
+    }
   }
-}
 
-/* Desactiva la animación en pantallas menores */
-@media (max-width: 1023px) { /* md y menores */
-  li {
-    animation: none 
+  /* Desactiva la animación en pantallas menores */
+  @media (max-width: 1023px) {
+    /* md y menores */
+    li {
+      animation: none;
+    }
   }
-}
+
+  @media (min-width: 1090px) {
+    #menu-desplegable {
+      display: none;
+    }
+    #lista-menu {
+      display: flex;
+    }
+  }
+  #locale-options {
+    transition:
+      opacity 0.3s ease,
+      transform 0.3s ease;
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  #locale-options.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
 </style>
 
-
 <script>
-     document.addEventListener('DOMContentLoaded', () => {
-    // Get the language toggle element
-    const languageToggle = document.getElementById('language-toggle');
-    
-    // Get the SVG caret element
-    const localeCaret = document.getElementById('locale-caret');
-    
-    // Add click event listener to the language toggle
-    if (languageToggle && localeCaret) {
-      languageToggle.addEventListener('click', () => {
-        // Toggle the rotate-180 class on the SVG
-        localeCaret.classList.toggle('rotate-180');
+  import { atom } from "nanostores";
+  import { getI18 } from "../../i18n";
+
+  interface Language {
+    name: string;
+    abbreviation: string;
+    code: string;
+  }
+
+  interface I18n {
+    PORTFOLIO_TITLE: string;
+    [key: string]: string;
+  }
+
+  const LANGUAGES = [
+    {
+      name: "Español",
+      abbreviation: "ES",
+      code: "es",
+    },
+    {
+      name: "English",
+      abbreviation: "EN",
+      code: "en",
+    },
+  ];
+
+  const currentLanguage = atom("es");
+
+  // Language preference functions
+  const getLanguagePreference = () => {
+    return localStorage.getItem("language") || "es";
+  };
+
+  const setLanguagePreference = (code: string) => {
+    localStorage.setItem("language", code);
+    currentLanguage.set(code);
+    document.documentElement.lang = code;
+  };
+
+  // Update UI based on language
+  const updateLanguageUI = (code: string) => {
+    const language =
+      LANGUAGES.find((lang) => lang.code === code) || LANGUAGES[0];
+
+    // Update mobile view
+    const selectedLanguageMobile = document.getElementById(
+      "selected-language-mobile",
+    );
+    const localeCaret = document.getElementById("locale-caret");
+    const localeOptions = document.getElementById("locale-options");
+
+    if (selectedLanguageMobile && localeCaret) {
+      // Save the SVG element
+      const svgElement = localeCaret.cloneNode(true);
+
+      // Update text content
+      selectedLanguageMobile.textContent = language.name + " ";
+
+      // Re-append the SVG
+      selectedLanguageMobile.appendChild(svgElement);
+    }
+
+    // Update the dropdown options
+    if (localeOptions) {
+      // Set the current language attribute
+      localeOptions.setAttribute("data-current-language", code);
+
+      // Clear existing options
+      localeOptions.innerHTML = "";
+
+      // Add new options (all languages except the current one)
+      LANGUAGES.filter((lang) => lang.code !== code).forEach((lang) => {
+        const link = document.createElement("a");
+        link.href = "#";
+        link.className = "language-link-mobile";
+        link.setAttribute("data-code", lang.code);
+        link.setAttribute("data-abbreviation", lang.abbreviation);
+
+        const li = document.createElement("li");
+        li.className =
+          "languages-menu-option flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none hover:opacity-90 dark:bg-[#333]";
+        li.style.clipPath = "polygon(0% 0%, 10% 100%, 90% 100%, 100% 0%)";
+        li.style.backgroundColor = "#dddad2";
+        li.setAttribute("data-language-name", lang.name);
+        li.textContent = lang.name;
+
+        link.appendChild(li);
+        localeOptions.appendChild(link);
+
+        closeDropdown();
+      });
+
+      // Re-attach event listeners to the new elements
+      document.querySelectorAll(".language-link-mobile").forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const code = link.getAttribute("data-code");
+          if (code) {
+            setLanguagePreference(code);
+            updateLanguageUI(code);
+            closeDropdown();
+          }
+        });
       });
     }
+
+    // Update translations
+    try {
+      const i18n = getI18({ currentLocale: code });
+      updateTranslations(i18n);
+    } catch (error) {
+      console.error("Error updating translations:", error);
+    }
+  };
+
+  const updateTranslations = (i18n: I18n) => {
+    if (!i18n) return;
+
+    document.title = i18n.PORTFOLIO_TITLE || document.title;
+
+    document.querySelectorAll("[data-i18n]").forEach((element) => {
+      const key = element.getAttribute("data-i18n");
+      if (key && i18n[key]) {
+        element.textContent = i18n[key];
+      }
+    });
+
+    window.dispatchEvent(
+      new CustomEvent("languageChanged", { detail: { i18n } }),
+    );
+  };
+
+  // Toggle dropdown menu
+  const toggleDropdown = () => {
+    const localeOptions = document.getElementById("locale-options");
+    const localeCaret = document.getElementById("locale-caret");
+
+    if (localeOptions) {
+      const isHidden = localeOptions.classList.contains("hidden");
+
+      if (isHidden) {
+        localeOptions.classList.remove("hidden");
+        setTimeout(() => localeOptions.classList.add("show"), 10);
+      } else {
+        localeOptions.classList.remove("show");
+        setTimeout(() => localeOptions.classList.add("hidden"), 300);
+      }
+
+      if (localeCaret) {
+        localeCaret.classList.toggle("rotate-180");
+      }
+    }
+  };
+
+  // Close dropdown menu
+  const closeDropdown = () => {
+    const localeOptions = document.getElementById("locale-options");
+    const localeCaret = document.getElementById("locale-caret");
+
+    if (localeOptions) {
+      localeOptions.classList.remove("show");
+      setTimeout(() => localeOptions.classList.add("hidden"), 300);
+    }
+
+    if (localeCaret) {
+      localeCaret.classList.add("rotate-180");
+    }
+  };
+
+  // Initialize language from storage
+  const initializeLanguage = () => {
+    const storedLanguage = getLanguagePreference();
+    updateLanguageUI(storedLanguage);
+    setLanguagePreference(storedLanguage);
+  };
+
+  // Setup event listeners
+  const setupEventListeners = () => {
+    // Mobile dropdown toggle
+    const languageToggle = document.getElementById("languages-menu-btn");
+    if (languageToggle) {
+      languageToggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        toggleDropdown();
+      });
+    }
+
+    // Close dropdown when clicking outside
+    document.addEventListener("click", () => {
+      closeDropdown();
+    });
+
+    // Language selection - mobile
+    document.querySelectorAll(".language-link-mobile").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const code = link.getAttribute("data-code");
+        if (code) {
+          setLanguagePreference(code);
+          updateLanguageUI(code);
+          closeDropdown();
+        }
+      });
+    });
+
+    document.querySelectorAll(".language-link-desktop").forEach((link) => {
+      link.addEventListener("click", (e) => {
+        e.preventDefault();
+        const code = link.getAttribute("data-code");
+        if (code) {
+          setLanguagePreference(code);
+          updateLanguageUI(code);
+        }
+      });
+    });
+  };
+
+  // Initialize when DOM is ready
+  document.addEventListener("DOMContentLoaded", () => {
+    initializeLanguage();
+    setupEventListeners();
   });
 
+  // Handle language changes from other components
+  currentLanguage.subscribe((lang) => {
+    updateLanguageUI(lang);
+  });
 
-  
+  // Handle page transitions in Astro
+  document.addEventListener("astro:after-swap", () => {
+    initializeLanguage();
+  });
 </script>

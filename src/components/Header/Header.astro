@@ -1,6 +1,8 @@
 ---
 import { getI18 } from "../../i18n";
 import { currentLanguage } from "../../store/languages";
+import LanguageButton from "../Button/Language-Button.astro";
+import MenuButton from "../icons/MenuButton.astro";
 import ThemeToggle from "../ThemeToggle/ThemeToggle.astro"
 
 
@@ -35,10 +37,11 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
 <header
-  class="fixed top-0 z-10 flex items-center justify-center w-full mx-auto mt-2"
+  class="fixed top-0 z-10 flex items-center justify-between w-full mx-auto mt-2 "
 >
+
   <nav
-    class="flex px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center"
+    class="hidden px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center mx-auto "
   >
     {
       navItems.map((link) => (
@@ -54,6 +57,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
     }
     <ThemeToggle/>
   </nav>
+  <MenuButton/>
 
 </header>
 
@@ -113,6 +117,11 @@ console.log('jola');
     @apply dark:bg-gray-800/90 bg-white/50;
   }
 
+  @media ( width > 850px){
+    nav {
+      display: flex;
+    }
+  }
   @keyframes nav-shadown {
     0% {
       @apply dark:bg-gray-800/0 bg-white/0;
