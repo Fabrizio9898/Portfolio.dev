@@ -1,8 +1,4 @@
----
-
----
-
-<button class=`flex ml-auto mr-2`>
+<button id="menu-button" class="flex ml-auto mr-2">
   <div class="bg-black dark:bg-white"></div>
   <div class="bg-black dark:bg-white"></div>
   <div class="bg-black dark:bg-white"></div>
@@ -12,7 +8,6 @@
   button {
     flex-direction: column;
     width: 3rem;
-    height: 3rem;
     border: 0;
     background: transparent;
     gap: 0.65rem;
@@ -26,19 +21,20 @@
     transform-origin: left;
   }
 
-  button:hover div:first-child {
+  /* Efecto cuando el botón está activo */
+  button.active div:first-child {
     transform: rotate(31deg);
   }
 
-  button:hover div:nth-child(2) {
+  button.active div:nth-child(2) {
     opacity: 0;
   }
 
-  button:hover div:last-child {
+  button.active div:last-child {
     transform: rotate(-33deg);
   }
 
-  @media ( width > 850px){
+  @media (width > 850px) {
     button {
       display: none;
     }

@@ -1,8 +1,14 @@
 {
-    "PORTFOLIO_TITLE":"Fabrizio Andrade Portfolio - Fullstack Developer and Computer Science Student",
-    "PORTFOLIO_DESCRIPTION":"",
-    "NAVBAR_ABOUT":"About",
-    "NAVBAR_HOME":"Home",
-    "NAVBAR_PROYECTS":"Proyects",
-    "NAVBAR_CONTACT":"Contact"
+  "PORTFOLIO_TITLE": "Fabrizio Andrade Portfolio - Fullstack Developer and Computer Science Student",
+  "PORTFOLIO_DESCRIPTION": "",
+  "NAVBAR_ABOUT": "About me",
+  "NAVBAR_TRAYECTORY": "Background",
+  "NAVBAR_PROYECTS": "Proyects",
+  "NAVBAR_CONTACT": "Contact",
+  "SECTION_HERO_TITLE": "Hello, I'm Fabrizio",
+  "HERO_BADGE":"Open to work",
+  "FIRST_DESCRIPTION": "and",
+  "SECOND_HERO_DESCRIPTION": "Computer Science Student",
+  "LAST_DESCRIPTION":"from",
+  "HERO_CONTACT": "Contact me"
 }

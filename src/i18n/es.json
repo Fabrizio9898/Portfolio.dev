@@ -1,7 +1,13 @@
 {
   "PORTFOLIO_TITLE": "Portfolio de Fabrizio Andrade - Desarrolador Fullstack y Estudiante de Ciencias de la Computacion",
-  "NAVBAR_ABOUT":"Sobre mi",
-  "NAVBAR_HOME":"Inicio",
+  "NAVBAR_ABOUT":"Sobre mí",
+  "NAVBAR_TRAYECTORY":"Trayectoria",
   "NAVBAR_PROYECTS":"Proyectos",
-  "NAVBAR_CONTACT":"Contacto"
+  "NAVBAR_CONTACT":"Contacto",
+  "SECTION_HERO_TITLE": "Hola, Soy Fabrizio",
+  "HERO_BADGE":"Disponible para trabajar",
+  "FIRST_DESCRIPTION": "y",
+  "SECOND_HERO_DESCRIPTION": "Estudiante de Ciencias de la Computación",
+  "LAST_DESCRIPTION":"de",
+  "HERO_CONTACT": "Contáctame"
 }

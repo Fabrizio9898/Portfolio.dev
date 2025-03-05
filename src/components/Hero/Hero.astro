@@ -13,11 +13,11 @@ import LinkedInIcon from "@/components/icons/LinkedIn.astro";
       src="/fotodeperfil.webp"
       alt={personalImageAlt}
     />
-      <h1
-        class="original-text text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
-      >
-        Hola! Soy Fabrizio
-      </h1>
+    <h1
+      class="original-text text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
+      data-i18n="SECTION_HERO_TITLE"
+    >
+    </h1>
     <a
       href="https://linkedin.com/in/fabrizio-andrade"
       target="_blank"
@@ -27,23 +27,25 @@ import LinkedInIcon from "@/components/icons/LinkedIn.astro";
       <Badge>Disponible para trabajar</Badge>
     </a>
   </div>
-<div class="h1-container"><h1
-class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
->
-Hola! Soy Fabrizio
-</h1>
-</div>
+  <div class="h1-container">
+    <h1
+      class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+      data-i18n="SECTION_HERO_TITLE"
+    >
+      Hola! Soy Fabrizio
+    </h1>
+  </div>
   <p
     class="mt-2 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300"
   >
-    <strong>Fullstack Web Developer</strong> y <strong
+    <strong>Fullstack Web Developer</strong> <spam data-i18n="FIRST_DESCRIPTION">y</spam> <strong       data-i18n="SECOND_HERO_DESCRIPTION"
       >Estudiante de Ciencias de la Computacion</strong
-    > de Buenos Aires, Argentina 🇦🇷.
+    > <span data-i18n="LAST_DESCRIPTION">de</span> Buenos Aires, Argentina 🇦🇷.
   </p>
   <nav class="flex flex-wrap gap-4 mt-2">
     <SocialPill href="mailto:fabrizioandrade9898@gmail.com">
       <MailIcon class="size-4" />
-      Contáctame
+      <spam data-i18n="HERO_CONTACT">Contáctame</spam>
     </SocialPill>
     <SocialPill href="https://www.linkedin.com/in/fabrizio-andrade/">
       <LinkedInIcon class="size-4" />
@@ -53,7 +55,6 @@ Hola! Soy Fabrizio
 </div>
 
 <style>
- 
   .profile-image {
     float: left;
     width: 5rem;
@@ -73,7 +74,7 @@ Hola! Soy Fabrizio
     transform: translateX(0);
   }
 
-  .h1-container{
+  .h1-container {
     visibility: hidden;
   }
 
@@ -82,11 +83,11 @@ Hola! Soy Fabrizio
       margin-top: 29px;
     }
   }
- @media(width>419px){
-  .h1-container{
-    display: none;
+  @media (width>419px) {
+    .h1-container {
+      display: none;
+    }
   }
- }
 
   @media (width < 420px) {
     #image-badge-container {
@@ -102,19 +103,18 @@ Hola! Soy Fabrizio
       border-radius: 9999px;
     }
 
-    .original-text{
+    .original-text {
       position: absolute;
       bottom: 0;
       top: 84px;
-     }
+    }
 
-  
-   .h1-container {
+    .h1-container {
       visibility: hidden;
       display: block;
       margin-bottom: 20px;
     }
-    .h1-container h1{
+    .h1-container h1 {
       position: relative;
       margin: 0;
     }

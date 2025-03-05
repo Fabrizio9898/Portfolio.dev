@@ -1,12 +1,23 @@
 ---
+
 ---
+
 <div class="badge-container">
-  <div class="badge-content">
+  <div class="badge-content" data-i18n="HERO_BADGE">
     <slot />
   </div>
   <div class="badge-overlay">
-    <svg xmlns="http://www.w3.org/2000/svg" class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-      <path d="M5 12h14M12 5l7 7-7 7"/>
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      class="icon"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      stroke-width="2"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+    >
+      <path d="M5 12h14M12 5l7 7-7 7"></path>
     </svg>
   </div>
 </div>
@@ -33,7 +44,7 @@
 
   .badge-overlay {
     position: absolute;
-    inset:0 ;
+    inset: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,4 +64,3 @@
     background-color: #065f46;
   }
 </style>
-

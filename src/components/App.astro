@@ -1,52 +1,51 @@
 ---
 import Hero from "@/components/Hero/Hero.astro";
 import Layout from "@/layouts/Layout.astro";
-import TitleSection from '@/components/TitleSection/TitleSection.astro'
-import  CodeIcon from '@/components/icons/Code.astro'
+import TitleSection from "@/components/TitleSection/TitleSection.astro";
+import CodeIcon from "@/components/icons/Code.astro";
 import { getI18 } from "../i18n";
 import { currentLanguage } from "../store/languages";
 import SectionContainer from "./Section_Container.astro";
-import Projects from './Proyects/Proyects.astro'
-import ProfileCheck from "@/components/icons/ProfileCheck.astro"
+import Projects from "./Proyects/Proyects.astro";
+import ProfileCheck from "@/components/icons/ProfileCheck.astro";
 import Experience from "./Experience/Experience.astro";
 import Adjustment from "./icons/Adjustment.astro";
-
 
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
-<Layout title={i18n?.PORTFOLIO_TITLE} description="El catalogo de componentes de nuestro portfolio">
+<Layout
+  title={i18n?.PORTFOLIO_TITLE}
+  description="El catalogo de componentes de nuestro portfolio"
+>
   <main class="px-4">
     <SectionContainer id="inicio" class="pb-16 pt-36 md:py-36">
       <Hero />
-    </slot>
     </SectionContainer>
-    <div class="space-y-24">
-
-
-      <SectionContainer id="proyectos">
-        <TitleSection>
-          <CodeIcon class="size-7" />
-          Proyectos
-        </TitleSection>
-        <Projects />
-      </SectionContainer>
-
-      <SectionContainer id="trayectoria">
-        <TitleSection>
-          <Adjustment class="size-8" />
-          Trayectoria
-        </TitleSection>
-        <Experience />
-      </SectionContainer>
-
-      <SectionContainer id="sobre-mi">
-        <TitleSection>
-          <ProfileCheck class="size-8" />
-          Sobre mí
-        </TitleSection>
-        <!-- <AboutMe /> -->
-      </SectionContainer>
-    </div>
   </main>
+  <div class="space-y-24">
+    <SectionContainer id="proyectos">
+      <TitleSection>
+        <CodeIcon class="size-7" />
+        <span data-i18n="NAVBAR_PROYECTS">Proyectos</span>
+      </TitleSection>
+      <Projects />
+    </SectionContainer>
+
+    <SectionContainer id="trayectoria">
+      <TitleSection>
+        <Adjustment class="size-8" />
+        <span data-i18n="NAVBAR_TRAYECTORY">Trayectoria</span>
+      </TitleSection>
+      <Experience />
+    </SectionContainer>
+
+    <SectionContainer id="sobre-mi">
+      <TitleSection>
+        <ProfileCheck class="size-8" />
+        <span data-i18n="NAVBAR_ABOUT"> Sobre mí </span>
+      </TitleSection>
+      <!-- <AboutMe /> -->
+    </SectionContainer>
+  </div>
 </Layout>

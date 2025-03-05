@@ -1,7 +1,4 @@
 ---
-import { getI18 } from "../../i18n";
-import { currentLanguage } from "../../store/languages";
-import LanguageButton from "../Button/Language-Button.astro";
 import MenuButton from "../icons/MenuButton.astro";
 import ThemeToggle from "../ThemeToggle/ThemeToggle.astro"
 
@@ -17,7 +14,7 @@ const navItems = [
     title: "Trayectoria",
     label: "trayectoria",
     url: "/#trayectoria",
-    data: "NAVBAR_TRAYECTORIA",
+    data: "NAVBAR_TRAYECTORY",
   },
   {
     title: "Sobre mí",
@@ -33,7 +30,6 @@ const navItems = [
   },
 ];
 
-const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
 
 <header
@@ -64,6 +60,15 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
 
 
 <script>
+
+const menuButton = document.getElementById("menu-button");
+
+if (menuButton) {
+  menuButton.addEventListener("click", () => {
+    menuButton.classList.toggle("active");
+  });
+}
+
   document.addEventListener("astro:page-load", () => {
     const sections = document.querySelectorAll("section")
     const navItems = document.querySelectorAll("header nav a")
