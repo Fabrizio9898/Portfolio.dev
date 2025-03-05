@@ -1,6 +1,7 @@
 ---
 import { getI18 } from "../../i18n";
 import { currentLanguage } from "../../store/languages";
+import MenuButton from "../icons/MenuButton.astro";
 
 const navItems = [
   {
@@ -41,29 +42,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
     <span class="typography-lg font-semibold uppercase">Menú</span>
     <div class="flex items-center ps-3 pointer-events-none">
 
-    <button
-      aria-expanded="true"
-      aria-label="Cerrar menú."
-      class="group inline-grid [&_svg]:col-start-1 [&_svg]:row-start-1 [&_svg]:pointer-events-none [&_svg]:size-8 [&_svg]:shrink-0 [&_svg]:transition-[transform,opacity] [&_svg]:duration-300 [&_svg]:ease-out"
-      data-state="open"
-      type="button"
-      id="menu-close"
-      aria-controls="menu"
-      data-astro-cid-5ql2mvdm="true"
-    >
-      <svg
-        role="img"
-        fill="currentColor"
-        class="group-data-[state=open]:-rotate-45 group-data-[state=open]:opacity-0"
-        ><use href="#a:2"></use></svg
-      >
-      <svg
-        role="img"
-        fill="currentColor"
-        class="rotate-45 opacity-0 group-data-[state=open]:rotate-0 group-data-[state=open]:opacity-100"
-        ><use href="#a:3"></use></svg
-      >
-    </button>
+    <MenuButton/>
 </div>
   </div>
   <hr

@@ -1,7 +1,6 @@
 ---
 import MenuButton from "../icons/MenuButton.astro";
-import ThemeToggle from "../ThemeToggle/ThemeToggle.astro"
-
+import ThemeToggle from "../ThemeToggle/ThemeToggle.astro";
 
 const navItems = [
   {
@@ -9,7 +8,7 @@ const navItems = [
     label: "proyectos",
     url: "/#proyectos",
     data: "NAVBAR_PROYECTS",
-  },  
+  },
   {
     title: "Trayectoria",
     label: "trayectoria",
@@ -29,18 +28,16 @@ const navItems = [
     data: "NAVBAR_CONTACT",
   },
 ];
-
 ---
 
 <header
-  class="fixed top-0 z-10 flex items-center justify-between w-full mx-auto mt-2 "
+  id="mainHeader" class="fixed top-0 z-10 flex items-center justify-between w-full mx-auto mt-2"
 >
-
   <nav
-    class="hidden px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center mx-auto "
+    class="hidden px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center mx-auto"
   >
     {
-      navItems.map((link) => (
+      navItems.map((link, index) => (
         <a
           class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"
           aria-label={link.label}
@@ -51,64 +48,155 @@ const navItems = [
         </a>
       ))
     }
-    <ThemeToggle/>
+    <ThemeToggle />
   </nav>
-  <MenuButton/>
+  <!-- Menu Button that will be visible in both states -->
+  <MenuButton />
 
+  <!-- Mobile Menu Overlay -->
+  <div
+    id="mobile-menu"
+    class="fixed inset-0 z-20 invisible opacity-0 bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out overflow-y-auto"
+  >
+    <div class="flex h-16 items-center justify-between px-4">
+      <span class="text-lg font-semibold uppercase">Menu</span>
+      <!-- No separate close button here -->
+    </div>
+    <hr class="w-full border-t-2 border-blue-500" />
+    <nav>
+      <ul class="flex flex-col gap-6 py-6">
+        {
+          navItems.map((link, index) => (
+            <li class="flex justify-center">
+              <a
+                class="text-lg font-semibold"
+                href={link.url}
+                data-i18n={link.data}
+              >
+                {link.title}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <hr class="w-full border-t-2 border-blue-500" />
+    <footer class="flex flex-col items-center justify-between gap-4 py-4">
+      <span class="text-center">
+        Fabrizio Andrade | Diseñado y desarrollado con ❤️
+      </span>
+    </footer>
+  </div>
 </header>
 
-
-
 <script>
+  const menuButton = document.getElementById("menu-button");
+  const mobileMenu = document.getElementById("mobile-menu");
+  const menuLinks = document.querySelectorAll("#mobile-menu nav a");
+  const mainHeader=document.getElementById("mainHeader")
 
-const menuButton = document.getElementById("menu-button");
+  function toggleMenu() {
+    if (!menuButton || !mobileMenu) return;
 
-if (menuButton) {
-  menuButton.addEventListener("click", () => {
-    menuButton.classList.toggle("active");
+    const isMenuOpen = menuButton.classList.contains("active");
+
+    if (isMenuOpen) {
+      // Close menu
+      mobileMenu.classList.remove("visible", "opacity-100");
+      mobileMenu.classList.add("invisible", "opacity-0");
+      document.body.style.overflow = ""; // Restore scrolling
+      menuButton.classList.remove("active");
+
+  
+    } else {
+      // Open menu
+      mobileMenu.classList.remove("invisible", "opacity-0");
+      mobileMenu.classList.add("visible", "opacity-100");
+      document.body.style.overflow = "hidden"; // Prevent scrolling when menu is open
+      menuButton.classList.add("active");
+
+      
+      menuButton.style.zIndex = "30";
+    }
+  }
+
+  if (menuButton) {
+    menuButton.addEventListener("click", toggleMenu);
+  }
+
+  // Close menu when clicking on links
+  menuLinks.forEach((link) => {
+    link.addEventListener("click", () => {
+      if (menuButton && menuButton.classList.contains("active")) {
+        toggleMenu();
+      }
+    });
   });
-}
+
+  // Add resize event listener to handle screen size changes
+  window.addEventListener("resize", () => {
+    if (
+      window.innerWidth > 850 &&
+      menuButton &&
+      menuButton.classList.contains("active") &&
+      mobileMenu
+    ) {
+      // Close menu when screen size becomes larger than mobile breakpoint
+      mobileMenu.classList.remove("visible", "opacity-100");
+      mobileMenu.classList.add("invisible", "opacity-0");
+      document.body.style.overflow = ""; // Restore scrolling
+      menuButton.classList.remove("active");
+    }
+  });
+
+  // Update the DOMContentLoaded event listener with null check
+  document.addEventListener("DOMContentLoaded", () => {
+    if (window.innerWidth > 850 && mobileMenu) {
+      mobileMenu.classList.remove("visible", "opacity-100");
+      mobileMenu.classList.add("invisible", "opacity-0");
+      if (menuButton) menuButton.classList.remove("active");
+    }
+  });
 
   document.addEventListener("astro:page-load", () => {
-    const sections = document.querySelectorAll("section")
-    const navItems = document.querySelectorAll("header nav a")
-console.log('jola');
+    const sections = document.querySelectorAll("section");
+    const navItems = document.querySelectorAll("header nav a");
 
-    const callback = (entries: any[]) => {
-      entries.forEach((entry) => {
+    const callback = (entries:any) => {
+      entries.forEach((entry:any) => {
         if (entry.isIntersecting) {
           navItems.forEach((item) => {
             if (item.getAttribute("aria-label") == entry.target.id) {
-              item.classList.add("text-blue-500")
+              item.classList.add("text-blue-500");
             } else {
-              item.classList.remove("text-blue-500")
+              item.classList.remove("text-blue-500");
             }
-          })
+          });
         }
-      })
-    }
+      });
+    };
 
     const observer = new IntersectionObserver(callback, {
       root: null,
       rootMargin: "0px",
       threshold: 0.3,
-    })
+    });
 
     sections.forEach((section) => {
-      observer.observe(section)
-    })
+      observer.observe(section);
+    });
 
     // Cleanup function
     document.onvisibilitychange = () => {
       if (document.visibilityState === "hidden") {
-        observer.disconnect()
+        observer.disconnect();
       } else {
         sections.forEach((section) => {
-          observer.observe(section)
-        })
+          observer.observe(section);
+        });
       }
-    }
-  })
+    };
+  });
 </script>
 
 <style>
@@ -122,11 +210,17 @@ console.log('jola');
     @apply dark:bg-gray-800/90 bg-white/50;
   }
 
-  @media ( width > 850px){
+  @media (width > 850px) {
     nav {
       display: flex;
     }
   }
+  @media (width <= 850px){
+  
+  header{
+  position: static;
+  }}
+
   @keyframes nav-shadown {
     0% {
       @apply dark:bg-gray-800/0 bg-white/0;
@@ -134,5 +228,14 @@ console.log('jola');
     to {
       @apply shadow-lg ring-1 backdrop-blur ring-white/10;
     }
+  }
+
+  /* Mobile menu styles */
+  #mobile-menu.visible {
+    display: block;
+  }
+
+  header {
+    z-index: 30;
   }
 </style>
