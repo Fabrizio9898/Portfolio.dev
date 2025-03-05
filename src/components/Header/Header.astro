@@ -1,6 +1,10 @@
 ---
+const currentYear = new Date().getFullYear();
+import MailIcon from "@/components/icons/Mail.astro";
 import MenuButton from "../icons/MenuButton.astro";
 import ThemeToggle from "../ThemeToggle/ThemeToggle.astro";
+import LinkedInIcon from "@/components/icons/LinkedIn.astro";
+
 
 const navItems = [
   {
@@ -31,9 +35,11 @@ const navItems = [
 ---
 
 <header
-  id="mainHeader" class="fixed top-0 z-10 flex items-center justify-between w-full mx-auto mt-2"
+  id="mainHeader"
+  class="fixed top-0 z-10 flex items-center justify-between w-full mx-auto mt-2"
 >
   <nav
+    id="main-navbar"
     class="hidden px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center mx-auto"
   >
     {
@@ -59,10 +65,10 @@ const navItems = [
     class="fixed inset-0 z-20 invisible opacity-0 bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out overflow-y-auto"
   >
     <div class="flex h-16 items-center justify-between px-4">
-      <span class="text-lg font-semibold uppercase">Menu</span>
+      <span class="text-lg font-semibold uppercase">Menú</span>
       <!-- No separate close button here -->
     </div>
-    <hr class="w-full border-t-2 border-blue-500" />
+    <hr class="w-full border-t-2 border-blue-700" />
     <nav>
       <ul class="flex flex-col gap-6 py-6">
         {
@@ -80,11 +86,43 @@ const navItems = [
         }
       </ul>
     </nav>
-    <hr class="w-full border-t-2 border-blue-500" />
-    <footer class="flex flex-col items-center justify-between gap-4 py-4">
-      <span class="text-center">
-        Fabrizio Andrade | Diseñado y desarrollado con ❤️
+    <hr class="w-full border-t-2 border-blue-700" />
+    <footer
+      class="flex flex-col items-center justify-between gap-4 py-4 md:flex-row md:px-4"
+    >
+      <span
+        class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90"
+        >© {currentYear}
+        Fabrizio Andrade
       </span>
+      <hr class="w-full border-t-2 border-blue-200" />
+
+      <nav>
+        <ul class="flex">
+          <li>
+            <a
+              href="mailto:fabrizioandrade9898@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="link"
+              class="inline-flex items-center justify-center gap-2 px-2 py-1 max-w-fit"
+            >
+              <LinkedInIcon class="size-8" /></a
+            >
+          </li>
+          <li>
+            <a
+              href="mailto:fabrizioandrade9898@gmail.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              role="link"
+              class="inline-flex items-center justify-center gap-2 px-2 py-1 max-w-fit"
+            >
+              <MailIcon class="size-8" /></a
+            >
+          </li>
+        </ul>
+      </nav>
     </footer>
   </div>
 </header>
@@ -93,10 +131,10 @@ const navItems = [
   const menuButton = document.getElementById("menu-button");
   const mobileMenu = document.getElementById("mobile-menu");
   const menuLinks = document.querySelectorAll("#mobile-menu nav a");
-  const mainHeader=document.getElementById("mainHeader")
+  const mainHeader = document.getElementById("mainHeader");
 
   function toggleMenu() {
-    if (!menuButton || !mobileMenu) return;
+    if (!menuButton || !mobileMenu || !mainHeader) return;
 
     const isMenuOpen = menuButton.classList.contains("active");
 
@@ -106,8 +144,6 @@ const navItems = [
       mobileMenu.classList.add("invisible", "opacity-0");
       document.body.style.overflow = ""; // Restore scrolling
       menuButton.classList.remove("active");
-
-  
     } else {
       // Open menu
       mobileMenu.classList.remove("invisible", "opacity-0");
@@ -115,8 +151,8 @@ const navItems = [
       document.body.style.overflow = "hidden"; // Prevent scrolling when menu is open
       menuButton.classList.add("active");
 
-      
       menuButton.style.zIndex = "30";
+      mainHeader.style.zIndex = "30";
     }
   }
 
@@ -162,8 +198,8 @@ const navItems = [
     const sections = document.querySelectorAll("section");
     const navItems = document.querySelectorAll("header nav a");
 
-    const callback = (entries:any) => {
-      entries.forEach((entry:any) => {
+    const callback = (entries: any) => {
+      entries.forEach((entry: any) => {
         if (entry.isIntersecting) {
           navItems.forEach((item) => {
             if (item.getAttribute("aria-label") == entry.target.id) {
@@ -200,26 +236,26 @@ const navItems = [
 </script>
 
 <style>
-  nav {
+  #main-navbar {
     animation: nav-shadown 1s linear both;
     animation-timeline: scroll();
     animation-range: 0 100px;
   }
 
-  nav {
+  #main-navbar {
     @apply dark:bg-gray-800/90 bg-white/50;
   }
 
   @media (width > 850px) {
-    nav {
+    #main-navbar {
       display: flex;
     }
   }
-  @media (width <= 850px){
-  
-  header{
-  position: static;
-  }}
+  @media (width <= 850px) {
+    header {
+      position: static;
+    }
+  }
 
   @keyframes nav-shadown {
     0% {
@@ -233,9 +269,5 @@ const navItems = [
   /* Mobile menu styles */
   #mobile-menu.visible {
     display: block;
-  }
-
-  header {
-    z-index: 30;
   }
 </style>

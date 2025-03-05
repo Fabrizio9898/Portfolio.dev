@@ -2,6 +2,7 @@
 import "@fontsource-variable/onest";
 import Header from "../components/Header/Header.astro";
 import Languages from "@/components/Languages/Languages.astro";
+import Footer from "@/components/Footer/Footer.astro";
 
 interface Props {
   title: string;
@@ -42,6 +43,7 @@ const { title, description, showHeader = true } = Astro.props;
     <Languages />
     {showHeader && <Header />}
     <slot />
+    <Footer/>
   </body>
 </html>
 
