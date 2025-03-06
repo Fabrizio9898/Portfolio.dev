@@ -32,6 +32,7 @@ const navItems = [
     data: "NAVBAR_CONTACT",
   },
 ];
+
 ---
 
 <header
@@ -205,6 +206,7 @@ const navItems = [
             if (item.getAttribute("aria-label") == entry.target.id) {
               item.classList.add("text-blue-500");
             } else {
+              console.log('holaaa');
               item.classList.remove("text-blue-500");
             }
           });

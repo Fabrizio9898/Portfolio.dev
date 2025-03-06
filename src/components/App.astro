@@ -10,6 +10,7 @@ import Projects from "./Proyects/Proyects.astro";
 import ProfileCheck from "@/components/icons/ProfileCheck.astro";
 import Experience from "./Experience/Experience.astro";
 import Adjustment from "./icons/Adjustment.astro";
+import AboutMe from "./About/AboutMe.astro";
 
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
@@ -45,7 +46,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
         <ProfileCheck class="size-8" />
         <span data-i18n="NAVBAR_ABOUT"> Sobre mí </span>
       </TitleSection>
-      <!-- <AboutMe /> -->
+      <AboutMe/>
     </SectionContainer>
   </div>
 </Layout>
