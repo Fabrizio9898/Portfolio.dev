@@ -30,7 +30,7 @@ const LANGUAGES: Language[] = [
       data-abbreviation="ES"
     >
       <li
-        class="flex h-16 items-center justify-center px-10  duration-200  opacity-90 dark:bg-[#333] selected-language transition hover:bg-gray-900 hover:text-white dark:hover:bg-gray-100 dark:hover:text-black "
+        class="flex h-16 items-center justify-center px-10 duration-200 opacity-90 dark:bg-[#333] selected-language transition hover:bg-gray-900 hover:text-white dark:hover:bg-gray-100 dark:hover:text-black"
         style="clip-path:polygon(3% 0%, 0% 100%, 100% 97%, 90% 0);"
         data-language-name="Español"
       >
@@ -44,7 +44,7 @@ const LANGUAGES: Language[] = [
       data-abbreviation="EN"
     >
       <li
-        class="flex h-16 items-center justify-center px-10  duration-200  opacity-90 dark:bg-[#333] selected-language transition hover:bg-gray-900 hover:text-white dark:hover:bg-gray-100 dark:hover:text-black "
+        class="flex h-16 items-center justify-center px-10 duration-200 opacity-90 dark:bg-[#333] selected-language transition hover:bg-gray-900 hover:text-white dark:hover:bg-gray-100 dark:hover:text-black"
         style="clip-path: polygon(0% 0%, 10% 97%, 99% 100%, 100% 0%);"
         data-language-name="English"
       >
@@ -87,7 +87,7 @@ const LANGUAGES: Language[] = [
             >
               <li
                 class="languages-menu-option flex h-16 items-center justify-center px-10 transition-opacity duration-200 motion-reduce:transition-none hover:opacity-90 dark:bg-[#333]"
-                style="clip-path: polygon(0% 0%, 10% 100%, 90% 100%, 100% 0%); background-color: #dddad2;"
+                style="clip-path: polygon(0% 0%, 10% 100%, 90% 100%, 100% 0%);"
                 data-language-name={lang.name}
               >
                 {lang.name}
@@ -102,14 +102,14 @@ const LANGUAGES: Language[] = [
 
 <style>
   li {
-    background-color: #dddad2;
+    background-color: rgb(221, 218, 210);
   }
 
   nav {
     view-timeline: --scroll;
   }
 
-  @keyframes scale-up {
+  .selected @keyframes scale-up {
     to {
       scale: 1.5;
     }
@@ -164,9 +164,12 @@ const LANGUAGES: Language[] = [
 </style>
 
 <script>
+  // Importa cualquier dependencia que puedas necesitar
+  // Importa cualquier dependencia que puedas necesitar
   import { atom } from "nanostores";
   import { getI18 } from "../../i18n";
 
+  // Define las interfaces para los idiomas y la estructura del idioma
   interface Language {
     name: string;
     abbreviation: string;
@@ -178,7 +181,8 @@ const LANGUAGES: Language[] = [
     [key: string]: string;
   }
 
-  const LANGUAGES = [
+  // Define los idiomas disponibles - ahora en el ámbito global
+  const LANGUAGES: Language[] = [
     {
       name: "Español",
       abbreviation: "ES",
@@ -191,25 +195,67 @@ const LANGUAGES: Language[] = [
     },
   ];
 
-  const currentLanguage = atom("es");
+  // Almacena el idioma actual
+  const currentLanguage = atom<string>("es");
 
-  // Language preference functions
-  const getLanguagePreference = () => {
-    return localStorage.getItem("language") || "es";
+  // Funciones para obtener y establecer el idioma en el almacenamiento local
+  const getLanguagePreference = (): string => {
+    if (typeof localStorage === "undefined") return "es";
+
+    // Verifica si existe como propiedad directa
+    const storedLang = localStorage.getItem("language");
+    if (storedLang) return storedLang;
+
+    // Verifica si existe como valor directo
+    const directLang = localStorage.getItem("es") || localStorage.getItem("en");
+    if (directLang) return directLang;
+
+    try {
+      // Intenta buscar en un objeto JSON
+      const langObj = JSON.parse(localStorage.getItem("language") || "{}");
+      if (langObj && langObj.language) return langObj.language;
+    } catch (e) {
+      console.error("Error parsing language from localStorage:", e);
+    }
+
+    return "es"; // Valor por defecto
   };
 
-  const setLanguagePreference = (code: string) => {
+  const setLanguagePreference = (code: string): void => {
+    if (typeof localStorage === "undefined") return;
+
     localStorage.setItem("language", code);
     currentLanguage.set(code);
     document.documentElement.lang = code;
   };
 
-  // Update UI based on language
-  const updateLanguageUI = (code: string) => {
+  // Función para verificar si estamos en modo oscuro
+  const isDarkMode = (): boolean => {
+    if (typeof localStorage === "undefined") return false;
+
+    // Verificar si el tema está en localStorage
+    const theme = localStorage.getItem("theme");
+    if (theme === "dark") return true;
+
+    // Si no hay tema en localStorage, verificar si el sistema está en modo oscuro
+    if (
+      theme === null &&
+      window.matchMedia &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      return true;
+    }
+
+    // Verificar si el elemento html tiene la clase 'dark'
+    return document.documentElement.classList.contains("dark");
+  };
+
+  // Función para actualizar la UI según el idioma
+  const updateLanguageUI = (code: string): void => {
     const language =
       LANGUAGES.find((lang) => lang.code === code) || LANGUAGES[0];
 
-    // Update mobile view
+    // Actualizar el texto del idioma seleccionado en móvil
     const selectedLanguageMobile = document.getElementById(
       "selected-language-mobile",
     );
@@ -217,25 +263,15 @@ const LANGUAGES: Language[] = [
     const localeOptions = document.getElementById("locale-options");
 
     if (selectedLanguageMobile && localeCaret) {
-      // Save the SVG element
-      const svgElement = localeCaret.cloneNode(true);
-
-      // Update text content
+      const svgElement = localeCaret.cloneNode(true) as Node;
       selectedLanguageMobile.textContent = language.name + " ";
-
-      // Re-append the SVG
       selectedLanguageMobile.appendChild(svgElement);
     }
 
-    // Update the dropdown options
+    // Actualizar las opciones del menú desplegable
     if (localeOptions) {
-      // Set the current language attribute
       localeOptions.setAttribute("data-current-language", code);
-
-      // Clear existing options
       localeOptions.innerHTML = "";
-
-      // Add new options (all languages except the current one)
       LANGUAGES.filter((lang) => lang.code !== code).forEach((lang) => {
         const link = document.createElement("a");
         link.href = "#";
@@ -253,11 +289,8 @@ const LANGUAGES: Language[] = [
 
         link.appendChild(li);
         localeOptions.appendChild(link);
-
-        closeDropdown();
       });
 
-      // Re-attach event listeners to the new elements
       document.querySelectorAll(".language-link-mobile").forEach((link) => {
         link.addEventListener("click", (e) => {
           e.preventDefault();
@@ -271,7 +304,43 @@ const LANGUAGES: Language[] = [
       });
     }
 
-    // Update translations
+    // Actualizar la selección visual en el menú de escritorio
+    document
+      .querySelectorAll<HTMLAnchorElement>(".language-link-desktop")
+      .forEach((link) => {
+        const linkCode = link.getAttribute("data-code");
+        const liElement = link.querySelector<HTMLLIElement>("li");
+
+        if (liElement) {
+          // Restaurar estilos por defecto - NO modificamos el backgroundColor directamente
+          // para permitir que los estilos de Tailwind funcionen correctamente
+          liElement.classList.remove(
+            "bg-gray-900",
+            "text-white",
+            "bg-gray-100",
+            "text-black",
+            "selected-language-item",
+          );
+
+          // Aplicar estilos de selección si es el idioma actual
+          if (linkCode === code) {
+            // Añadimos una clase para marcar el elemento seleccionado
+            liElement.classList.add("selected-language-item");
+
+            // Aplicamos estilos según el modo (claro/oscuro)
+            if (isDarkMode()) {
+              // En modo oscuro
+              liElement.style.backgroundColor = "#f3f4f6"; // Equivalente a bg-gray-100
+              liElement.classList.add("text-black");
+            } else {
+              // En modo claro
+              liElement.style.backgroundColor = "#111827"; // Equivalente a bg-gray-900
+              liElement.classList.add("text-white");
+            }
+          }
+        }
+      });
+
     try {
       const i18n = getI18({ currentLocale: code });
       updateTranslations(i18n);
@@ -280,12 +349,13 @@ const LANGUAGES: Language[] = [
     }
   };
 
-  const updateTranslations = (i18n: I18n) => {
+  // Función para actualizar las traducciones en la UI
+  const updateTranslations = (i18n: I18n): void => {
     if (!i18n) return;
 
     document.title = i18n.PORTFOLIO_TITLE || document.title;
 
-    document.querySelectorAll("[data-i18n]").forEach((element) => {
+    document.querySelectorAll<HTMLElement>("[data-i18n]").forEach((element) => {
       const key = element.getAttribute("data-i18n");
       if (key && i18n[key]) {
         element.textContent = i18n[key];
@@ -297,8 +367,8 @@ const LANGUAGES: Language[] = [
     );
   };
 
-  // Toggle dropdown menu
-  const toggleDropdown = () => {
+  // Función para abrir el dropdown del idioma
+  const toggleDropdown = (): void => {
     const localeOptions = document.getElementById("locale-options");
     const localeCaret = document.getElementById("locale-caret");
 
@@ -319,8 +389,8 @@ const LANGUAGES: Language[] = [
     }
   };
 
-  // Close dropdown menu
-  const closeDropdown = () => {
+  // Función para cerrar el dropdown
+  const closeDropdown = (): void => {
     const localeOptions = document.getElementById("locale-options");
     const localeCaret = document.getElementById("locale-caret");
 
@@ -334,16 +404,15 @@ const LANGUAGES: Language[] = [
     }
   };
 
-  // Initialize language from storage
-  const initializeLanguage = () => {
+  // Inicialización del idioma desde el almacenamiento
+  const initializeLanguage = (): void => {
     const storedLanguage = getLanguagePreference();
-    updateLanguageUI(storedLanguage);
     setLanguagePreference(storedLanguage);
+    updateLanguageUI(storedLanguage);
   };
 
-  // Setup event listeners
-  const setupEventListeners = () => {
-    // Mobile dropdown toggle
+  // Configuración de los eventos de los idiomas
+  const setupEventListeners = (): void => {
     const languageToggle = document.getElementById("languages-menu-btn");
     if (languageToggle) {
       languageToggle.addEventListener("click", (e) => {
@@ -352,49 +421,105 @@ const LANGUAGES: Language[] = [
       });
     }
 
-    // Close dropdown when clicking outside
     document.addEventListener("click", () => {
       closeDropdown();
     });
 
-    // Language selection - mobile
-    document.querySelectorAll(".language-link-mobile").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const code = link.getAttribute("data-code");
-        if (code) {
-          setLanguagePreference(code);
-          updateLanguageUI(code);
-          closeDropdown();
+    document
+      .querySelectorAll<HTMLAnchorElement>(".language-link-mobile")
+      .forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const code = link.getAttribute("data-code");
+          if (code) {
+            setLanguagePreference(code);
+            updateLanguageUI(code);
+            closeDropdown();
+          }
+        });
+      });
+
+    document
+      .querySelectorAll<HTMLAnchorElement>(".language-link-desktop")
+      .forEach((link) => {
+        link.addEventListener("click", (e) => {
+          e.preventDefault();
+          const code = link.getAttribute("data-code");
+          if (code) {
+            setLanguagePreference(code);
+
+            // Actualizar todos los elementos de idioma
+            document
+              .querySelectorAll<HTMLAnchorElement>(".language-link-desktop")
+              .forEach((otherLink) => {
+                const otherLi = otherLink.querySelector<HTMLLIElement>("li");
+                if (otherLi) {
+                  otherLi.style.backgroundColor = "";
+                  otherLi.classList.remove(
+                    "text-white",
+                    "text-black",
+                    "selected-language-item",
+                  );
+                }
+              });
+
+            // Aplicar estilos al elemento seleccionado
+            const liElement = link.querySelector<HTMLLIElement>("li");
+            if (liElement) {
+              // Añadimos una clase para marcar el elemento seleccionado
+              liElement.classList.add("selected-language-item");
+
+              if (isDarkMode()) {
+                // En modo oscuro
+                liElement.style.backgroundColor = "#f3f4f6"; // Equivalente a bg-gray-100
+                liElement.classList.add("text-black");
+              } else {
+                // En modo claro
+                liElement.style.backgroundColor = "#111827"; // Equivalente a bg-gray-900
+                liElement.classList.add("text-white");
+              }
+            }
+
+            updateLanguageUI(code);
+          }
+        });
+      });
+
+    // Escuchar cambios en el tema (claro/oscuro)
+    window
+      .matchMedia("(prefers-color-scheme: dark)")
+      .addEventListener("change", () => {
+        // Actualizar la UI cuando cambia el tema del sistema
+        updateLanguageUI(currentLanguage.get());
+      });
+
+    // Observar cambios en la clase 'dark' del elemento html
+    const observer = new MutationObserver((mutations) => {
+      mutations.forEach((mutation) => {
+        if (mutation.attributeName === "class") {
+          // Actualizar la UI cuando cambia la clase del elemento html
+          updateLanguageUI(currentLanguage.get());
         }
       });
     });
 
-    document.querySelectorAll(".language-link-desktop").forEach((link) => {
-      link.addEventListener("click", (e) => {
-        e.preventDefault();
-        const code = link.getAttribute("data-code");
-        if (code) {
-          setLanguagePreference(code);
-          updateLanguageUI(code);
-        }
-      });
-    });
+    observer.observe(document.documentElement, { attributes: true });
   };
 
-  // Initialize when DOM is ready
+  // Inicialización cuando el DOM está listo
   document.addEventListener("DOMContentLoaded", () => {
     initializeLanguage();
     setupEventListeners();
   });
 
-  // Handle language changes from other components
+  // Suscripción a los cambios del idioma
   currentLanguage.subscribe((lang) => {
     updateLanguageUI(lang);
   });
 
-  // Handle page transitions in Astro
+  // Manejo de transiciones de página en Astro
   document.addEventListener("astro:after-swap", () => {
     initializeLanguage();
+    setupEventListeners();
   });
 </script>
