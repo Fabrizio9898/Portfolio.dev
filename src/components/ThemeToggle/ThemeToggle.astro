@@ -8,17 +8,15 @@ const THEMES = ["Light", "Dark"]
 
 <div class="relative ml-1 mr-1">
   <button
-  transition:persist
-  id="theme-toggle-btn"
-  class="appearance-none border-none flex hover:scale-125 transition relative"
->
-  <span class="sr-only">Toggle theme</span>
-  <SunIcon id="light" class="theme-toggle-icon size-5 transition-all" />
-  <MoonIcon
-    id="dark"
-    class="theme-toggle-icon absolute size-5 transition-all"
-  />
-</button>
+    transition:persist
+    class="theme-toggle-btn appearance-none border-none flex hover:scale-125 transition relative"
+  >
+    <span class="sr-only">Toggle theme</span>
+    <SunIcon class="theme-toggle-icon theme-light size-5 transition-all" />
+    <MoonIcon
+      class="theme-toggle-icon theme-dark absolute size-5 transition-all"
+    />
+  </button>
 </div>
 
 <style>
@@ -28,6 +26,7 @@ const THEMES = ["Light", "Dark"]
 </style>
 
 <script is:inline>
+  // Función para obtener la preferencia de tema
   const getThemePreference = () => {
     if (typeof localStorage !== "undefined") {
       return localStorage.getItem("theme") ?? "light"
@@ -35,32 +34,50 @@ const THEMES = ["Light", "Dark"]
     return "light"
   }
 
-  const updateIcon = (isDark) => {
-    document.querySelectorAll(".theme-toggle-icon").forEach((element) => {
-      element.style.scale = element.id === (isDark ? "dark" : "light") ? "1" : "0"
+  // Función para actualizar todos los iconos de tema
+  const updateAllIcons = (isDark) => {
+    document.querySelectorAll(".theme-light").forEach((element) => {
+      element.style.scale = isDark ? "0" : "1"
+    })
+    document.querySelectorAll(".theme-dark").forEach((element) => {
+      element.style.scale = isDark ? "1" : "0"
     })
   }
 
+  // Función para actualizar el tema
   const updateTheme = () => {
     const isDark = getThemePreference() === "dark"
-    updateIcon(isDark)
+    updateAllIcons(isDark)
     document.documentElement.classList[isDark ? "add" : "remove"]("dark")
   }
 
-  // Initial theme setup
+  // Inicializar el tema
   updateTheme()
 
-  // Toggle theme on button click
-  document.getElementById("theme-toggle-btn").addEventListener("click", () => {
-    const newTheme = getThemePreference() === "light" ? "dark" : "light"
-    localStorage.setItem("theme", newTheme)
-    updateTheme()
+  // Configurar los listeners para todos los botones de toggle
+  document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const newTheme = getThemePreference() === "light" ? "dark" : "light"
+        localStorage.setItem("theme", newTheme)
+        updateTheme()
+      })
+    })
   })
 
-  // Handle view transitions
+  // Manejar las transiciones de vista
   document.addEventListener('astro:after-swap', () => {
     updateTheme()
+    
+    // Volver a añadir los event listeners después de la transición
+    document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const newTheme = getThemePreference() === "light" ? "dark" : "light"
+        localStorage.setItem("theme", newTheme)
+        updateTheme()
+      })
+    })
+    
     window.scrollTo({ left: 0, top: 0, behavior: 'instant' })
   })
 </script>
-
