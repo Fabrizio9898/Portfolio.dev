@@ -10,7 +10,7 @@ import LinkInline from "../icons/LinkInline.astro";
 
 <div class="article-container flex flex-col gap-y-16">
   {
-    PROJECTS.map(({id, image, title, description, tags, link, github ,dinamicPage}) => (
+    PROJECTS.map(({data, image, title, description, tags, link, github ,dinamicPage}) => (
       <article class="flex flex-col space-x-0 space-y-8  md:flex-row md:space-x-8 md:space-y-0">
         <div class="w-full md:w-1/2">
           <div class="relative flex flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl 
@@ -19,7 +19,7 @@ import LinkInline from "../icons/LinkInline.astro";
           </div>
         </div>
         <div class="w-full md:w-1/2 md:max-w-lg">
-          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100">
+          <h3 class="text-2xl font-bold text-gray-800 dark:text-gray-100" data-i18n={`${data===1?'PROYECT1':"PROYECT3"}`}>
             {title}
           </h3>
           <div class="flex flex-wrap mt-2">
@@ -36,9 +36,9 @@ import LinkInline from "../icons/LinkInline.astro";
               ))}
             </ul>
 
-            <div class="mt-2 text-gray-700 dark:text-gray-400">
+            <div class="mt-2 text-gray-700 dark:text-gray-400" data-i18n={`${data===1?'PROYECT2':"PROYECT4"}`}>
               {description} 
-              {
+              {/* {
       dinamicPage && (
         <LinkInline href={dinamicPage}>
           Saber más{" "}
@@ -61,7 +61,7 @@ import LinkInline from "../icons/LinkInline.astro";
           </svg>
         </LinkInline>
       )
-    }
+    } */}
             </div>
             <footer class="flex items-end justify-start mt-2 gap-x-4">
               {github && (

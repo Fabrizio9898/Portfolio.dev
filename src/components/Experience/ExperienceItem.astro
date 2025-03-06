@@ -6,11 +6,12 @@ interface Props {
   company: string
   description: string
   date: string
-  stack?:typeof StackUrls
+  stack?:typeof StackUrls,
+  data:number
 
 }
 
-const { title, company, description, date,stack } = Astro.props
+const { title, company, description, date,stack,data } = Astro.props
 ---
 
 <div
@@ -22,12 +23,12 @@ const { title, company, description, date,stack } = Astro.props
         >&bull;</span
       >
 
-      <h3 class="text-xl font-bold text-yellow-400">{title}</h3>
+      <h3 class="text-xl font-bold text-yellow-400" >{title}</h3>
       <h4 class="font-semibold text-xl text-gray-600 dark:text-white">{company}</h4>
-      <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80">{date}</time>
+      <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80" data-i18n={`${data===1?'PROYECT5':"PROYECT11"}`}>{date}</time>
     </div>
   </div>
-  <div class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3">
+  <div class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3" data-i18n={`${data===1?'PROYECT6':"PROYECT7"}`}>
     {description} <br>
    
     {stack && (

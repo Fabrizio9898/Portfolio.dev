@@ -30,6 +30,7 @@ const TAGS = {
       image: "/svgl1.webp",
       tags: [TAGS.NEXT, TAGS.TAILWIND],
       id:"Active",
+      data:1,
       fullDescription:"Plataforma desarrollada desde cero para conectar centros deportivos con jugadores. Permite a los propietarios de instalaciones deportivas publicar y gestionar sus canchas, atrayendo clientes y optimizando sus reservas. Por otro lado, los usuarios pueden explorar centros deportivos, verificar disponibilidad y alquilar canchas de forma rápida y sencilla. La aplicación está diseñada para mejorar la experiencia de ambos públicos, ofreciendo una interfaz intuitiva y un proceso de reserva eficiente.",
       images:[],
       dinamicPage:"http://localhost:4321/Active"
@@ -42,6 +43,7 @@ const TAGS = {
       link: "https://backend-rl4f.onrender.com",
       github: "https://github.com/Active04-star/Backend",
       image: "/svgl2.webp",
+      data:2,
       tags: [TAGS.NEXT, TAGS.TYPEORM],
     }
   ];
