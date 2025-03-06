@@ -314,6 +314,8 @@ const LANGUAGES: Language[] = [
         if (liElement) {
           // Restaurar estilos por defecto - NO modificamos el backgroundColor directamente
           // para permitir que los estilos de Tailwind funcionen correctamente
+          liElement.style.backgroundColor = ""
+
           liElement.classList.remove(
             "bg-gray-900",
             "text-white",
@@ -449,19 +451,13 @@ const LANGUAGES: Language[] = [
             setLanguagePreference(code);
 
             // Actualizar todos los elementos de idioma
-            document
-              .querySelectorAll<HTMLAnchorElement>(".language-link-desktop")
-              .forEach((otherLink) => {
-                const otherLi = otherLink.querySelector<HTMLLIElement>("li");
-                if (otherLi) {
-                  otherLi.style.backgroundColor = "";
-                  otherLi.classList.remove(
-                    "text-white",
-                    "text-black",
-                    "selected-language-item",
-                  );
-                }
-              });
+            document.querySelectorAll<HTMLAnchorElement>(".language-link-desktop").forEach((otherLink) => {
+  const otherLi = otherLink.querySelector<HTMLLIElement>("li");
+  if (otherLi) {
+    otherLi.style.backgroundColor = "";
+    otherLi.classList.remove("text-white", "text-black", "selected-language-item");
+  }
+})
 
             // Aplicar estilos al elemento seleccionado
             const liElement = link.querySelector<HTMLLIElement>("li");
