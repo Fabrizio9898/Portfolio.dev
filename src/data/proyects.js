@@ -40,7 +40,7 @@ const TAGS = {
       title: "Active API",
       description:
         "API RESTful que permite gestionar usuarios, centros deportivos y reservas de canchas.",
-      link: "https://backend-rl4f.onrender.com",
+      link: "https://backend-rl4f.onrender.com/api",
       github: "https://github.com/Active04-star/Backend",
       image: "/svgl2.webp",
       data:2,
