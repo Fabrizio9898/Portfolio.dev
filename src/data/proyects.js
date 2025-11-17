@@ -29,7 +29,7 @@ const TAGS = {
   title: "Send it Later - WhatsApp Message Scheduler",
       description:
         "Extension de navegador para programar mensajes en WhatsApp Web.",
-      download: "https://frontend-actives-projects-11ce1f6a.vercel.app/",
+      download: "https://chromewebstore.google.com/detail/fahdfllbfljkfjjnoeocdbdmohebffbl?utm_source=item-share-cb",
       github: "https://github.com/Fabrizio9898/whatsapp-schedule-messages-extension",
 image: [
       "/images/captura1.webp", // (Ruta a tu imagen 1)
