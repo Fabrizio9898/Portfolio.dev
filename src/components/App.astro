@@ -25,13 +25,20 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
     </SectionContainer>
   </main>
   <div class="space-y-24">
-    <SectionContainer id="proyectos">
-      <TitleSection>
-        <CodeIcon class="size-7" />
-        <span data-i18n="NAVBAR_PROYECTS">Proyectos</span>
-      </TitleSection>
-      <Projects />
-    </SectionContainer>
+    <div id="proyectos"> 
+      
+      <SectionContainer>
+        <TitleSection>
+          <CodeIcon class="size-7" />
+          <span data-i18n="NAVBAR_PROYECTS">Proyectos</span>
+        </TitleSection>
+      </SectionContainer>
+
+      <div class="w-full mx-auto container lg:max-w-7xl px-4 mt-8">
+        <Projects />
+      </div>
+      
+    </div>
 
     <SectionContainer id="trayectoria">
       <TitleSection>

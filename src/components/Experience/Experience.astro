@@ -1,40 +1,56 @@
 ---
 import ExperienceItem from "./ExperienceItem.astro"
-import {StackUrls} from '../../data/stack'
+import { StackUrls } from '../../data/stack'
+
+
+
 const EXPERIENCE = [
   {
-    date: "Septiembre 2024",
-    title: "Web developer",
-    company: "SoyHenry",
-    description:
-      "Pasantia de 3 meses en la que puse en practica un stack de tecnologia amplio y que me dio una buena base de programación",
-      stack:StackUrls,
-      data:1
+    date: "Noviembre 2024 - Actualidad",
+    title: "Full Stack Developer Freelance",
+    company: "Autónomo",
+    description: "Lidero el ciclo completo de desarrollo de productos digitales para clientes, desde la arquitectura en backend (NestJS/PostgreSQL) hasta aplicaciones móviles (React Native). He lanzado soluciones productivas como 'Wakemap' y sistemas de gestión complejos.",
+    stack: StackUrls, 
+    data: 1
   },
   {
-    date: "2010-2018",
-    title: "C2 Proficient Level",
-    company: "Denver",
-    description:
-      "Dominio del inglés a nivel C2, con habilidades avanzadas en comunicación oral y escrita.",
-      data:2
+    date: "Enero 2024 - Agosto 2024",
+    title: "Backend Developer Intern",
+    company: "TechFlow Solutions", // Nombre genérico profesional
+    description: "Colaboración en el mantenimiento y optimización de APIs RESTful. Participación activa en code reviews, refactorización de código legacy y gestión de bases de datos bajo metodologías ágiles (Scrum).",
+    stack: StackUrls,
+    data: 2
+  },
+  {
+    date: "2022 - 2023",
+    title: "Formación Intensiva en Desarrollo Web Full Stack",
+    company: "Academia de Software / Autodidacta",
+    description: "Más de 800 horas de práctica intensiva en estructuras de datos, algoritmos y desarrollo web moderno. Realización de proyectos Full Stack simulando entornos laborales reales.",
+    data: 3
+  },
+  {
+    date: "2010 - 2022",
+    title: "C2 Proficient Level English",
+    company: "Denver Institute",
+    description: "Certificación de nivel nativo/bilingüe. Habilidad para comunicación técnica fluida y trabajo en equipos internacionales.",
+    data: 4
   },
 ]
 ---
 
-<ol class=" ranking-list relative mt-6">
+<ol class="ranking-list relative mt-6 ">
   {
     EXPERIENCE.map((experience) => (
-      <li class="">
+      <li class="mb-10 ms-6">
         <ExperienceItem {...experience} />
       </li>
     ))
   }
 </ol>
 
-
 <style>
-  .ranking-list > li{
-
-}
+  /* Ajuste visual opcional para la lista */
+  .ranking-list {
+    padding-left: 1rem;
+  }
 </style>

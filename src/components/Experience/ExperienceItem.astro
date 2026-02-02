@@ -8,10 +8,9 @@ interface Props {
   date: string
   stack?:typeof StackUrls,
   data:number
-
 }
 
-const { title, company, description, date,stack,data } = Astro.props
+const { title, company, description, date, stack, data } = Astro.props
 ---
 
 <div
@@ -23,30 +22,48 @@ const { title, company, description, date,stack,data } = Astro.props
         >&bull;</span
       >
 
-      <h3 class="text-xl font-bold text-yellow-400" >{title}</h3>
+      {/* 1. TÍTULO: Usamos data para buscar TRAYECTORIA1_TITLE, TRAYECTORIA2_TITLE, etc. */}
+      <h3 
+        class="text-xl font-bold text-yellow-400" 
+        data-i18n={`TRAYECTORIA${data}_TITLE`}
+      >
+        {title}
+      </h3>
+
       <h4 class="font-semibold text-xl text-gray-600 dark:text-white">{company}</h4>
-      <time class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80" data-i18n={`${data===1?'PROYECT5':"PROYECT11"}`}>{date}</time>
+      
+      {/* 2. FECHA: Lo mismo para la fecha */}
+      <time 
+        class="p-0 m-0 text-sm text-gray-600/80 dark:text-white/80" 
+        data-i18n={`TRAYECTORIA${data}_DATE`}
+      >
+        {date}
+      </time>
     </div>
   </div>
-  <div class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3" data-i18n={`${data===1?'PROYECT6':"PROYECT7"}`}>
+
+  {/* 3. DESCRIPCIÓN: Lo mismo para la descripción */}
+  <div 
+    class="relative flex flex-col gap-2 pb-4 text-gray-600 dark:text-gray-300 md:col-span-3" 
+    data-i18n={`TRAYECTORIA${data}_DESCRIPTION`}
+  >
     {description} <br>
-   
+    
     {stack && (
       <nav class="flex flex-wrap gap-1 mt-2">
-       <spam class="stack border-b border-black dark:border-white">Stack:</spam>{stack.map((tech) => (
+        {/* Corregí <spam> por <span> (spam no existe en HTML) */}
+        <span class="stack border-b border-black dark:border-white">Stack:</span>
+        {stack.map((tech) => (
           <img height="25" width="25" src={tech.url} alt={tech.alt} title={tech.title} />
         ))}
       </nav>
-    )} </div>
+    )} 
+  </div>
 </div>
 
-
-
 <style>
-
   .stack{
-font-size: 1rem;
-font-weight: 650;
-}
+    font-size: 1rem;
+    font-weight: 650;
+  }
 </style>
-

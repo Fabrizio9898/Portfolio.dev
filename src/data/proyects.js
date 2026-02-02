@@ -26,20 +26,37 @@ const TAGS = {
   };
   export const PROJECTS = [
     {
+    title: "Wakemap - Alarma GPS",
+    description:
+      "Aplicación móvil que te despierta antes de llegar a tu destino. Ideal para transporte público.",
+    download: "https://play.google.com/store/apps/details?id=com.fabrizioandrade.alarmaUbi", 
+    image: "/images/wakemap.png", 
+    tags: [TAGS.REACT, TAGS.TAILWIND], 
+    id: "Wakemap",
+    data: 1,
+  },
+  {
+    title: "SaludConnect - Telemedicina Integral",
+    description:
+      "Ecosistema de salud digital con videollamadas, gestión de citas y Apps para pacientes y doctores.",
+    // Link a la landing page o demo si tienes
+    link: "https://telemedicina-demo.vercel.app/", 
+    image: "/images/panel.jpg", // Asegúrate de tener esta imagen
+    tags: [TAGS.NEXT, TAGS.NEST, TAGS.TYPEORM, TAGS.TAILWIND],
+    id: "Telemedicina",
+    data: 2,
+  },
+    {
   title: "Send it Later - WhatsApp Message Scheduler",
       description:
         "Extension de navegador para programar mensajes en WhatsApp Web.",
       download: "https://chromewebstore.google.com/detail/fahdfllbfljkfjjnoeocdbdmohebffbl?utm_source=item-share-cb",
       github: "https://github.com/Fabrizio9898/whatsapp-schedule-messages-extension",
-image: [
-      "/images/captura1.webp", // (Ruta a tu imagen 1)
-      "/images/captura2.webp", // (Ruta a tu imagen 2)
-      "/images/captura3.webp", // (Ruta a tu imagen 3)
-      "/images/captura4.webp", // (Ruta a tu imagen 3)
-    ],
+image: 
+      "/images/captura1.png",
       tags: [TAGS.REACT, TAGS.JAVASCRIPT,TAGS.TAILWIND],
       id:"Send it Later",
-      data:1,
+      data:3,
     },
     {
       title: "Active - Gestion de Centros Deportivos",
@@ -50,7 +67,7 @@ image: [
       image: "/svgl1.webp",
       tags: [TAGS.NEXT, TAGS.TAILWIND],
       id:"Active",
-      data:2,
+      data:4,
       fullDescription:"Plataforma desarrollada desde cero para conectar centros deportivos con jugadores. Permite a los propietarios de instalaciones deportivas publicar y gestionar sus canchas, atrayendo clientes y optimizando sus reservas. Por otro lado, los usuarios pueden explorar centros deportivos, verificar disponibilidad y alquilar canchas de forma rápida y sencilla. La aplicación está diseñada para mejorar la experiencia de ambos públicos, ofreciendo una interfaz intuitiva y un proceso de reserva eficiente.",
     },
 
@@ -61,7 +78,7 @@ image: [
       link: "https://backend-rl4f.onrender.com/api",
       github: "https://github.com/Active04-star/Backend",
       image: "/svgl2.webp",
-      data:3,
+      data:5,
       tags: [TAGS.NEXT, TAGS.TYPEORM],
     }
   ];

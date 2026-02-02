@@ -5,62 +5,67 @@ import GitHub from "../icons/Github.astro";
 import { PROJECTS } from "../../data/proyects";
 import LinkInline from "../icons/LinkInline.astro";
 import Download from "../icons/Download.astro";
+import GooglePlay from "../icons/GooglePlay.astro";
+
+// Iconos para las flechas (puedes usar los tuyos si tienes)
+const ArrowLeft = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`;
+const ArrowRight = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
 ---
 
-<div class="article-container flex flex-col gap-y-16">
-  {
-    PROJECTS.map(
-      ({ data, image, title, description, tags, link, github, download }) => (
-        <article class="flex flex-col space-x-0 space-y-8  md:flex-row md:space-x-8 md:space-y-0">
-          <div class="w-full md:w-1/2">
-            {Array.isArray(image) ? (
-              // 1. SI ES UN ARRAY, RENDERIZA EL CARRUSEL
-              <div
-                class="slider 
-              relative w-full  h-64 md:h-80 flex shadow-xl 
-              rounded-xl overflow-x-auto 
-              snap-x snap-mandatory scroll-smooth no-scrollbar  "
-              >
-                {image.map((imgSrc, index) => (
-                  <div class="w-full h-full flex-shrink-0  snap-center">
-                    <img
-                      alt={`${title} - Imagen ${index + 1}`}
-                      class="object-top w-full h-full "
-                      loading="lazy"
-                      src={imgSrc}
-                    />
-                  </div>
-                ))}
-              </div>
-            ) : (
-              // 2. SI ES UN STRING, RENDERIZA LA IMAGEN ÚNICA (como antes)
-              <div
-                class="relative flex h-64 md:h-80 flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl 
-            md:hover:-translate-y-1 md:hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50"
-              >
-                <img
+<div class="relative group">
+  
+  <button
+    id="slide-prev"
+    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform focus:outline-none"
+    set:html={ArrowLeft}
+  />
+
+  <div
+    id="projects-slider"
+    class="flex flex-col md:flex-row gap-8 md:gap-6 md:overflow-x-auto md:snap-x md:snap-mandatory scroll-smooth scrollbar-hide py-4"
+  >
+    {
+      PROJECTS.map(
+        ({ data, image, title, description, tags, link, github, download }) => {
+          const isGooglePlay = download?.includes("play.google.com");
+      return (
+          <article class="flex flex-col w-full md:w-[400px] flex-shrink-0 md:snap-start bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-2xl overflow-hidden transition hover:shadow-2xl">
+<div class="w-full h-80 relative overflow-hidden group">
+              
+              {/* 1. CAPA DE FONDO: Borrosa y estirada (rellena los huecos) */}
+              <div class="absolute inset-0 w-full h-full">
+                 <img
                   alt={title}
-                  class="h-full w-full transition duration-500 md:scale-110 md:hover:scale-105"
-                  loading="eager"
+                  class="w-full h-full object-cover blur-lg opacity-50 scale-110"
                   src={image}
                 />
               </div>
-            )}
-          </div>
-          <div class="w-full md:w-1/2 md:max-w-lg md:flex md:flex-col">
-            <h3
-              class="text-2xl font-bold text-gray-800 dark:text-gray-100"
-              data-i18n={`PROYECT${data}_TITLE`}
-            >
-              {title}
-            </h3>
-            <div class="flex flex-wrap mt-2">
-              <ul class="flex flex-wrap mb-2 gap-x-2 gap-y-2">
+
+              {/* 2. CAPA PRINCIPAL: La imagen nítida que se ve entera (object-contain) */}
+              <div class="relative z-10 w-full h-full flex justify-center items-center">
+                 <img
+                  alt={title}
+                  class="h-full w-full object-contain transition duration-500 group-hover:scale-105"
+                  loading="lazy"
+                  src={image}
+                />
+              </div>
+
+            </div>
+
+            {/* 2. SECCIÓN TEXTO (CON PADDING) Aquí sí ponemos el espacio interno */}
+            <div class="flex flex-col p-6">
+              <h3
+                class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-3"
+                data-i18n={`PROYECT${data}_TITLE`}
+              >
+                {title}
+              </h3>
+              
+              <ul class="flex flex-wrap mb-4 gap-2">
                 {tags.map((tag) => (
                   <li>
-                    <span
-                      class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2 `}
-                    >
+                    <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
                       <tag.icon class="size-4" />
                       {tag.name}
                     </span>
@@ -69,35 +74,74 @@ import Download from "../icons/Download.astro";
               </ul>
 
               <div
-                class="mt-2 text-gray-700 dark:text-gray-400"
+                class="text-gray-700 dark:text-gray-400 mb-4"
                 data-i18n={`PROYECT${data}_DESCRIPTION`}
               >
                 {description}
               </div>
-              <footer class="flex items-end justify-start mt-2 gap-x-4 ">
-                {github && (
-                  <LinkButton href={github}>
-                    <GitHub class="size-6" />
-                    Code
-                  </LinkButton>
-                )}
-                {link && (
-                  <LinkButton href={link}>
-                    <Link class="size-4" />
-                    Preview
-                  </LinkButton>
-                )}
-                {download && (
-                  <LinkButton href={download}>
-                    <Download class="size-4" />
-                    Check it Out
-                  </LinkButton>
-                )}
-              </footer>
+              
+              <footer class="flex  justify-start gap-x-4 ">
+                  {github && (
+                    <LinkButton href={github}>
+                      <GitHub class="size-6" />
+                      Code
+                    </LinkButton>
+                  )}
+                  {link && (
+                    <LinkButton href={link}>
+                      <Link class="size-4" />
+                      Preview
+                    </LinkButton>
+                  )}
+                  {download && (
+                    <LinkButton href={download}>
+                      {/* LÓGICA DE ICONO: Si es Google Play usa ese icono, sino Download */}
+                      {isGooglePlay ? <GooglePlay class="size-4" /> : <Download class="size-4" />}
+                      {isGooglePlay ? "Play Store" : "Check it out"}
+                    </LinkButton>
+                  )}
+                </footer>
             </div>
-          </div>
-        </article>
+          </article>
+          )
+        }
       )
-    )
-  }
+    }
+  </div>
+
+  <button
+    id="slide-next"
+    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform focus:outline-none"
+    set:html={ArrowRight}
+  />
+
 </div>
+
+<style>
+  /* Ocultar barra de scroll pero permitir funcionalidad */
+  .scrollbar-hide::-webkit-scrollbar {
+      display: none;
+  }
+  .scrollbar-hide {
+      -ms-overflow-style: none;
+      scrollbar-width: none;
+  }
+</style>
+
+<script>
+  // Lógica simple para mover el slider
+  const slider = document.getElementById('projects-slider');
+  const prevBtn = document.getElementById('slide-prev');
+  const nextBtn = document.getElementById('slide-next');
+
+  if (slider && prevBtn && nextBtn) {
+    nextBtn.addEventListener('click', () => {
+      // Mueve hacia la derecha el ancho de una card (aprox 400px + gap)
+      slider.scrollBy({ left: 420, behavior: 'smooth' });
+    });
+
+    prevBtn.addEventListener('click', () => {
+      slider.scrollBy({ left: -420, behavior: 'smooth' });
+    });
+  }
+</script>

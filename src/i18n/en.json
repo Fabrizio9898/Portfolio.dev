@@ -34,12 +34,16 @@
   "ABOUT22": "My favourite languages are JavaScript/TypeScript, and in the future, I would like to dive into game development.",
   "FOOTER_INICIO": "Home",
   "FOOTER_CONTACT": "Contact",
-  "PROYECT1_TITLE": "Send it Later - WhatsApp Message Scheduler",
-  "PROYECT1_DESCRIPTION": "Browser extension to schedule messages on WhatsApp Web.",
-  "PROYECT2_TITLE": "Active - Sports Centers Management",
-  "PROYECT2_DESCRIPTION": "Sports centers management and court booking platform.",
-  "PROYECT3_TITLE": "Active Api",
-  "PROYECT3_DESCRIPTION": "RESTful API that allows you to manage users, sports centers and court reservations.", 
+  "PROYECT1_TITLE": "Wakemap - GPS Alarm",
+  "PROYECT1_DESCRIPTION": "Mobile application that wakes you up before reaching your destination. Ideal for public transport users.",
+  "PROYECT2_TITLE": "SaludConnect - Integral Telemedicine",
+  "PROYECT2_DESCRIPTION": "Digital health ecosystem featuring video calls, appointment management, and dedicated Apps for patients and doctors.",
+  "PROYECT3_TITLE": "Send it Later - WhatsApp Message Scheduler",
+  "PROYECT3_DESCRIPTION": "Browser extension to schedule messages on WhatsApp Web.",
+  "PROYECT4_TITLE": "Active - Sports Centers Management",
+  "PROYECT4_DESCRIPTION": "Sports centers management and court booking platform.",
+  "PROYECT5_TITLE": "Active Api",
+  "PROYECT5_DESCRIPTION": "RESTful API that allows you to manage users, sports centers and court reservations.", 
   "PROYECT5": "September 2024",
   "PROYECT11": "2010-2018",
   "PROYECT6": "3-month internship in which I put into practice a large technology stack and which gave me a good programming base",
@@ -48,5 +52,21 @@
   "PROYECT9": "",
   "PROYECT10": "",
   "TRAYECTORIA1": "",
-  "TRAYECTORIA2": ""
+  "TRAYECTORIA2": "",
+  "TRAYECTORIA1_TITLE": "Freelance Full Stack Developer",
+  "TRAYECTORIA1_DESCRIPTION": "Leading end-to-end digital product development. Architected and deployed complex solutions such as geolocation mobile apps (Wakemap) and telemedicine platforms, managing both server-side logic and user experience.",
+  
+  "TRAYECTORIA2_TITLE": "Backend Developer Intern",
+  "TRAYECTORIA2_DESCRIPTION": "Collaborated with the backend team, optimizing REST API endpoints and ensuring data integrity. Hands-on experience in debugging, testing, and Git workflows within an agile environment.",
+
+  "TRAYECTORIA3_TITLE": "Full Stack Training",
+  "TRAYECTORIA3_DESCRIPTION": "Intensive specialization in the JavaScript stack (MERN/PERN). Developed multiple MVPs focusing on best practices, scalability, and clean code.",
+
+  "TRAYECTORIA4_TITLE": "English C2 Proficient Level",
+  "TRAYECTORIA4_DESCRIPTION": "Full command of the language, enabling reading of complex technical documentation and fluent communication in multicultural environments.",
+
+  "TRAYECTORIA1_DATE": "Nov 2024 - Present",
+  "TRAYECTORIA2_DATE": "Jan 2024 - Aug 2024",
+  "TRAYECTORIA3_DATE": "2022 - 2023",
+  "TRAYECTORIA4_DATE": "2010 - 2022"
 }

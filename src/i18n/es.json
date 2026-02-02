@@ -34,12 +34,16 @@
   "ABOUT22": "Mis lenguajes favoritos son JavaScript/TypeScript, y en un futuro me gustaria adentrarme en el desarrollo de videojuegos.",
   "FOOTER_INICIO": "Inicio",
   "FOOTER_CONTACT": "Contacto",
-"PROYECT1_TITLE": "Send it Later - WhatsApp Message Scheduler",
-  "PROYECT1_DESCRIPTION": "Extension de navegador para programar mensajes en WhatsApp Web.",
-  "PROYECT2_TITLE": "Active - Gestion de Centros Deportivos",
-  "PROYECT2_DESCRIPTION": "Plataforma para gestionar centros deportivos y reservar canchas.",
-  "PROYECT3_TITLE": "Active Api",
-  "PROYECT3_DESCRIPTION": "API RESTful que permite gestionar usuarios, centros deportivos y reservas de canchas.",
+  "PROYECT1_TITLE": "Wakemap - Alarma GPS",
+  "PROYECT1_DESCRIPTION": "Aplicación móvil que te despierta antes de llegar a tu destino. Ideal para transporte público.",
+  "PROYECT2_TITLE": "SaludConnect - Telemedicina Integral",
+  "PROYECT2_DESCRIPTION": "Ecosistema de salud digital con videollamadas, gestión de citas y Apps para pacientes y doctores.",
+"PROYECT3_TITLE": "Send it Later - WhatsApp Message Scheduler",
+  "PROYECT3_DESCRIPTION": "Extension de navegador para programar mensajes en WhatsApp Web.",
+  "PROYECT4_TITLE": "Active - Gestion de Centros Deportivos",
+  "PROYECT4_DESCRIPTION": "Plataforma para gestionar centros deportivos y reservar canchas.",
+  "PROYECT5_TITLE": "Active Api",
+  "PROYECT5_DESCRIPTION": "API RESTful que permite gestionar usuarios, centros deportivos y reservas de canchas.",
   "PROYECT5":"Septiembre 2024",
   "PROYECT11":"2010-2018",
   "PROYECT6": "Pasantia de 3 meses en la que puse en practica un stack de tecnologia amplio y que me dio una buena base de programación",
@@ -48,5 +52,21 @@
   "PROYECT9": "",
   "PROYECT10": "",
   "TRAYECTORIA1": "",
-  "TRAYECTORIA2": ""
+  "TRAYECTORIA2": "",
+  "TRAYECTORIA1_TITLE": "Full Stack Developer Freelance",
+  "TRAYECTORIA1_DESCRIPTION": "Lidero el desarrollo de productos digitales end-to-end. He arquitectado y desplegado soluciones complejas como Apps móviles con geolocalización (Wakemap) y plataformas de telemedicina, gestionando tanto la lógica de servidor como la experiencia de usuario.",
+  
+  "TRAYECTORIA2_TITLE": "Backend Developer Intern",
+  "TRAYECTORIA2_DESCRIPTION": "Colaboración en el equipo de desarrollo backend, optimizando endpoints de APIs REST y asegurando la integridad de datos. Experiencia práctica en depuración (debugging), testeo y flujo de trabajo con Git en un entorno ágil.",
+
+  "TRAYECTORIA3_TITLE": "Formación Intensiva en Desarrollo Web Full Stack",
+  "TRAYECTORIA3_DESCRIPTION": "Especialización intensiva en el stack JavaScript (MERN/PERN). Desarrollo de múltiples MVPs con enfoque en buenas prácticas, escalabilidad y código limpio.",
+
+  "TRAYECTORIA4_TITLE": "Inglés Nivel C2 (Proficient)",
+  "TRAYECTORIA4_DESCRIPTION": "Dominio completo del idioma, permitiendo la lectura de documentación técnica compleja y comunicación fluida en entornos multiculturales.",
+
+  "TRAYECTORIA1_DATE": "Nov 2024 - Actualidad",
+  "TRAYECTORIA2_DATE": "Ene 2024 - Ago 2024",
+  "TRAYECTORIA3_DATE": "2022 - 2023",
+  "TRAYECTORIA4_DATE": "2010 - 2022"
 }
