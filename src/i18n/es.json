@@ -7,9 +7,6 @@
   "NAVBAR_CONTACT": "Contacto",
   "SECTION_HERO_TITLE": "Hola, Soy Fabrizio",
   "HERO_BADGE": "Disponible para trabajar",
-  "FIRST_DESCRIPTION": "y",
-  "SECOND_HERO_DESCRIPTION": "Estudiante de Ciencias de la Computación",
-  "LAST_DESCRIPTION": "de",
   "HERO_CONTACT": "Contáctame",
   "ABOUT21": "frontend",
   "ABOUT22": "Mis lenguajes favoritos son JavaScript/TypeScript, y en un futuro me gustaria adentrarme en el desarrollo de videojuegos.",
@@ -51,7 +48,7 @@
   "TRAYECTORIA3_DATE": "2022 - 2023",
   "TRAYECTORIA4_DATE": "2010 - 2022",
   "ABOUT_TITLE": "Hola, soy Fabrizio",
-  
+
   "ABOUT_1": "Impulso ideas mediante el",
   "ABOUT2": "desarrollo técnico y creativo",
   "ABOUT3": ". Mi enfoque va más allá de escribir código: diseño",
@@ -70,6 +67,9 @@
   "ABOUT17": "desafíos técnicos",
   "ABOUT18": " donde pueda aplicar mi capacidad de",
   "ABOUT19": "resolución e ingenio",
-  "ABOUT20": " para generar un impacto real."
-
+  "ABOUT20": " para generar un impacto real.",
+  "HERO_TITLE": "Ingeniero de Producto | Fullstack & Mobile",
+  "FIRST_DESCRIPTION": "especializado en crear",
+  "SECOND_HERO_DESCRIPTION": "soluciones interactivas y escalables",
+  "LAST_DESCRIPTION": "desde"
 }

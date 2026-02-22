@@ -7,9 +7,6 @@
   "NAVBAR_CONTACT": "Contact",
   "SECTION_HERO_TITLE": "Hello, I'm Fabrizio",
   "HERO_BADGE": "Open to work",
-  "FIRST_DESCRIPTION": "and",
-  "SECOND_HERO_DESCRIPTION": "Computer Science Student",
-  "LAST_DESCRIPTION": "from",
   "HERO_CONTACT": "Contact me",
   "FOOTER_INICIO": "Home",
   "FOOTER_CONTACT": "Contact",
@@ -62,6 +59,9 @@
   "ABOUT17": "technical challenges",
   "ABOUT18": " that require my",
   "ABOUT19": "problem-solving skills and ingenuity",
-  "ABOUT20": " to create high-impact solutions."
-
+  "ABOUT20": " to create high-impact solutions.",
+  "HERO_TITLE": "Product Engineer | Fullstack & Mobile",
+  "FIRST_DESCRIPTION": "specialized in building",
+  "SECOND_HERO_DESCRIPTION": "interactive and scalable solutions",
+  "LAST_DESCRIPTION": "from"
 }
