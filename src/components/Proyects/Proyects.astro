@@ -3,145 +3,289 @@ import LinkButton from "../LinkButton/LinkButton.astro";
 import Link from "../icons/Link.astro";
 import GitHub from "../icons/Github.astro";
 import { PROJECTS } from "../../data/proyects";
-import LinkInline from "../icons/LinkInline.astro";
 import Download from "../icons/Download.astro";
 import GooglePlay from "../icons/GooglePlay.astro";
 
-// Iconos para las flechas (puedes usar los tuyos si tienes)
-const ArrowLeft = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>`;
-const ArrowRight = `<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>`;
+// Extraer todos los tags únicos de los proyectos para los botones de filtro
+const allTags = Array.from(
+  new Map(
+    PROJECTS.flatMap((p) => p.tags).map((tag) => [tag.name, tag])
+  ).values()
+);
 ---
 
-<div class="relative">
-  
-  <button
-    id="slide-prev"
-    class="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-4 z-10 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform focus:outline-none"
-    set:html={ArrowLeft}
-  />
+<!-- ── FILTROS ──────────────────────────────────────────────── -->
+<div class="filter-bar" role="group" aria-label="Filtrar proyectos por tecnología">
+  <button class="filter-btn active" data-filter="all" type="button">
+    Todos
+  </button>
+  {allTags.map((tag) => (
+    <button
+      class="filter-btn"
+      data-filter={tag.name}
+      type="button"
+    >
+      <tag.icon class="size-3.5" />
+      {tag.name}
+    </button>
+  ))}
+</div>
 
-  <div
-    id="projects-slider"
-    class="flex flex-col md:flex-row gap-8 md:gap-6 md:overflow-x-auto md:snap-x md:snap-mandatory scroll-smooth scrollbar-hide py-4"
-  >
-    {
-      PROJECTS.map(
-        ({ data, image, title, description, tags, link, github, download }) => {
-          const isGooglePlay = download?.includes("play.google.com");
+<!-- ── LISTA DE PROYECTOS ────────────────────────────────────── -->
+<div id="projects-list" class="flex flex-col gap-y-16 mt-10">
+  {
+    PROJECTS.map(({ data, image, title, description, tags, link, github, download }, index) => {
+      const isGooglePlay = download?.includes("play.google.com");
+      const tagNames = tags.map((t) => t.name).join(",");
+
       return (
-          <article class="flex flex-col w-full md:w-[400px] flex-shrink-0 md:snap-start bg-gray-50 dark:bg-gray-900 border border-gray-200 dark:border-gray-800 shadow-lg rounded-2xl overflow-hidden transition hover:shadow-2xl">
-<div class="w-full h-80 relative overflow-hidden group">
-              
-              {/* 1. CAPA DE FONDO: Borrosa y estirada (rellena los huecos) */}
-              <div class="absolute inset-0 w-full h-full">
-                 <img
+        <article
+          class="project-card flex flex-col space-y-8 md:flex-row md:space-x-8 md:space-y-0"
+          data-tags={tagNames}
+          data-index={index}
+        >
+          {/* ── IMAGEN ─────────────────────────────────── */}
+          <div class="w-full md:w-1/2">
+                      <div
+                class="relative flex h-64 md:h-80 flex-col items-center col-span-6 row-span-5 gap-8 transition duration-500 ease-in-out transform shadow-xl overflow-clip rounded-xl sm:rounded-xl 
+            md:hover:-translate-y-1 md:hover:shadow-2xl lg:border lg:border-gray-800 lg:hover:border-gray-700 lg:hover:bg-gray-800/50"
+              >
+                <img
                   alt={title}
-                  class="w-full h-full object-cover blur-lg opacity-50 scale-110"
+                  class="h-full w-full transition duration-500 md:scale-110 md:hover:scale-105"
+                  loading="eager"
                   src={image}
                 />
               </div>
+          </div>
 
-              {/* 2. CAPA PRINCIPAL: La imagen nítida que se ve entera (object-contain) */}
-              <div class="relative z-10 w-full h-full flex justify-center items-center">
-                 <img
-                  alt={title}
-                  class="h-full w-full object-contain transition duration-500 group-hover:scale-105"
-                  loading="lazy"
-                  src={image}
-                />
-              </div>
+          {/* ── TEXTO ──────────────────────────────────── */}
+          <div class="w-full md:w-1/2 md:max-w-lg md:flex md:flex-col md:justify-center">
+            <h3
+              class="text-2xl font-bold text-gray-800 dark:text-gray-100"
+              data-i18n={`PROYECT${data}_TITLE`}
+            >
+              {title}
+            </h3>
 
+            <ul class="flex flex-wrap mt-3 mb-3 gap-x-2 gap-y-2">
+              {tags.map((tag) => (
+                <li>
+                  <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
+                    <tag.icon class="size-4" />
+                    {tag.name}
+                  </span>
+                </li>
+              ))}
+            </ul>
+
+            <div
+              class="mt-2 text-gray-700 dark:text-gray-400"
+              data-i18n={`PROYECT${data}_DESCRIPTION`}
+            >
+              {description}
             </div>
 
-            {/* 2. SECCIÓN TEXTO (CON PADDING) Aquí sí ponemos el espacio interno */}
-            <div class="flex flex-col p-6">
-              <h3
-                class="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-3"
-                data-i18n={`PROYECT${data}_TITLE`}
-              >
-                {title}
-              </h3>
-              
-              <ul class="flex flex-wrap mb-4 gap-2">
-                {tags.map((tag) => (
-                  <li>
-                    <span class={`flex gap-x-2 rounded-full text-xs ${tag.class} py-1 px-2`}>
-                      <tag.icon class="size-4" />
-                      {tag.name}
-                    </span>
-                  </li>
-                ))}
-              </ul>
+            <footer class="flex items-center justify-start mt-4 gap-x-4">
+              {github && (
+                <LinkButton href={github}>
+                  <GitHub class="size-6" />
+                  Code
+                </LinkButton>
+              )}
+              {link && (
+                <LinkButton href={link}>
+                  <Link class="size-4" />
+                  Preview
+                </LinkButton>
+              )}
+              {download && (
+                <LinkButton href={download}>
+                  {isGooglePlay ? <GooglePlay class="size-4" /> : <Download class="size-4" />}
+                  {isGooglePlay ? "Play Store" : "Check it out"}
+                </LinkButton>
+              )}
+            </footer>
+          </div>
+        </article>
+      );
+    })
+  }
+</div>
 
-              <div
-                class="text-gray-700 dark:text-gray-400 mb-4"
-                data-i18n={`PROYECT${data}_DESCRIPTION`}
-              >
-                {description}
-              </div>
-              
-              <footer class="flex  justify-start gap-x-4 ">
-                  {github && (
-                    <LinkButton href={github}>
-                      <GitHub class="size-6" />
-                      Code
-                    </LinkButton>
-                  )}
-                  {link && (
-                    <LinkButton href={link}>
-                      <Link class="size-4" />
-                      Preview
-                    </LinkButton>
-                  )}
-                  {download && (
-                    <LinkButton href={download}>
-                      {/* LÓGICA DE ICONO: Si es Google Play usa ese icono, sino Download */}
-                      {isGooglePlay ? <GooglePlay class="size-4" /> : <Download class="size-4" />}
-                      {isGooglePlay ? "Play Store" : "Check it out"}
-                    </LinkButton>
-                  )}
-                </footer>
-            </div>
-          </article>
-          )
-        }
-      )
-    }
-  </div>
-
+<!-- ── BOTÓN VER MÁS ─────────────────────────────────────────── -->
+<div id="show-more-wrapper" class="flex justify-center mt-12">
   <button
-    id="slide-next"
-    class="absolute right-0 top-1/2 -translate-y-1/2 translate-x-4 z-10 hidden md:flex items-center justify-center w-12 h-12 rounded-full bg-white dark:bg-gray-800 shadow-lg border border-gray-200 dark:border-gray-700 text-gray-600 dark:text-gray-300 hover:scale-110 transition-transform focus:outline-none"
-    set:html={ArrowRight}
-  />
-
+    id="show-more-btn"
+    type="button"
+    class="group flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-indigo-400 hover:text-indigo-500 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all duration-200"
+  >
+    <span id="show-more-label">Ver más proyectos</span>
+    <svg id="show-more-icon" class="size-4 transition-transform duration-300 group-hover:translate-y-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
+  </button>
 </div>
 
 <style>
-  /* Ocultar barra de scroll pero permitir funcionalidad */
-  .scrollbar-hide::-webkit-scrollbar {
-      display: none;
+  /* ── Filter bar ──────────────────────────────────────── */
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
   }
-  .scrollbar-hide {
-      -ms-overflow-style: none;
-      scrollbar-width: none;
+
+  .filter-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.3rem 0.85rem;
+    border-radius: 9999px;
+    font-size: 0.78rem;
+    font-weight: 500;
+    border: 1px solid transparent;
+    background: rgba(243, 244, 246, 0.8);
+    color: #6b7280;
+    cursor: pointer;
+    transition: all 0.18s ease;
+  }
+
+  :global(.dark) .filter-btn {
+    background: rgba(31, 41, 55, 0.6);
+    color: #9ca3af;
+  }
+
+  .filter-btn:hover {
+    border-color: rgba(99, 102, 241, 0.4);
+    color: #6366f1;
+  }
+
+  .filter-btn.active {
+    background: #6366f1;
+    color: #fff;
+    border-color: #6366f1;
+  }
+
+  :global(.dark) .filter-btn.active {
+    background: #6366f1;
+    color: #fff;
+  }
+
+  /* ── Animación de cards ──────────────────────────────── */
+  .project-card {
+    transition: opacity 0.3s ease, transform 0.3s ease, max-height 0.4s ease;
+  }
+
+  /* Card oculta por filtro */
+  .project-card.hidden-filter {
+    display: none;
+  }
+
+  /* Card oculta por "ver más" (más de 3) */
+  .project-card.hidden-overflow {
+    display: none;
+  }
+
+  /* Entrada al mostrarse */
+  .project-card.animating-in {
+    animation: fadeSlideIn 0.35s ease forwards;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(16px); }
+    to   { opacity: 1; transform: translateY(0); }
   }
 </style>
 
 <script>
-  // Lógica simple para mover el slider
-  const slider = document.getElementById('projects-slider');
-  const prevBtn = document.getElementById('slide-prev');
-  const nextBtn = document.getElementById('slide-next');
+  const INITIAL_VISIBLE = 3;
 
-  if (slider && prevBtn && nextBtn) {
-    nextBtn.addEventListener('click', () => {
-      // Mueve hacia la derecha el ancho de una card (aprox 400px + gap)
-      slider.scrollBy({ left: 420, behavior: 'smooth' });
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>(".project-card")
+  );
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+  const showMoreBtn = document.getElementById("show-more-btn");
+  const showMoreWrapper = document.getElementById("show-more-wrapper");
+  const showMoreLabel = document.getElementById("show-more-label");
+  const showMoreIcon = document.getElementById("show-more-icon");
+
+  let currentFilter = "all";
+  let expanded = false;
+
+  // ── Aplicar estado visual ──────────────────────────────
+  function applyState() {
+    // Cards que pasan el filtro
+    const passing = cards.filter((card) => {
+      if (currentFilter === "all") return true;
+      const tags = card.dataset.tags?.split(",") ?? [];
+      return tags.includes(currentFilter);
     });
 
-    prevBtn.addEventListener('click', () => {
-      slider.scrollBy({ left: -420, behavior: 'smooth' });
+    const hidden = cards.filter((card) => !passing.includes(card));
+
+    // Ocultar las que no pasan el filtro
+    hidden.forEach((card) => {
+      card.classList.add("hidden-filter");
+      card.classList.remove("hidden-overflow");
     });
+
+    // Mostrar/ocultar las que pasan según expanded
+    passing.forEach((card, i) => {
+      card.classList.remove("hidden-filter");
+
+      if (!expanded && i >= INITIAL_VISIBLE) {
+        card.classList.add("hidden-overflow");
+      } else {
+        if (card.classList.contains("hidden-overflow")) {
+          card.classList.remove("hidden-overflow");
+          card.classList.add("animating-in");
+          card.addEventListener("animationend", () => card.classList.remove("animating-in"), { once: true });
+        }
+      }
+    });
+
+    // Mostrar/ocultar botón "ver más"
+    if (showMoreWrapper) {
+      const needsMore = passing.length > INITIAL_VISIBLE;
+      showMoreWrapper.style.display = needsMore ? "flex" : "none";
+    }
+
+    // Texto del botón
+    if (showMoreLabel) {
+      showMoreLabel.textContent = expanded ? "Ver menos" : "Ver más proyectos";
+    }
+    if (showMoreIcon) {
+      showMoreIcon.style.transform = expanded ? "rotate(180deg)" : "rotate(0deg)";
+    }
   }
+
+  // ── Filtro ─────────────────────────────────────────────
+  function setFilter(filter: string) {
+    currentFilter = filter;
+    expanded = false; // resetear "ver más" al cambiar filtro
+
+    filterBtns.forEach((btn) => {
+      btn.classList.toggle("active", btn.dataset.filter === filter);
+    });
+
+    applyState();
+  }
+
+  // Clicks en botones de filtro
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => setFilter(btn.dataset.filter ?? "all"));
+  });
+
+  // ── Ver más ────────────────────────────────────────────
+  showMoreBtn?.addEventListener("click", () => {
+    expanded = !expanded;
+    applyState();
+  });
+
+  // ── Evento desde Skills.astro ──────────────────────────
+  window.addEventListener("skill:filter", (e: Event) => {
+    const filter = (e as CustomEvent<{ filter: string }>).detail.filter;
+    setFilter(filter);
+  });
+
+  // Inicializar
+  applyState();
 </script>

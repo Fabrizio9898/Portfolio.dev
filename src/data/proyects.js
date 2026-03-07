@@ -3,9 +3,16 @@ import NestJS from "../components/icons/NestJS.astro";
 import Tailwind from "../components/icons/Tailwind.astro";
 import TypeORM from "@/components/icons/TypeORM.astro";
 import React from "@/components/icons/React.astro";
+import Typescript from "@/components/icons/Typescript.astro";
 import JavaScript from "@/components/icons/JavaScript.astro";
+import SQL from "@/components/icons/SQL.astro";
+import HTML from "@/components/icons/HTML.astro";
+import CSS from "@/components/icons/CSS.astro";
+import Node from "@/components/icons/Node.astro";
 const TAGS = {
     NEST: { name: "Nest.js", class: "bg-black text-white", icon: NestJS },
+    HTML: { name: "HTML", class: "bg-[#E34F26] text-white", icon: HTML },
+    CSS: { name: "CSS", class: "bg-[#264DE4] text-white", icon: CSS },
     NEXT: {
       name: "Next.js",
       class: "bg-black text-white",
@@ -21,8 +28,12 @@ const TAGS = {
       class:"bg-black text-white",
       icon:TypeORM
     },
+    NODE:{name:"Node.js",class:"bg-[#339933] text-white",icon: Node},
     REACT:{name:"React",class:"bg-[#61DAFB] text-black",icon: React},
-    JAVASCRIPT:{name:"JavaScript",class:"bg-[#F7DF1E] text-black",icon: JavaScript}
+    JAVASCRIPT:{name:"JavaScript",class:"bg-[#F7DF1E] text-black",icon: JavaScript},
+    TYPESCRIPT:{name:"TypeScript",class:"bg-[#3178C6] text-white",icon: Typescript},
+    SQL:{name:"SQL",class:"bg-[#4479A1] text-white",icon: SQL},
+
   };
   export const PROJECTS = [
     {
@@ -31,7 +42,7 @@ const TAGS = {
       "Aplicación móvil que te despierta antes de llegar a tu destino. Ideal para transporte público.",
     download: "https://play.google.com/store/apps/details?id=com.fabrizioandrade.alarmaUbi", 
     image: "/images/wakemap.png", 
-    tags: [TAGS.REACT, TAGS.TAILWIND], 
+    tags: [TAGS.REACT, TAGS.TYPESCRIPT, TAGS.TAILWIND], 
     id: "Wakemap",
     data: 1,
   },
@@ -42,7 +53,7 @@ const TAGS = {
     // Link a la landing page o demo si tienes
     link: "https://telemedicina-demo.vercel.app/", 
     image: "/images/panel.jpg", // Asegúrate de tener esta imagen
-    tags: [TAGS.NEXT, TAGS.NEST, TAGS.TYPEORM, TAGS.TAILWIND],
+    tags: [TAGS.NODE,TAGS.SQL, TAGS.REACT, TAGS.TYPESCRIPT,TAGS.NEST, TAGS.TAILWIND],
     id: "Telemedicina",
     data: 2,
   },
@@ -54,7 +65,7 @@ const TAGS = {
       github: "https://github.com/Fabrizio9898/whatsapp-schedule-messages-extension",
 image: 
       "/images/captura1.png",
-      tags: [TAGS.REACT, TAGS.JAVASCRIPT,TAGS.TAILWIND],
+      tags: [TAGS.REACT, TAGS.JAVASCRIPT,TAGS.CSS, TAGS.HTML],
       id:"Send it Later",
       data:3,
     },
@@ -65,7 +76,7 @@ image:
       link: "https://frontend-actives-projects-11ce1f6a.vercel.app/",
       github: "https://github.com/Active04-star/Frontend",
       image: "/svgl1.webp",
-      tags: [TAGS.NEXT, TAGS.TAILWIND],
+      tags: [TAGS.NODE,TAGS.SQL, TAGS.REACT, TAGS.TYPESCRIPT,TAGS.NEST, TAGS.TAILWIND],
       id:"Active",
       data:4,
       fullDescription:"Plataforma desarrollada desde cero para conectar centros deportivos con jugadores. Permite a los propietarios de instalaciones deportivas publicar y gestionar sus canchas, atrayendo clientes y optimizando sus reservas. Por otro lado, los usuarios pueden explorar centros deportivos, verificar disponibilidad y alquilar canchas de forma rápida y sencilla. La aplicación está diseñada para mejorar la experiencia de ambos públicos, ofreciendo una interfaz intuitiva y un proceso de reserva eficiente.",
