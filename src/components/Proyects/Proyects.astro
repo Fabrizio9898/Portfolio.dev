@@ -16,7 +16,7 @@ const allTags = Array.from(
 
 <!-- ── FILTROS ──────────────────────────────────────────────── -->
 <div class="filter-bar" role="group" aria-label="Filtrar proyectos por tecnología">
-  <button class="filter-btn active" data-filter="all" type="button">
+  <button data-i18n="all" class="filter-btn active" data-filter="all" type="button">
     Todos
   </button>
   {allTags.map((tag) => (
@@ -120,7 +120,7 @@ const allTags = Array.from(
     type="button"
     class="group flex items-center gap-2 px-6 py-3 rounded-full border border-gray-300 dark:border-gray-700 text-sm font-medium text-gray-700 dark:text-gray-300 hover:border-indigo-400 hover:text-indigo-500 dark:hover:border-indigo-500 dark:hover:text-indigo-400 transition-all duration-200"
   >
-    <span id="show-more-label">Ver más proyectos</span>
+    <span  data-i18n="seemore" id="show-more-label">Ver más proyectos</span>
     <svg id="show-more-icon" class="size-4 transition-transform duration-300 group-hover:translate-y-0.5" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="m6 9 6 6 6-6"/></svg>
   </button>
 </div>
