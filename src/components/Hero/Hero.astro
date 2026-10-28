@@ -1,120 +1,74 @@
 ---
-const personalImageAlt = "Fabrizio Andrade";
 import Badge from "@/components/icons/Badge.astro";
 import MailIcon from "@/components/icons/Mail.astro";
-import SocialPill from "@/components/SocialPill.astro";
 import LinkedInIcon from "@/components/icons/LinkedIn.astro";
+import GitHub from "@/components/icons/Github.astro";
 ---
 
-<div class="max-w-xl relative">
-  <div id="image-badge-container">
-    <img
-      class="profile-image sm:mt-8 shadow-lg"
-      src="/fotodeperfil.webp"
-      alt={personalImageAlt}
-    />
-    <h1
-      class="original-text text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl sm:mb-0 dark:text-white mt-0 mb-0"
-      data-i18n="SECTION_HERO_TITLE"
-    >
-    </h1>
+<div class="flex flex-col-reverse gap-8 md:flex-row md:items-center md:justify-between">
+  <div class="max-w-xl">
     <a
       href="https://linkedin.com/in/fabrizio-andrade"
       target="_blank"
       rel="noopener"
-      class="inline-flex items-center transition md:justify-center animated-badge mt-1"
+      class="animated-badge inline-flex items-center transition"
     >
       <Badge><span data-i18n="HERO_BADGE">Disponible para trabajar</span></Badge>
     </a>
-  </div>
-  <div class="h1-container">
+
     <h1
-      class="text-4xl font-bold tracking-tight text-gray-800 sm:text-5xl dark:text-white"
+      class="mb-0 mt-4 text-4xl font-bold tracking-tight text-gray-900 dark:text-white sm:text-5xl"
       data-i18n="SECTION_HERO_TITLE"
     >
-      Hola! Soy Fabrizio
+      Hola, soy Fabrizio
     </h1>
+
+    <p class="mt-4 text-pretty text-xl text-gray-700 dark:text-gray-300" data-i18n="HERO_PITCH">
+      Desarrollador web fullstack. Diseño y construyo sitios y productos que se ven profesionales y funcionan de verdad.
+    </p>
+    <p class="mt-2 text-base text-gray-500 dark:text-gray-400" data-i18n="HERO_SERVICES">
+      Landings, sistemas de reservas, paneles con CMS, APIs y apps mobile.
+    </p>
+
+    <div class="mt-8 flex flex-wrap items-center gap-3">
+      <a
+        href="#proyectos"
+        class="inline-flex items-center gap-2 rounded-full bg-indigo-600 px-5 py-2.5 font-medium text-white shadow-lg shadow-indigo-600/20 transition hover:bg-indigo-500 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-400 focus-visible:ring-offset-2"
+      >
+        <span data-i18n="HERO_CTA_PROJECTS">Ver proyectos</span>
+        <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6" /></svg>
+      </a>
+      <a
+        href="#contacto"
+        class="inline-flex items-center gap-2 rounded-full border border-black/10 px-5 py-2.5 font-medium text-gray-800 transition hover:bg-black/5 dark:border-white/15 dark:text-gray-100 dark:hover:bg-white/10"
+      >
+        <MailIcon class="size-4" />
+        <span data-i18n="HERO_CONTACT">Contáctame</span>
+      </a>
+      <a href="https://www.linkedin.com/in/fabrizio-andrade/" target="_blank" rel="noopener" aria-label="LinkedIn" class="rounded-full p-2.5 text-gray-600 transition hover:bg-black/5 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white">
+        <LinkedInIcon class="size-5" />
+      </a>
+      <a href="https://github.com/Fabrizio9898" target="_blank" rel="noopener" aria-label="GitHub" class="rounded-full p-2.5 text-gray-600 transition hover:bg-black/5 hover:text-gray-900 dark:text-gray-300 dark:hover:bg-white/10 dark:hover:text-white">
+        <GitHub class="size-5" />
+      </a>
+    </div>
   </div>
-  <p class="mt-2 text-xl text-gray-800 dark:[&>strong]:text-yellow-200 [&>strong]:text-yellow-500 [&>strong]:font-semibold dark:text-gray-300">
-  <strong data-i18n="HERO_TITLE">Product Engineer | Fullstack & Mobile</strong>
-  <br class="md:hidden" /> <span data-i18n="FIRST_DESCRIPTION">y</span> 
-  <strong data-i18n="SECOND_HERO_DESCRIPTION">Estudiante de Ingeniería en Sistemas</strong> 
-</p>
-  <nav class="flex flex-wrap gap-4 mt-2">
-    <SocialPill href="mailto:fabrizioandrade9898@gmail.com">
-      <MailIcon class="size-4" />
-      <span data-i18n="HERO_CONTACT">Contáctame</span>
-    </SocialPill>
-    <SocialPill href="https://www.linkedin.com/in/fabrizio-andrade/">
-      <LinkedInIcon class="size-4" />
-      LinkedIn
-    </SocialPill>
-  </nav>
+
+  <img
+    class="size-28 shrink-0 rounded-full object-cover shadow-xl ring-4 ring-white dark:ring-slate-800 md:size-44"
+    src="/fotodeperfil.webp"
+    alt="Fabrizio Andrade"
+    width="176"
+    height="176"
+  />
 </div>
 
 <style>
-  .profile-image {
-    float: left;
-    width: 5rem;
-    height: 5rem;
-    border-radius: 50%;
-    shape-outside: url("/fotodeperfil.webp");
-    shape-margin: 10px;
-    margin-right: 0.5rem;
-    z-index: 1;
-  }
-
   .animated-badge:hover :global(.badge-content) {
     color: transparent;
   }
 
   .animated-badge:hover :global(.badge-overlay) {
     transform: translateX(0);
-  }
-
-  .h1-container {
-    visibility: hidden;
-  }
-
-  @media (480px<= width < 640px) {
-    .profile-image {
-      margin-top: 29px;
-    }
-  }
-  @media (width>419px) {
-    .h1-container {
-      display: none;
-    }
-  }
-
-  @media (width < 420px) {
-    #image-badge-container {
-      position: relative;
-      display: flex;
-      gap: 1rem;
-      margin-bottom: 1rem;
-    }
-    .profile-image {
-      float: none;
-      width: 4rem;
-      height: 4rem;
-      border-radius: 9999px;
-    }
-
-    .original-text {
-      position: absolute;
-      bottom: 0;
-      top: 84px;
-    }
-
-    .h1-container {
-      visibility: hidden;
-      display: block;
-      margin-bottom: 20px;
-    }
-    .h1-container h1 {
-      position: relative;
-      margin: 0;
-    }
   }
 </style>

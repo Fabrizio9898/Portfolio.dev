@@ -1,0 +1,247 @@
+---
+import { render } from "astro:content";
+import type { Project } from "@/lib/projects";
+import { getProjects, projectUrl, STATUS_KEYS } from "@/lib/projects";
+import { TAGS } from "@/data/tags";
+import ProjectMedia from "./ProjectMedia.astro";
+import Localized from "./Localized.astro";
+import Contact from "@/components/Contact/Contact.astro";
+import LinkIcon from "@/components/icons/Link.astro";
+import GitHub from "@/components/icons/Github.astro";
+import GooglePlay from "@/components/icons/GooglePlay.astro";
+import Download from "@/components/icons/Download.astro";
+
+interface Props {
+  project: Project;
+}
+
+const { project } = Astro.props;
+const { title, summary, role, year, stack, status, links, media } = project.data;
+const { Content } = await render(project);
+
+const all = await getProjects();
+const index = all.findIndex((p) => p.id === project.id);
+const next = all[(index + 1) % all.length];
+const related = links.related ? all.find((p) => p.id === links.related) : undefined;
+const isPlayStore = links.store?.includes("play.google.com");
+
+const linkClass =
+  "inline-flex items-center gap-2 rounded-full px-4 py-2 text-sm font-medium transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500";
+const primaryLink = `${linkClass} bg-indigo-600 text-white hover:bg-indigo-500`;
+const secondaryLink = `${linkClass} border border-black/10 text-gray-800 hover:bg-black/5 dark:border-white/15 dark:text-gray-100 dark:hover:bg-white/10`;
+---
+
+<article class="mx-auto w-full max-w-5xl px-4 pb-8 pt-28 md:pt-32">
+  <a
+    href="/#proyectos"
+    class="inline-flex items-center gap-1 text-sm text-gray-500 transition hover:text-indigo-600 dark:text-gray-400 dark:hover:text-indigo-400"
+  >
+    <svg class="size-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 18l-6-6 6-6" /></svg>
+    <span data-i18n="PROJECT_BACK">Volver a proyectos</span>
+  </a>
+
+  <header class="mt-6 flex flex-col gap-4">
+    <div class="flex flex-wrap items-center gap-3 text-xs font-medium text-gray-500 dark:text-gray-400">
+      <span class="rounded-full border border-black/10 px-2 py-0.5 dark:border-white/15" data-i18n={STATUS_KEYS[status]}>{status}</span>
+      <span>{year}</span>
+      <span aria-hidden="true">·</span>
+      <Localized text={role} />
+    </div>
+    <h1 class="m-0 text-4xl font-bold tracking-tight text-gray-900 dark:text-white md:text-5xl">
+      <Localized text={title} />
+    </h1>
+    <p class="max-w-2xl text-pretty text-lg text-gray-600 dark:text-gray-300">
+      <Localized text={summary} />
+    </p>
+    <div class="flex flex-wrap gap-3">
+      {links.live && (
+        <a href={links.live} target="_blank" rel="noopener" class={primaryLink}>
+          <LinkIcon class="size-4" /><span data-i18n="PROJECT_LIVE">Ver sitio</span>
+        </a>
+      )}
+      {links.store && (
+        <a href={links.store} target="_blank" rel="noopener" class={links.live ? secondaryLink : primaryLink}>
+          {isPlayStore ? <GooglePlay class="size-4" /> : <Download class="size-4" />}
+          {isPlayStore ? "Google Play" : "Chrome Web Store"}
+        </a>
+      )}
+      {links.github && (
+        <a href={links.github} target="_blank" rel="noopener" class={secondaryLink}>
+          <GitHub class="size-4" /><span data-i18n="PROJECT_CODE">Código</span>
+        </a>
+      )}
+    </div>
+  </header>
+
+  <div class="mt-10">
+    {media.demo ? (
+      <video
+        class="w-full rounded-xl border border-black/10 shadow-xl dark:border-white/10"
+        style={`view-transition-name: media-${project.id}`}
+        src={media.demo}
+        poster={media.poster}
+        controls
+        playsinline
+        preload="metadata"
+      />
+    ) : (
+      <div class="detail-media shadow-xl rounded-xl">
+        <ProjectMedia project={project} aspect="aspect-[16/10]" eager />
+      </div>
+    )}
+  </div>
+
+  <div class="mt-14 grid gap-12 md:grid-cols-[1fr_240px]">
+    <div class="project-prose">
+      <Content />
+    </div>
+
+    <aside class="flex flex-col gap-8 md:sticky md:top-24 md:self-start">
+      <section>
+        <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400" data-i18n="PROJECT_STACK">Stack</h2>
+        <ul class="flex flex-wrap gap-2">
+          {stack.map((key) => {
+            const tag = TAGS[key as keyof typeof TAGS];
+            const Icon = tag && "icon" in tag ? tag.icon : null;
+            return (
+              <li class="flex items-center gap-1.5 rounded-full border border-black/10 px-2.5 py-1 text-xs text-gray-700 dark:border-white/15 dark:text-gray-300">
+                {Icon && <Icon class="size-3.5" />}
+                {tag?.name ?? key}
+              </li>
+            );
+          })}
+        </ul>
+      </section>
+
+      {related && (
+        <section>
+          <h2 class="mb-3 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400" data-i18n="PROJECT_RELATED">Proyecto relacionado</h2>
+          <a href={projectUrl(related.id)} class="group block rounded-xl border border-black/10 p-3 transition hover:border-indigo-400 dark:border-white/15">
+            <span class="block font-medium text-gray-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
+              <Localized text={related.data.title} />
+            </span>
+            <span class="mt-1 block text-sm text-gray-500 dark:text-gray-400">
+              <Localized text={related.data.summary} />
+            </span>
+          </a>
+        </section>
+      )}
+    </aside>
+  </div>
+
+  {media.mobile && (
+    <section class="mt-20">
+      <h2 class="mb-6 text-2xl font-semibold text-gray-900 dark:text-white" data-i18n="PROJECT_MOBILE">Versión mobile</h2>
+      <div class="flex justify-center">
+        <div class="phone">
+          <div class="phone-screen" tabindex="0" aria-label="Captura mobile, se puede scrollear">
+            <img src={media.mobile} alt="" loading="lazy" decoding="async" class="w-full" />
+          </div>
+        </div>
+      </div>
+    </section>
+  )}
+
+  {media.gallery.length > 0 && (
+    <section class="mt-20">
+      <h2 class="mb-6 text-2xl font-semibold text-gray-900 dark:text-white" data-i18n="PROJECT_GALLERY">Capturas</h2>
+      <div class="grid gap-6 md:grid-cols-2">
+        {media.gallery.map((src) => (
+          <a href={src} target="_blank" class="block overflow-hidden rounded-xl border border-black/10 shadow-sm transition hover:shadow-lg dark:border-white/10">
+            <img src={src} alt="" loading="lazy" decoding="async" class="w-full" />
+          </a>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <nav class="mt-20 border-t border-black/10 pt-8 dark:border-white/10">
+    <a href={projectUrl(next.id)} class="group flex items-center justify-between gap-4">
+      <span>
+        <span class="block text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400" data-i18n="PROJECT_NEXT">Siguiente proyecto</span>
+        <span class="mt-1 block text-2xl font-semibold text-gray-900 group-hover:text-indigo-600 dark:text-white dark:group-hover:text-indigo-400">
+          <Localized text={next.data.title} />
+        </span>
+      </span>
+      <svg class="size-6 text-gray-400 transition-transform group-hover:translate-x-1" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6" /></svg>
+    </a>
+  </nav>
+</article>
+
+<div class="mx-auto w-full max-w-5xl px-4">
+  <Contact />
+</div>
+
+<script>
+  // En el detalle el video de scroll se reproduce solo (si no hay reduced motion)
+  const video = document.querySelector<HTMLVideoElement>(".detail-media .project-video");
+  if (video && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    video.addEventListener("playing", () => video.classList.add("is-playing"));
+    video.preload = "auto";
+    video.play().catch(() => {});
+  }
+</script>
+
+<style>
+  .project-prose :global(h2) {
+    margin: 2.25rem 0 0.75rem;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: rgb(17 24 39);
+  }
+  .project-prose :global(h2:first-child) {
+    margin-top: 0;
+  }
+  .project-prose :global(p),
+  .project-prose :global(li) {
+    color: rgb(75 85 99);
+    line-height: 1.75;
+  }
+  .project-prose :global(p) {
+    margin-bottom: 1rem;
+  }
+  .project-prose :global(ul) {
+    list-style: disc;
+    padding-left: 1.25rem;
+  }
+  .project-prose :global(strong) {
+    color: rgb(17 24 39);
+    font-weight: 600;
+  }
+  .project-prose :global(a) {
+    color: rgb(79 70 229);
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  :global(.dark) .project-prose :global(h2),
+  :global(.dark) .project-prose :global(strong) {
+    color: #fff;
+  }
+  :global(.dark) .project-prose :global(p),
+  :global(.dark) .project-prose :global(li) {
+    color: rgb(209 213 219);
+  }
+  :global(.dark) .project-prose :global(a) {
+    color: rgb(129 140 248);
+  }
+
+  .phone {
+    width: min(300px, 80vw);
+    padding: 10px;
+    border-radius: 2.5rem;
+    background: #111;
+    box-shadow:
+      0 0 0 2px #333,
+      0 25px 50px -12px rgb(0 0 0 / 0.45);
+  }
+  .phone-screen {
+    aspect-ratio: 390 / 844;
+    overflow-y: auto;
+    border-radius: 2rem;
+    background: #fff;
+    scrollbar-width: none;
+  }
+  .phone-screen::-webkit-scrollbar {
+    display: none;
+  }
+</style>

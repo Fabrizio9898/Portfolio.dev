@@ -6,7 +6,8 @@ import CodeIcon from "@/components/icons/Code.astro";
 import { getI18 } from "../i18n";
 import { currentLanguage } from "../store/languages";
 import SectionContainer from "./Section_Container.astro";
-import Projects from "./Proyects/Proyects.astro";
+import ProjectsGrid from "./Projects/ProjectsGrid.astro";
+import Contact from "./Contact/Contact.astro";
 import ProfileCheck from "@/components/icons/ProfileCheck.astro";
 import Experience from "./Experience/Experience.astro";
 import Adjustment from "./icons/Adjustment.astro";
@@ -17,10 +18,10 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
 
 <Layout
   title={i18n?.PORTFOLIO_TITLE}
-  description="El catalogo de componentes de nuestro portfolio"
+  description="Fabrizio Andrade — desarrollador web fullstack. Landings, sistemas de reservas, CMS, APIs y apps."
 >
   <main class="px-4">
-    <SectionContainer id="inicio" class="pb-16 pt-36 md:py-36">
+    <SectionContainer id="inicio" class="pb-16 pt-24 md:py-36">
       <Hero />
     </SectionContainer>
   <div class="space-y-24">
@@ -33,7 +34,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
         <CodeIcon class="size-7" />
         <span data-i18n="NAVBAR_PROYECTS">Proyectos</span>
       </TitleSection>
-      <Projects />
+      <ProjectsGrid />
     </SectionContainer>
 
     <SectionContainer id="trayectoria">
@@ -51,6 +52,10 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
       </TitleSection>
       <AboutMe/>
     </SectionContainer>
+
+    <div class="w-full mx-auto container lg:max-w-4xl md:max-w-2xl">
+      <Contact />
+    </div>
   </div>
   </main>
 </Layout>

@@ -1,0 +1,22 @@
+---
+import Layout from "@/layouts/Layout.astro";
+import ProjectDetail from "@/components/Projects/ProjectDetail.astro";
+import { getProjects, type Project } from "@/lib/projects";
+
+export const prerender = true;
+
+export async function getStaticPaths() {
+  const projects = await getProjects();
+  return projects.map((project) => ({ params: { slug: project.id }, props: { project } }));
+}
+
+const { project } = Astro.props as { project: Project };
+---
+
+<Layout
+  title={`${project.data.title.es} — Fabrizio Andrade`}
+  description={project.data.summary.es}
+  image={project.data.media.poster}
+>
+  <ProjectDetail project={project} />
+</Layout>

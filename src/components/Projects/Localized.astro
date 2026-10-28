@@ -1,0 +1,10 @@
+---
+// Renderiza ambos idiomas; el CSS global en Layout.astro oculta el que no corresponde
+// según <html lang>, que actualiza el selector de idioma.
+interface Props {
+  text: { es: string; en: string };
+}
+const { text } = Astro.props;
+---
+
+<span data-lang="es">{text.es}</span><span data-lang="en">{text.en}</span>

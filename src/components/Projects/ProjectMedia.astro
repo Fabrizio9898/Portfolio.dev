@@ -1,0 +1,77 @@
+---
+// Pantalla del proyecto dentro de un marco de navegador: poster + video de scroll opcional.
+// Sin poster muestra un fondo con el título, útil para backends sin interfaz.
+import type { Project } from "@/lib/projects";
+import { hostname } from "@/lib/projects";
+import Localized from "./Localized.astro";
+
+interface Props {
+  project: Project;
+  aspect?: string;
+  eager?: boolean;
+}
+
+const { project, aspect = "aspect-[16/10]", eager = false } = Astro.props;
+const { media, links, title } = project.data;
+const domain = hostname(links.live) ?? hostname(links.store) ?? hostname(links.github);
+---
+
+<div
+  class="project-media overflow-hidden rounded-xl border border-black/10 bg-gray-100 shadow-sm dark:border-white/10 dark:bg-gray-900"
+  style={`view-transition-name: media-${project.id}`}
+>
+  <div class="flex h-7 items-center gap-1.5 border-b border-black/5 bg-white/80 px-3 dark:border-white/5 dark:bg-gray-800/80">
+    <span class="size-2.5 rounded-full bg-[#ff5f57]"></span>
+    <span class="size-2.5 rounded-full bg-[#febc2e]"></span>
+    <span class="size-2.5 rounded-full bg-[#28c840]"></span>
+    {domain && (
+      <span class="ml-3 truncate rounded bg-black/5 px-2 py-0.5 text-[11px] text-gray-500 dark:bg-white/5 dark:text-gray-400">
+        {domain}
+      </span>
+    )}
+  </div>
+
+  <div class={`relative ${aspect} overflow-hidden`}>
+    {media.poster ? (
+      <img
+        src={media.poster}
+        alt={title.es}
+        loading={eager ? "eager" : "lazy"}
+        decoding="async"
+        class:list={[
+          "absolute inset-0 size-full",
+          media.fit === "contain"
+            ? "object-contain bg-gradient-to-br from-[#160631] via-[#2b0a5c] to-[#7b1fd6]"
+            : "object-cover object-top",
+        ]}
+      />
+    ) : (
+      <div class="absolute inset-0 grid place-items-center bg-gradient-to-br from-slate-800 via-slate-900 to-indigo-950 p-6 text-center">
+        <span class="text-2xl font-semibold text-white/90">
+          <Localized text={title} />
+        </span>
+      </div>
+    )}
+
+    {media.video && (
+      <video
+        class="project-video absolute inset-0 size-full object-cover object-top opacity-0 transition-opacity duration-500"
+        muted
+        loop
+        playsinline
+        preload="none"
+        poster={media.poster}
+        aria-hidden="true"
+      >
+        <source src={`${media.video}.webm`} type="video/webm" />
+        <source src={`${media.video}.mp4`} type="video/mp4" />
+      </video>
+    )}
+  </div>
+</div>
+
+<style>
+  .project-video.is-playing {
+    opacity: 1;
+  }
+</style>

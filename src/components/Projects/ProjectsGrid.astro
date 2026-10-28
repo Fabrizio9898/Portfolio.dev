@@ -1,0 +1,156 @@
+---
+import { getProjects } from "@/lib/projects";
+import ProjectCard from "./ProjectCard.astro";
+
+const projects = await getProjects();
+
+const FILTERS = [
+  { value: "all", key: "FILTER_ALL", label: "Todos" },
+  { value: "web", key: "FILTER_WEB", label: "Web" },
+  { value: "mobile", key: "FILTER_MOBILE", label: "Mobile" },
+  { value: "backend", key: "FILTER_BACKEND", label: "Backend & APIs" },
+  { value: "ai", key: "FILTER_AI", label: "IA" },
+].filter((f) => f.value === "all" || projects.some((p) => p.data.category === f.value));
+---
+
+<div class="filter-bar" role="group" aria-label="Filtrar proyectos">
+  {FILTERS.map((f, i) => (
+    <button
+      class:list={["filter-btn", i === 0 && "active"]}
+      data-filter={f.value}
+      data-i18n={f.key}
+      aria-pressed={i === 0 ? "true" : "false"}
+      type="button"
+    >
+      {f.label}
+    </button>
+  ))}
+</div>
+
+<div id="projects-grid" class="mt-8 grid grid-cols-1 gap-x-6 gap-y-10 md:grid-cols-2">
+  {projects.map((project, i) => <ProjectCard project={project} eager={i < 2} />)}
+</div>
+
+<style>
+  .filter-bar {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .filter-btn {
+    padding: 0.35rem 0.9rem;
+    border-radius: 9999px;
+    font-size: 0.82rem;
+    font-weight: 500;
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    color: #4b5563;
+    transition: all 0.18s ease;
+  }
+
+  :global(.dark) .filter-btn {
+    border-color: rgba(255, 255, 255, 0.12);
+    color: #9ca3af;
+  }
+
+  .filter-btn:hover {
+    border-color: rgba(99, 102, 241, 0.5);
+    color: #6366f1;
+  }
+
+  .filter-btn.active,
+  :global(.dark) .filter-btn.active {
+    background: #6366f1;
+    border-color: #6366f1;
+    color: #fff;
+  }
+
+  #projects-grid :global(.project-card.is-hidden) {
+    display: none;
+  }
+
+  /* Con filtro activo las destacadas no ocupan dos columnas, para no dejar huecos */
+  #projects-grid.is-filtered :global(.project-card) {
+    grid-column: auto;
+  }
+
+  #projects-grid :global(.project-card.animating-in) {
+    animation: fadeSlideIn 0.35s ease both;
+  }
+
+  @keyframes fadeSlideIn {
+    from { opacity: 0; transform: translateY(12px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+</style>
+
+<script>
+  const grid = document.getElementById("projects-grid");
+  const cards = Array.from(document.querySelectorAll<HTMLElement>("#projects-grid .project-card"));
+  const filterBtns = document.querySelectorAll<HTMLButtonElement>(".filter-btn");
+
+  // ── Filtros por categoría ──────────────────────────────
+  filterBtns.forEach((btn) => {
+    btn.addEventListener("click", () => {
+      const filter = btn.dataset.filter ?? "all";
+      filterBtns.forEach((b) => {
+        b.classList.toggle("active", b === btn);
+        b.setAttribute("aria-pressed", String(b === btn));
+      });
+      grid?.classList.toggle("is-filtered", filter !== "all");
+      cards.forEach((card) => {
+        const show = filter === "all" || card.dataset.category === filter;
+        card.classList.toggle("is-hidden", !show);
+        if (show) {
+          card.classList.add("animating-in");
+          card.addEventListener("animationend", () => card.classList.remove("animating-in"), { once: true });
+        }
+      });
+    });
+  });
+
+  // ── Video de preview ───────────────────────────────────
+  // Desktop: se reproduce al pasar el mouse. Touch: al entrar en pantalla.
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  const canHover = window.matchMedia("(hover: hover)").matches;
+
+  const play = (video: HTMLVideoElement) => {
+    video.play().catch(() => {});
+  };
+  const stop = (video: HTMLVideoElement) => {
+    video.pause();
+    video.classList.remove("is-playing");
+  };
+
+  if (!reduceMotion) {
+    const videos = cards
+      .map((card) => ({ card, video: card.querySelector<HTMLVideoElement>(".project-video") }))
+      .filter((v): v is { card: HTMLElement; video: HTMLVideoElement } => v.video !== null);
+
+    videos.forEach(({ video }) => {
+      video.addEventListener("playing", () => video.classList.add("is-playing"));
+    });
+
+    if (canHover) {
+      videos.forEach(({ card, video }) => {
+        card.addEventListener("mouseenter", () => play(video));
+        card.addEventListener("mouseleave", () => {
+          stop(video);
+          video.currentTime = 0;
+        });
+      });
+    } else {
+      const observer = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((entry) => {
+            const video = entry.target.querySelector<HTMLVideoElement>(".project-video");
+            if (!video) return;
+            entry.isIntersecting ? play(video) : stop(video);
+          });
+        },
+        { threshold: 0.6 },
+      );
+      videos.forEach(({ card }) => observer.observe(card));
+    }
+  }
+</script>

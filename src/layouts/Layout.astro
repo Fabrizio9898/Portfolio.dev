@@ -8,9 +8,10 @@ interface Props {
   title: string;
   description: string;
   showHeader?: boolean; // Nueva prop opcional
+  image?: string;
 }
 
-const { title, description, showHeader = true } = Astro.props;
+const { title, description, showHeader = true, image = "/fotodeperfil.webp" } = Astro.props;
 ---
 
 <!doctype html>
@@ -22,8 +23,19 @@ const { title, description, showHeader = true } = Astro.props;
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="generator" content={Astro.generator} />
     <title>{title}</title>
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:image" content={new URL(image, Astro.url)} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <script is:inline>
+      // Aplica el idioma guardado antes de pintar, para que no parpadee el contenido [data-lang]
+      try {
+        const lang = localStorage.getItem("language");
+        if (lang === "en" || lang === "es") document.documentElement.lang = lang;
+      } catch {}
+    </script>
   </head>
-  <body class="relative text-black dark:text-white">
+  <body class="relative bg-white text-black dark:bg-slate-950 dark:text-white">
     <div class="fixed inset-0 z-[-2]">
       <!-- Modo claro (predeterminado) -->
       <div class="relative h-full w-full bg-white dark:hidden">
@@ -33,7 +45,7 @@ const { title, description, showHeader = true } = Astro.props;
         </div>
       </div>
       <!-- Modo oscuro -->
-      <div class="relative h-full w-full bg-slate-950">
+      <div class="relative hidden h-full w-full bg-slate-950 dark:block">
         <div
           class="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#4f4f4f2e_1px,transparent_1px)] bg-[size:14px_24px] [mask-image:radial-gradient(ellipse_80%_80%_at_50%_0%,#000_70%,transparent_100%)]"
         >
@@ -55,6 +67,23 @@ const { title, description, showHeader = true } = Astro.props;
   html {
     font-family: "Onest Variable", sans-serif;
     scroll-behavior: smooth;
+  }
+
+  /* Contenido bilingüe: se renderizan ambos idiomas y se muestra el de <html lang> */
+  html[lang="en"] [data-lang="es"],
+  html:not([lang="en"]) [data-lang="en"] {
+    display: none !important;
+  }
+
+  /* Transición entre páginas: la imagen de la card se expande hacia el detalle */
+  @view-transition {
+    navigation: auto;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    @view-transition {
+      navigation: none;
+    }
   }
 
   body {
