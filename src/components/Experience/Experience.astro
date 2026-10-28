@@ -1,56 +1,78 @@
 ---
-import ExperienceItem from "./ExperienceItem.astro"
-import { StackUrls } from '../../data/stack'
+import Localized from "@/components/Localized.astro";
 
+const EXPERIENCE = {
+  date: { es: "Nov 2024 — Actualidad", en: "Nov 2024 — Present" },
+  title: { es: "Desarrollador Web Freelance", en: "Freelance Web Developer" },
+  place: { es: "Independiente", en: "Self-employed" },
+  description: {
+    es: "Diseño y desarrollo sitios y sistemas a medida para clientes: landings, sistemas de reservas, paneles con CMS y APIs. Me encargo del proceso completo, desde entender qué necesita el negocio hasta el deploy y el mantenimiento.",
+    en: "I design and build custom websites and systems for clients: landing pages, booking systems, CMS-powered dashboards and APIs. I handle the whole process, from understanding what the business needs to deployment and maintenance.",
+  },
+  highlights: ["Astro", "Next.js", "NestJS", "Payload CMS", "React Native", "TypeScript"],
+};
 
-
-const EXPERIENCE = [
+const EDUCATION = [
   {
-    date: "Noviembre 2024 - Actualidad",
-    title: "Full Stack Developer Freelance",
-    company: "Autónomo",
-    description: "Lidero el ciclo completo de desarrollo de productos digitales para clientes, desde la arquitectura en backend (NestJS/PostgreSQL) hasta aplicaciones móviles (React Native). He lanzado soluciones productivas como 'Wakemap' y sistemas de gestión complejos.",
-    stack: StackUrls, 
-    data: 1
+    date: { es: "2026 — Actualidad", en: "2026 — Present" },
+    title: { es: "Ingeniería en Informática", en: "Computer Engineering" },
+    place: { es: "Universidad Nacional Arturo Jauretche (UNAJ)", en: "Universidad Nacional Arturo Jauretche (UNAJ)" },
   },
   {
-    date: "Enero 2024 - Agosto 2024",
-    title: "Backend Developer Intern",
-    company: "Workia", 
-    description: "Colaboración en el mantenimiento y optimización de APIs RESTful. Participación activa en code reviews, refactorización de código legacy y gestión de bases de datos bajo metodologías ágiles (Scrum).",
-    stack: StackUrls,
-    data: 2
+    date: { es: "2026 — Actualidad", en: "2026 — Present" },
+    title: {
+      es: "Tecnicatura en Desarrollo y Producción de Videojuegos",
+      en: "Associate Degree in Video Game Development and Production",
+    },
+    place: { es: "Universidad Tecnológica Nacional (UTN)", en: "National Technological University (UTN)" },
   },
   {
-    date: "2022 - 2023",
-    title: "Formación Intensiva en Desarrollo Web Full Stack",
-    company: "Academia de Software / Autodidacta",
-    description: "Más de 800 horas de práctica intensiva en estructuras de datos, algoritmos y desarrollo web moderno. Realización de proyectos Full Stack simulando entornos laborales reales.",
-    data: 3
+    date: { es: "2022 — 2023", en: "2022 — 2023" },
+    title: { es: "Bootcamp Full Stack", en: "Full Stack Bootcamp" },
+    place: { es: "Más de 800 horas de formación práctica", en: "800+ hours of hands-on training" },
   },
   {
-    date: "2010 - 2022",
-    title: "C2 Proficient Level English",
-    company: "Denver Institute",
-    description: "Certificación de nivel nativo/bilingüe. Habilidad para comunicación técnica fluida y trabajo en equipos internacionales.",
-    data: 4
+    date: { es: "2010 — 2022", en: "2010 — 2022" },
+    title: { es: "Inglés nivel C2 (Proficient)", en: "English C2 (Proficient)" },
+    place: { es: "Denver Institute", en: "Denver Institute" },
   },
-]
+];
 ---
 
-<ol class="ranking-list relative mt-6 ">
-  {
-    EXPERIENCE.map((experience) => (
-      <li class="mb-10 ms-6">
-        <ExperienceItem {...experience} />
-      </li>
-    ))
-  }
-</ol>
+<div class="flex flex-col gap-14">
+  <div>
+    <h3 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400" data-i18n="EXPERIENCE_TITLE">
+      Experiencia
+    </h3>
+    <article class="rounded-2xl border border-black/10 bg-white/60 p-6 backdrop-blur-sm dark:border-white/10 dark:bg-white/[0.03] md:p-8">
+      <div class="flex flex-col gap-1 md:flex-row md:items-baseline md:justify-between">
+        <h4 class="text-xl font-semibold text-gray-900 dark:text-white"><Localized text={EXPERIENCE.title} /></h4>
+        <time class="text-sm text-gray-500 dark:text-gray-400"><Localized text={EXPERIENCE.date} /></time>
+      </div>
+      <p class="mt-1 text-sm font-medium text-indigo-600 dark:text-indigo-400"><Localized text={EXPERIENCE.place} /></p>
+      <p class="mt-4 text-pretty text-gray-600 dark:text-gray-300"><Localized text={EXPERIENCE.description} /></p>
+      <ul class="mt-5 flex flex-wrap gap-2">
+        {EXPERIENCE.highlights.map((tech) => (
+          <li class="rounded-full border border-black/10 px-2.5 py-1 text-xs text-gray-600 dark:border-white/15 dark:text-gray-300">{tech}</li>
+        ))}
+      </ul>
+    </article>
+  </div>
 
-<style>
-  /* Ajuste visual opcional para la lista */
-  .ranking-list {
-    padding-left: 1rem;
-  }
-</style>
+  <div id="educacion" class="scroll-m-20">
+    <h3 class="mb-4 text-xs font-semibold uppercase tracking-wider text-gray-500 dark:text-gray-400" data-i18n="EDUCATION_TITLE">
+      Educación
+    </h3>
+    <ol class="divide-y divide-black/10 border-y border-black/10 dark:divide-white/10 dark:border-white/10">
+      {EDUCATION.map((item) => (
+        <li class="grid gap-1 py-5 md:grid-cols-[180px_1fr] md:gap-6">
+          <time class="text-sm text-gray-500 dark:text-gray-400"><Localized text={item.date} /></time>
+          <div>
+            <h4 class="font-semibold text-gray-900 dark:text-white"><Localized text={item.title} /></h4>
+            <p class="mt-0.5 text-sm text-gray-600 dark:text-gray-400"><Localized text={item.place} /></p>
+          </div>
+        </li>
+      ))}
+    </ol>
+  </div>
+</div>

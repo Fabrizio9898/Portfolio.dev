@@ -1,31 +1,35 @@
 ---
-order: 6
+order: 8
 category: web
-status: live
+status: bootcamp
 title:
   es: Active — Reserva de canchas
   en: Active — Court booking
 summary:
-  es: Plataforma que conecta centros deportivos con jugadores para reservar canchas online.
-  en: Platform connecting sports centers with players to book courts online.
+  es: Plataforma fullstack para reservar canchas en centros deportivos, hecha en equipo como proyecto final de bootcamp.
+  en: Fullstack platform to book courts at sports centers, built as a team for a bootcamp final project.
 role:
   es: Desarrollo fullstack en equipo
   en: Fullstack development in a team
 year: "2024"
-stack: [NEXT, REACT, TYPESCRIPT, TAILWIND]
+stack: [NEXT, REACT, TYPESCRIPT, TAILWIND, NEST, TYPEORM, POSTGRES, STRIPE]
 links:
-  live: https://frontend-actives-projects-11ce1f6a.vercel.app/
-  github: https://github.com/Active04-star/Frontend
-  related: active-api
+  repos:
+    - label: Frontend
+      url: https://github.com/Active04-star/Frontend
+    - label: API
+      url: https://github.com/Active04-star/Backend
 media:
   poster: /projects/active/poster.webp
+  gallery:
+    - /projects/active/gallery-api.webp
 ---
 
 <div data-lang="es">
 
 ## El desafío
 
-Los centros deportivos gestionaban sus turnos por teléfono y planillas, y los jugadores no tenían forma de ver disponibilidad en tiempo real.
+Proyecto final de bootcamp, desarrollado en equipo: conectar centros deportivos con jugadores, que hasta entonces reservaban por teléfono y sin ver la disponibilidad real.
 
 ## La solución
 
@@ -34,8 +38,8 @@ Una plataforma con dos caras: los dueños publican y administran sus canchas, ho
 ## Lo técnico
 
 - Frontend en Next.js con paneles separados para administradores y jugadores.
-- Pagos anticipados, gestión de agenda y estadísticas para el complejo.
-- Consume la API REST desarrollada en paralelo (ver proyecto relacionado).
+- API REST en NestJS con TypeORM sobre PostgreSQL, documentada con Swagger.
+- Pagos con Stripe (checkout y webhooks).
 
 </div>
 
@@ -43,7 +47,7 @@ Una plataforma con dos caras: los dueños publican y administran sus canchas, ho
 
 ## The challenge
 
-Sports centers managed bookings over the phone and in spreadsheets, and players had no way to see availability in real time.
+A bootcamp final project, built as a team: connect sports centers with players, who used to book over the phone without seeing real availability.
 
 ## The solution
 
@@ -52,7 +56,7 @@ A two-sided platform: owners publish and manage their courts, schedules and paym
 ## Under the hood
 
 - Next.js frontend with separate dashboards for admins and players.
-- Upfront payments, schedule management and stats for each venue.
-- Consumes the REST API built alongside it (see related project).
+- NestJS REST API with TypeORM on PostgreSQL, documented with Swagger.
+- Stripe payments (checkout and webhooks).
 
 </div>

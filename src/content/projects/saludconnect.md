@@ -1,6 +1,6 @@
 ---
-order: 5
-featured: true
+order: 3
+featured: false
 category: web
 status: demo
 title:

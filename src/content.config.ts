@@ -12,7 +12,7 @@ const projects = defineCollection({
     draft: z.boolean().default(false),
     featured: z.boolean().default(false),
     category: z.enum(["web", "mobile", "backend", "ai"]),
-    status: z.enum(["live", "store", "demo", "private"]),
+    status: z.enum(["live", "store", "demo", "private", "bootcamp"]),
     title: localized,
     summary: localized,
     role: localized,
@@ -24,6 +24,8 @@ const projects = defineCollection({
         github: z.string().url().optional(),
         store: z.string().url().optional(),
         related: z.string().optional(),
+        // Varios repositorios (ej. frontend y API de un mismo proyecto)
+        repos: z.array(z.object({ label: z.string(), url: z.string().url() })).default([]),
       })
       .default({}),
     media: z

@@ -1,36 +1,71 @@
 ---
- const personalImageAlt = "Fabrizio Andrade"
+// Cada palabra se ilumina al pasar por el centro de la pantalla (CSS scroll-driven animations).
+// Los fragmentos entre **asteriscos** se destacan en color.
+const PARAGRAPHS = [
+  {
+    es: "Soy desarrollador web fullstack. Me gusta **convertir ideas en productos** que la gente realmente use, desde la primera charla con el cliente hasta el deploy.",
+    en: "I'm a fullstack web developer. I enjoy **turning ideas into products** people actually use, from the first conversation with the client to deployment.",
+  },
+  {
+    es: "Trabajo con **JavaScript y TypeScript** en todo el stack: Astro y Next.js en el frontend, NestJS y Node en el backend, y React Native para mobile. Me importa tanto **cómo se ve** como **cómo funciona por dentro**.",
+    en: "I work with **JavaScript and TypeScript** across the stack: Astro and Next.js on the frontend, NestJS and Node on the backend, and React Native for mobile. I care as much about **how it looks** as about **how it works under the hood**.",
+  },
+  {
+    es: "Hoy estudio **Ingeniería en Informática** en la UNAJ y **Desarrollo de Videojuegos** en la UTN, donde exploro interacción, gameplay y sistemas en tiempo real.",
+    en: "I'm currently studying **Computer Engineering** at UNAJ and **Video Game Development** at UTN, where I explore interaction, gameplay and real-time systems.",
+  },
+];
+
+// Divide por espacios para que la puntuación quede pegada a su palabra ("dentro**." -> "dentro.")
+const toWords = (text: string) => {
+  let highlight = false;
+  return text.split(/\s+/).map((raw) => {
+    const isHighlight = highlight || raw.startsWith("**");
+    if ((raw.match(/\*\*/g) ?? []).length % 2 === 1) highlight = !highlight;
+    return { word: raw.replaceAll("**", ""), highlight: isHighlight };
+  });
+};
 ---
 
-<article class="flex flex-col items-center justify-center gap-8 text-gray-700 dark:text-gray-300 md:flex-row">
-  <div class="[&>p]:mb-4 [&>p>strong]:text-yellow-500 dark:[&>p>strong]:text-yellow-100 [&>p>strong]:font-normal [&>p>strong]:font-mono text-pretty order-2 md:order-1">
-    
-    <p>
-      <span data-i18n="ABOUT_1">Impulso ideas mediante el</span> 
-      <strong data-i18n="ABOUT2">desarrollo técnico y creativo</strong>
-      <span data-i18n="ABOUT3">. Mi enfoque no es solo escribir código, sino diseñar</span> 
-      <strong data-i18n="ABOUT5">arquitecturas sólidas</strong><span data-i18n="ABOUT51">que resuelvan necesidades reales</span>
-    </p>
+<div class="about-text flex flex-col gap-8">
+  {PARAGRAPHS.map((paragraph) =>
+    (["es", "en"] as const).map((lang) => (
+      <p data-lang={lang} class="text-pretty text-2xl font-medium leading-snug tracking-tight text-gray-900 dark:text-white md:text-[2rem] md:leading-tight">
+        {toWords(paragraph[lang]).map(({ word, highlight }) => (
+          <>
+            <span class:list={["reveal-word", highlight && "is-highlight"]}>{word}</span>{" "}
+          </>
+        ))}
+      </p>
+    )),
+  )}
+</div>
 
-    <p>
-      <span data-i18n="ABOUT6">Me especializo en el ecosistema</span> 
-      <strong data-i18n="ABOUT7">JavaScript y TypeScript</strong> 
-      <span data-i18n="ABOUT8">aplicado tanto al backend como al desarrollo mobile con experiencia lanzando proyectos como</span>
-      <strong data-i18n="ABOUT10">Wakemap</strong> 
-      <span data-i18n="ABOUT11">y actualmente desarrollando sistemas multijugador, mi objetivo es construir</span> 
-      <strong data-i18n="ABOUT12">productos escalables</strong>.
-    </p>
+<style>
+  .is-highlight {
+    color: rgb(79 70 229);
+  }
 
-    <p>
-      <span data-i18n="ABOUT13">Soy estudiante de</span> 
-      <strong data-i18n="ABOUT14">Ingeniería Informática</strong>
-      <span data-i18n="ABOUT15">, combinando la lógica académica con la ejecución práctica.</span>
-      <span data-i18n="ABOUT16"> Busco constantemente</span> 
-      <strong data-i18n="ABOUT17">desafíos técnicos</strong> 
-      <span data-i18n="ABOUT18">que requieran mi capacidad de</span> 
-      <strong data-i18n="ABOUT19">resolución e ingenio</strong>.
-    </p>
-  </div>
+  :global(.dark) .is-highlight {
+    color: rgb(253 224 71);
+  }
 
-  <img width="200" height="200" src="/me.webp" alt={personalImageAlt} class="order-1 object-cover w-64 h-full p-1 md:order-2 rotate-3 lg:p-2 lg:w-64 aspect-square rounded-2xl bg-black/20 dark:bg-yellow-500/5 ring-1 ring-black/70 dark:ring-white/20" style="object-position: 50% 50%">
-</article>
+  @supports (animation-timeline: view()) {
+    @media (prefers-reduced-motion: no-preference) {
+      .reveal-word {
+        animation: reveal linear both;
+        animation-timeline: view();
+        animation-range: cover 10% cover 35%;
+      }
+    }
+  }
+
+  @keyframes reveal {
+    from {
+      opacity: 0.15;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+</style>

@@ -18,4 +18,5 @@ export const STATUS_KEYS = {
   store: "STATUS_STORE",
   demo: "STATUS_DEMO",
   private: "STATUS_PRIVATE",
+  bootcamp: "STATUS_BOOTCAMP",
 } as const;

@@ -4,8 +4,7 @@ import type { Project } from "@/lib/projects";
 import { getProjects, projectUrl, STATUS_KEYS } from "@/lib/projects";
 import { TAGS } from "@/data/tags";
 import ProjectMedia from "./ProjectMedia.astro";
-import Localized from "./Localized.astro";
-import Contact from "@/components/Contact/Contact.astro";
+import Localized from "@/components/Localized.astro";
 import LinkIcon from "@/components/icons/Link.astro";
 import GitHub from "@/components/icons/Github.astro";
 import GooglePlay from "@/components/icons/GooglePlay.astro";
@@ -70,6 +69,12 @@ const secondaryLink = `${linkClass} border border-black/10 text-gray-800 hover:b
           <GitHub class="size-4" /><span data-i18n="PROJECT_CODE">Código</span>
         </a>
       )}
+      {links.repos.map((repo, i) => (
+        <a href={repo.url} target="_blank" rel="noopener" class={links.live || links.store || i > 0 ? secondaryLink : primaryLink}>
+          <GitHub class="size-4" />
+          <span data-i18n="PROJECT_CODE">Código</span> · {repo.label}
+        </a>
+      ))}
     </div>
   </header>
 
@@ -168,9 +173,6 @@ const secondaryLink = `${linkClass} border border-black/10 text-gray-800 hover:b
   </nav>
 </article>
 
-<div class="mx-auto w-full max-w-5xl px-4">
-  <Contact />
-</div>
 
 <script>
   // En el detalle el video de scroll se reproduce solo (si no hay reduced motion)

@@ -1,27 +1,32 @@
 ---
-const currentYear = new Date().getFullYear()
+import Contact from "@/components/Contact/Contact.astro";
+
+const currentYear = new Date().getFullYear();
 ---
 
-<footer
-  class="opacity-80 m-4 min-[375px]:pl-4 md:pl-0 mt-16 w-full mx-auto container lg:max-w-4xl md:max-w-2xl mb-10 flex justify-center"
->
-  <div
-    class="rounded-lg w-full max-w-screen-xl mx-auto md:flex md:items-center md:justify-between py-4"
-  >
-    <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90"
-      >© {currentYear} . Fabrizio Andrade
-    </span>
-    <ul
-      class="flex flex-wrap items-center mt-3 text-sm font-medium dark:text-white/90 sm:mt-0"
-    >
-      <li>
-        <a href="/#" class="hover:underline me-4 md:me-6" data-i18n="FOOTER_INICIO">Inicio</a>
-      </li>
-      <li>
-        <a href="mailto:fabrizioandrade9898@gmail.com" class="hover:underline" data-i18n="FOOTER_CONTACT"
-          >Contacto</a
-        >
-      </li>
-    </ul>
+<!--
+  Footer "telón": el contenedor fijo queda recortado por el clip-path del footer,
+  así el contenido de la página se desliza hacia arriba y lo va descubriendo.
+-->
+<footer id="contacto" class="reveal-footer relative mt-24 h-[100svh]">
+  <div class="fixed bottom-0 left-0 flex h-[100svh] w-full flex-col bg-slate-950 bg-[radial-gradient(ellipse_70%_50%_at_50%_45%,rgba(99,102,241,0.22),transparent)]">
+    <div class="flex flex-1 items-center justify-center px-4">
+      <Contact />
+    </div>
+
+    <div class="mx-auto flex w-full max-w-4xl flex-col items-center justify-between gap-3 border-t border-white/10 px-4 py-6 text-sm text-slate-400 sm:flex-row">
+      <span>© {currentYear} · Fabrizio Andrade</span>
+      <ul class="flex gap-6">
+        <li><a href="/#" class="transition hover:text-white" data-i18n="FOOTER_INICIO">Inicio</a></li>
+        <li><a href="/#proyectos" class="transition hover:text-white" data-i18n="NAVBAR_PROYECTS">Proyectos</a></li>
+        <li><a href="/#trayectoria" class="transition hover:text-white" data-i18n="NAVBAR_TRAYECTORY">Trayectoria</a></li>
+      </ul>
+    </div>
   </div>
 </footer>
+
+<style>
+  .reveal-footer {
+    clip-path: polygon(0% 0, 100% 0%, 100% 100%, 0 100%);
+  }
+</style>

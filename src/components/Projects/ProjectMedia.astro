@@ -3,7 +3,7 @@
 // Sin poster muestra un fondo con el título, útil para backends sin interfaz.
 import type { Project } from "@/lib/projects";
 import { hostname } from "@/lib/projects";
-import Localized from "./Localized.astro";
+import Localized from "@/components/Localized.astro";
 
 interface Props {
   project: Project;
@@ -13,7 +13,8 @@ interface Props {
 
 const { project, aspect = "aspect-[16/10]", eager = false } = Astro.props;
 const { media, links, title } = project.data;
-const domain = hostname(links.live) ?? hostname(links.store) ?? hostname(links.github);
+const domain =
+  hostname(links.live) ?? hostname(links.store) ?? hostname(links.github ?? links.repos[0]?.url);
 ---
 
 <div

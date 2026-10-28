@@ -7,7 +7,6 @@ import { getI18 } from "../i18n";
 import { currentLanguage } from "../store/languages";
 import SectionContainer from "./Section_Container.astro";
 import ProjectsGrid from "./Projects/ProjectsGrid.astro";
-import Contact from "./Contact/Contact.astro";
 import ProfileCheck from "@/components/icons/ProfileCheck.astro";
 import Experience from "./Experience/Experience.astro";
 import Adjustment from "./icons/Adjustment.astro";
@@ -40,7 +39,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
     <SectionContainer id="trayectoria">
       <TitleSection>
         <Adjustment class="size-8" />
-        <span data-i18n="NAVBAR_TRAYECTORY">Experiencias Laborales</span>
+        <span data-i18n="NAVBAR_TRAYECTORY">Trayectoria</span>
       </TitleSection>
       <Experience />
     </SectionContainer>
@@ -52,10 +51,6 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
       </TitleSection>
       <AboutMe/>
     </SectionContainer>
-
-    <div class="w-full mx-auto container lg:max-w-4xl md:max-w-2xl">
-      <Contact />
-    </div>
   </div>
   </main>
 </Layout>

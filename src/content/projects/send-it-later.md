@@ -1,5 +1,5 @@
 ---
-order: 10
+order: 7
 category: web
 status: store
 title:
