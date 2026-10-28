@@ -11,6 +11,8 @@ import ProfileCheck from "@/components/icons/ProfileCheck.astro";
 import Experience from "./Experience/Experience.astro";
 import Adjustment from "./icons/Adjustment.astro";
 import AboutMe from "./About/AboutMe.astro";
+import Education from "./Experience/Education.astro";
+import School from "./icons/School.astro";
 
 const i18n = getI18({ currentLocale: currentLanguage.get() });
 ---
@@ -42,6 +44,14 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
         <span data-i18n="NAVBAR_TRAYECTORY">Trayectoria</span>
       </TitleSection>
       <Experience />
+    </SectionContainer>
+
+    <SectionContainer id="educacion">
+      <TitleSection>
+        <School class="size-8" />
+        <span data-i18n="EDUCATION_TITLE">Educación</span>
+      </TitleSection>
+      <Education />
     </SectionContainer>
 
     <SectionContainer id="sobre-mi">

@@ -1,0 +1,49 @@
+---
+import ExperienceItem from "./ExperienceItem.astro";
+
+const EDUCATION = [
+  {
+    date: { es: "2026 — Actualidad", en: "2026 — Present" },
+    title: { es: "Ingeniería en Informática", en: "Computer Engineering" },
+    company: { es: "Universidad Nacional Arturo Jauretche (UNAJ)", en: "Universidad Nacional Arturo Jauretche (UNAJ)" },
+  },
+  {
+    date: { es: "2026 — Actualidad", en: "2026 — Present" },
+    title: {
+      es: "Tecnicatura en Desarrollo y Producción de Videojuegos",
+      en: "Associate Degree in Video Game Development and Production",
+    },
+    company: { es: "Universidad Tecnológica Nacional (UTN)", en: "National Technological University (UTN)" },
+  },
+  {
+    date: { es: "2022 — 2023", en: "2022 — 2023" },
+    title: { es: "Bootcamp Full Stack", en: "Full Stack Bootcamp" },
+    company: { es: "Formación intensiva", en: "Intensive training" },
+    description: {
+      es: "Más de 800 horas de práctica en desarrollo web fullstack, con proyectos en equipo que simulaban entornos de trabajo reales.",
+      en: "800+ hours of hands-on fullstack web development, with team projects simulating real work environments.",
+    },
+  },
+  {
+    date: { es: "2010 — 2022", en: "2010 — 2022" },
+    title: { es: "Inglés nivel C2 (Proficient)", en: "English C2 (Proficient)" },
+    company: { es: "Denver Institute", en: "Denver Institute" },
+  },
+];
+---
+
+<ol class="ranking-list relative mt-6">
+  {
+    EDUCATION.map((item) => (
+      <li class="mb-10 ms-6">
+        <ExperienceItem {...item} />
+      </li>
+    ))
+  }
+</ol>
+
+<style>
+  .ranking-list {
+    padding-left: 1rem;
+  }
+</style>

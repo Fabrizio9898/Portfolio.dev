@@ -26,58 +26,65 @@ const THEMES = ["Light", "Dark"]
 </style>
 
 <script is:inline>
-  // Función para obtener la preferencia de tema
-  const getThemePreference = () => {
-    if (typeof localStorage !== "undefined") {
-      return localStorage.getItem("theme") ?? "light"
+  // El componente se renderiza varias veces (header desktop, header mobile, menú);
+  // el bloque y la bandera evitan redeclarar las funciones y duplicar listeners.
+  if (!window.__themeToggleInit) {
+    window.__themeToggleInit = true
+
+    // Función para obtener la preferencia de tema
+    const getThemePreference = () => {
+      if (typeof localStorage !== "undefined") {
+        return localStorage.getItem("theme") ?? "light"
+      }
+      return "light"
     }
-    return "light"
-  }
 
-  // Función para actualizar todos los iconos de tema
-  const updateAllIcons = (isDark) => {
-    document.querySelectorAll(".theme-light").forEach((element) => {
-      element.style.scale = isDark ? "0" : "1"
-    })
-    document.querySelectorAll(".theme-dark").forEach((element) => {
-      element.style.scale = isDark ? "1" : "0"
-    })
-  }
-
-  // Función para actualizar el tema
-  const updateTheme = () => {
-    const isDark = getThemePreference() === "dark"
-    updateAllIcons(isDark)
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark")
-  }
-
-  // Inicializar el tema
-  updateTheme()
-
-  // Configurar los listeners para todos los botones de toggle
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const newTheme = getThemePreference() === "light" ? "dark" : "light"
-        localStorage.setItem("theme", newTheme)
-        updateTheme()
+    // Función para actualizar todos los iconos de tema
+    const updateAllIcons = (isDark) => {
+      document.querySelectorAll(".theme-light").forEach((element) => {
+        element.style.scale = isDark ? "0" : "1"
       })
-    })
-  })
+      document.querySelectorAll(".theme-dark").forEach((element) => {
+        element.style.scale = isDark ? "1" : "0"
+      })
+    }
 
-  // Manejar las transiciones de vista
-  document.addEventListener('astro:after-swap', () => {
+    // Función para actualizar el tema
+    const updateTheme = () => {
+      const isDark = getThemePreference() === "dark"
+      updateAllIcons(isDark)
+      document.documentElement.classList[isDark ? "add" : "remove"]("dark")
+    }
+
+    // Inicializar el tema
     updateTheme()
-    
-    // Volver a añadir los event listeners después de la transición
-    document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const newTheme = getThemePreference() === "light" ? "dark" : "light"
-        localStorage.setItem("theme", newTheme)
-        updateTheme()
+
+    // Configurar los listeners para todos los botones de toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTheme()
+      document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const newTheme = getThemePreference() === "light" ? "dark" : "light"
+          localStorage.setItem("theme", newTheme)
+          updateTheme()
+        })
       })
     })
+
+    // Manejar las transiciones de vista
+    document.addEventListener('astro:after-swap', () => {
+      updateTheme()
     
-    window.scrollTo({ left: 0, top: 0, behavior: 'instant' })
-  })
+      // Volver a añadir los event listeners después de la transición
+      document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const newTheme = getThemePreference() === "light" ? "dark" : "light"
+          localStorage.setItem("theme", newTheme)
+          updateTheme()
+        })
+      })
+    
+      window.scrollTo({ left: 0, top: 0, behavior: 'instant' })
+    })
+  }
 </script>

@@ -234,7 +234,7 @@ const $$Github = createComponent(($$result, $$props, $$slots) => {
 }, "C:/Users/USUARIO/Portfolio.dev/src/components/icons/Github.astro", undefined);
 
 const $$MenuButton = createComponent(($$result, $$props, $$slots) => {
-  return renderTemplate`${maybeRenderHead()}<button id="menu-button" class="flex ml-auto mr-2 mt-2" data-astro-cid-ekawp6cd> <div class="bg-black dark:bg-white" data-astro-cid-ekawp6cd></div> <div class="bg-black dark:bg-white" data-astro-cid-ekawp6cd></div> <div class="bg-black dark:bg-white" data-astro-cid-ekawp6cd></div> </button> `;
+  return renderTemplate`${maybeRenderHead()}<button id="menu-button" class="flex" data-astro-cid-ekawp6cd> <div class="bg-black dark:bg-white" data-astro-cid-ekawp6cd></div> <div class="bg-black dark:bg-white" data-astro-cid-ekawp6cd></div> <div class="bg-black dark:bg-white" data-astro-cid-ekawp6cd></div> </button> `;
 }, "C:/Users/USUARIO/Portfolio.dev/src/components/icons/MenuButton.astro", undefined);
 
 const $$Astro$g = createAstro();
@@ -257,60 +257,67 @@ var __template$1 = (cooked, raw) => __freeze$1(__defProp$1(cooked, "raw", { valu
 var _a$1;
 const $$ThemeToggle = createComponent(($$result, $$props, $$slots) => {
   return renderTemplate(_a$1 || (_a$1 = __template$1(["", '<div class="relative ml-1 mr-1" data-astro-cid-zrysfokl> <button class="theme-toggle-btn appearance-none border-none flex hover:scale-125 transition relative" data-astro-cid-zrysfokl', '> <span class="sr-only" data-astro-cid-zrysfokl>Toggle theme</span> ', " ", ` </button> </div>  <script>
-  // Funci\xF3n para obtener la preferencia de tema
-  const getThemePreference = () => {
-    if (typeof localStorage !== "undefined") {
-      return localStorage.getItem("theme") ?? "light"
+  // El componente se renderiza varias veces (header desktop, header mobile, men\xFA);
+  // el bloque y la bandera evitan redeclarar las funciones y duplicar listeners.
+  if (!window.__themeToggleInit) {
+    window.__themeToggleInit = true
+
+    // Funci\xF3n para obtener la preferencia de tema
+    const getThemePreference = () => {
+      if (typeof localStorage !== "undefined") {
+        return localStorage.getItem("theme") ?? "light"
+      }
+      return "light"
     }
-    return "light"
-  }
 
-  // Funci\xF3n para actualizar todos los iconos de tema
-  const updateAllIcons = (isDark) => {
-    document.querySelectorAll(".theme-light").forEach((element) => {
-      element.style.scale = isDark ? "0" : "1"
-    })
-    document.querySelectorAll(".theme-dark").forEach((element) => {
-      element.style.scale = isDark ? "1" : "0"
-    })
-  }
-
-  // Funci\xF3n para actualizar el tema
-  const updateTheme = () => {
-    const isDark = getThemePreference() === "dark"
-    updateAllIcons(isDark)
-    document.documentElement.classList[isDark ? "add" : "remove"]("dark")
-  }
-
-  // Inicializar el tema
-  updateTheme()
-
-  // Configurar los listeners para todos los botones de toggle
-  document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const newTheme = getThemePreference() === "light" ? "dark" : "light"
-        localStorage.setItem("theme", newTheme)
-        updateTheme()
+    // Funci\xF3n para actualizar todos los iconos de tema
+    const updateAllIcons = (isDark) => {
+      document.querySelectorAll(".theme-light").forEach((element) => {
+        element.style.scale = isDark ? "0" : "1"
       })
-    })
-  })
+      document.querySelectorAll(".theme-dark").forEach((element) => {
+        element.style.scale = isDark ? "1" : "0"
+      })
+    }
 
-  // Manejar las transiciones de vista
-  document.addEventListener('astro:after-swap', () => {
+    // Funci\xF3n para actualizar el tema
+    const updateTheme = () => {
+      const isDark = getThemePreference() === "dark"
+      updateAllIcons(isDark)
+      document.documentElement.classList[isDark ? "add" : "remove"]("dark")
+    }
+
+    // Inicializar el tema
     updateTheme()
-    
-    // Volver a a\xF1adir los event listeners despu\xE9s de la transici\xF3n
-    document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
-      btn.addEventListener("click", () => {
-        const newTheme = getThemePreference() === "light" ? "dark" : "light"
-        localStorage.setItem("theme", newTheme)
-        updateTheme()
+
+    // Configurar los listeners para todos los botones de toggle
+    document.addEventListener('DOMContentLoaded', () => {
+      updateTheme()
+      document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const newTheme = getThemePreference() === "light" ? "dark" : "light"
+          localStorage.setItem("theme", newTheme)
+          updateTheme()
+        })
       })
     })
+
+    // Manejar las transiciones de vista
+    document.addEventListener('astro:after-swap', () => {
+      updateTheme()
     
-    window.scrollTo({ left: 0, top: 0, behavior: 'instant' })
-  })
+      // Volver a a\xF1adir los event listeners despu\xE9s de la transici\xF3n
+      document.querySelectorAll(".theme-toggle-btn").forEach(btn => {
+        btn.addEventListener("click", () => {
+          const newTheme = getThemePreference() === "light" ? "dark" : "light"
+          localStorage.setItem("theme", newTheme)
+          updateTheme()
+        })
+      })
+    
+      window.scrollTo({ left: 0, top: 0, behavior: 'instant' })
+    })
+  }
 <\/script>`])), maybeRenderHead(), addAttribute(createTransitionScope($$result, "2tnocktu"), "data-astro-transition-persist"), renderComponent($$result, "SunIcon", $$Sun, { "class": "theme-toggle-icon theme-light size-5 transition-all", "data-astro-cid-zrysfokl": true }), renderComponent($$result, "MoonIcon", $$Moon, { "class": "theme-toggle-icon theme-dark absolute size-5 transition-all", "data-astro-cid-zrysfokl": true }));
 }, "C:/Users/USUARIO/Portfolio.dev/src/components/ThemeToggle/ThemeToggle.astro", "self");
 
@@ -342,7 +349,7 @@ const $$Header = createComponent(($$result, $$props, $$slots) => {
       data: "NAVBAR_CONTACT"
     }
   ];
-  return renderTemplate`${maybeRenderHead()}<header id="mainHeader" class="fixed top-0 z-10 flex items-center justify-between w-full mx-auto mt-2" data-astro-cid-2w66rqv5> <nav id="main-navbar" class="hidden px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center mx-auto" data-astro-cid-2w66rqv5> ${navItems.map((link, index) => renderTemplate`<a class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"${addAttribute(link.label, "aria-label")}${addAttribute(link.url, "href")}${addAttribute(link.data, "data-i18n")} data-astro-cid-2w66rqv5> ${link.title} </a>`)} ${renderComponent($$result, "ThemeToggle", $$ThemeToggle, { "data-astro-cid-2w66rqv5": true })} </nav> ${renderComponent($$result, "MenuButton", $$MenuButton, { "data-astro-cid-2w66rqv5": true })} <!-- Mobile Menu Overlay --> <div id="mobile-menu" class="fixed inset-0 z-20 invisible opacity-0 bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out overflow-y-auto" data-astro-cid-2w66rqv5> <div class="flex h-16 items-center justify-between px-4" data-astro-cid-2w66rqv5> <span class="text-lg font-semibold uppercase" data-astro-cid-2w66rqv5>Menú</span> <div class="flex justify-center mr-14" data-astro-cid-2w66rqv5> ${renderComponent($$result, "ThemeToggle", $$ThemeToggle, { "data-astro-cid-2w66rqv5": true })} </div> </div> <hr class="w-full border-t-2 border-blue-700" data-astro-cid-2w66rqv5> <nav data-astro-cid-2w66rqv5> <ul class="flex flex-col gap-6 py-6" data-astro-cid-2w66rqv5> ${navItems.map((link, index) => renderTemplate`<li class="flex justify-center" data-astro-cid-2w66rqv5> <a class="text-lg font-semibold"${addAttribute(link.url, "href")}${addAttribute(link.data, "data-i18n")} data-astro-cid-2w66rqv5> ${link.title} </a> </li>`)} </ul> </nav> <hr class="w-full border-t-2 border-blue-700" data-astro-cid-2w66rqv5> <footer class="flex flex-col items-center justify-between gap-4 py-4" data-astro-cid-2w66rqv5> <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90" data-astro-cid-2w66rqv5>© ${currentYear}
+  return renderTemplate`${maybeRenderHead()}<header id="mainHeader" class="fixed top-0 z-10 flex items-center justify-between w-full mx-auto mt-2" data-astro-cid-2w66rqv5> <nav id="main-navbar" class="hidden px-3 text-sm font-medium rounded-full text-gray-600 dark:text-gray-200 justify-center items-center mx-auto" data-astro-cid-2w66rqv5> ${navItems.map((link, index) => renderTemplate`<a class="relative block px-2 py-2 transition hover:text-blue-500 dark:hover:text-blue-500"${addAttribute(link.label, "aria-label")}${addAttribute(link.url, "href")}${addAttribute(link.data, "data-i18n")} data-astro-cid-2w66rqv5> ${link.title} </a>`)} ${renderComponent($$result, "ThemeToggle", $$ThemeToggle, { "data-astro-cid-2w66rqv5": true })} </nav> <div class="header-mobile-actions ml-auto mr-2 mt-2 flex items-center gap-5" data-astro-cid-2w66rqv5> ${renderComponent($$result, "ThemeToggle", $$ThemeToggle, { "data-astro-cid-2w66rqv5": true })} ${renderComponent($$result, "MenuButton", $$MenuButton, { "data-astro-cid-2w66rqv5": true })} </div> <!-- Mobile Menu Overlay --> <div id="mobile-menu" class="fixed inset-0 z-20 invisible opacity-0 bg-white dark:bg-gray-800 transition-all duration-300 ease-in-out overflow-y-auto" data-astro-cid-2w66rqv5> <div class="flex h-16 items-center justify-between px-4" data-astro-cid-2w66rqv5> <span class="text-lg font-semibold uppercase" data-astro-cid-2w66rqv5>Menú</span> <div class="flex justify-center mr-14" data-astro-cid-2w66rqv5> ${renderComponent($$result, "ThemeToggle", $$ThemeToggle, { "data-astro-cid-2w66rqv5": true })} </div> </div> <hr class="w-full border-t-2 border-blue-700" data-astro-cid-2w66rqv5> <nav data-astro-cid-2w66rqv5> <ul class="flex flex-col gap-6 py-6" data-astro-cid-2w66rqv5> ${navItems.map((link, index) => renderTemplate`<li class="flex justify-center" data-astro-cid-2w66rqv5> <a class="text-lg font-semibold"${addAttribute(link.url, "href")}${addAttribute(link.data, "data-i18n")} data-astro-cid-2w66rqv5> ${link.title} </a> </li>`)} </ul> </nav> <hr class="w-full border-t-2 border-blue-700" data-astro-cid-2w66rqv5> <footer class="flex flex-col items-center justify-between gap-4 py-4" data-astro-cid-2w66rqv5> <span class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90" data-astro-cid-2w66rqv5>© ${currentYear}
 Fabrizio Andrade
 </span> <hr class="w-full border-t-2 border-blue-700" data-astro-cid-2w66rqv5> <nav data-astro-cid-2w66rqv5> <ul class="flex" data-astro-cid-2w66rqv5> <li data-astro-cid-2w66rqv5> <a href="mailto:fabrizio.contacto.dev@gmail.com" target="_blank" rel="noopener noreferrer" role="link" class="inline-flex items-center justify-center gap-2 px-2 py-1 max-w-fit" data-astro-cid-2w66rqv5> ${renderComponent($$result, "LinkedInIcon", $$LinkedIn, { "class": "size-8", "data-astro-cid-2w66rqv5": true })}</a> </li> <li data-astro-cid-2w66rqv5> <a href="mailto:fabrizio.contacto.dev@gmail.com" target="_blank" rel="noopener noreferrer" role="link" class="inline-flex items-center justify-center gap-2 px-2 py-1 max-w-fit" data-astro-cid-2w66rqv5> ${renderComponent($$result, "MailIcon", $$Mail, { "class": "size-8", "data-astro-cid-2w66rqv5": true })}</a> </li> </ul> </nav> </footer> </div> </header> ${renderScript($$result, "C:/Users/USUARIO/Portfolio.dev/src/components/Header/Header.astro?astro&type=script&index=0&lang.ts")} `;
 }, "C:/Users/USUARIO/Portfolio.dev/src/components/Header/Header.astro", undefined);
@@ -5015,7 +5022,7 @@ class ImmutableDataStore {
    */
   static async fromModule() {
     try {
-      const data = await import('./_astro_data-layer-content_Dt12L2QE.mjs');
+      const data = await import('./_astro_data-layer-content_DUurUYkF.mjs');
       if (data.default instanceof Map) {
         return ImmutableDataStore.fromMap(data.default);
       }

@@ -56,7 +56,10 @@ const navItems = [
     }
     <ThemeToggle />
   </nav>
-  <MenuButton />
+  <div class="header-mobile-actions ml-auto mr-2 mt-2 flex items-center gap-5">
+    <ThemeToggle />
+    <MenuButton />
+  </div>
 
   <!-- Mobile Menu Overlay -->
   <div
@@ -255,6 +258,11 @@ const navItems = [
   @media (width <= 850px) {
     header {
       position: static;
+    }
+  }
+  @media (width > 850px) {
+    .header-mobile-actions {
+      display: none;
     }
   }
 
