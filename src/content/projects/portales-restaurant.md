@@ -4,8 +4,8 @@ featured: true
 category: web
 status: live
 title:
-  es: Portales de Uribelarrea
-  en: Portales de Uribelarrea
+  es: Fogón del Valle
+  en: Fogón del Valle
 summary:
   es: Landing para restaurante de campo con carta, galería, eventos y sistema de reservas online.
   en: Country restaurant landing page with menu, gallery, events and online table booking.
@@ -35,7 +35,7 @@ Un restaurante de campo necesitaba una presencia online a la altura de su cocina
 
 Un sitio con estética editorial (tipografía serif, mucho aire, fotos grandes) que guía al visitante hacia la acción principal: **Reservar**. Incluye carta de mediodía y noche, galería, sección de eventos privados y ubicación con horarios.
 
-El flujo de reservas permite elegir fecha, cantidad de personas y zona (interior o terraza), y sumar platos con descuento antes de confirmar.
+El flujo de reservas muestra un calendario con los días disponibles, los horarios de cada día y la cantidad de personas, y confirma la reserva por email.
 
 ## Lo técnico
 
@@ -55,7 +55,7 @@ A countryside restaurant needed an online presence that matched its food: convey
 
 An editorial-style site (serif type, generous whitespace, large photos) that leads visitors to the main action: **Book**. It includes lunch and dinner menus, a gallery, a private events section and location with opening hours.
 
-The booking flow lets guests pick a date, party size and area (indoor or terrace), and add discounted dishes before confirming.
+The booking flow shows a calendar with available days, time slots for each day and party size, and confirms the booking by email.
 
 ## Under the hood
 
