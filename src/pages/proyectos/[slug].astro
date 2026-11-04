@@ -1,4 +1,5 @@
 ---
+import { SITE } from "@/config";
 import Layout from "@/layouts/Layout.astro";
 import ProjectDetail from "@/components/Projects/ProjectDetail.astro";
 import { getProjects, type Project } from "@/lib/projects";
@@ -14,7 +15,7 @@ const { project } = Astro.props as { project: Project };
 ---
 
 <Layout
-  title={`${project.data.title.es} — Fabrizio Andrade`}
+  title={`${project.data.title.es} — ${SITE.name}`}
   description={project.data.summary.es}
   image={project.data.media.poster}
 >

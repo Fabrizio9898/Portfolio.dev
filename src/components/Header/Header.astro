@@ -1,4 +1,5 @@
 ---
+import { SITE } from "@/config";
 const currentYear = new Date().getFullYear();
 import MailIcon from "@/components/icons/Mail.astro";
 import MenuButton from "../icons/MenuButton.astro";
@@ -97,7 +98,7 @@ const navItems = [
       <span
         class="text-sm sm:text-center text-zinc-800/90 dark:text-zinc-200/90"
         >© {currentYear}
-        Fabrizio Andrade
+        {SITE.name}
       </span>
       <hr class="w-full border-t-2 border-blue-700" />
 
@@ -105,10 +106,11 @@ const navItems = [
         <ul class="flex">
           <li>
             <a
-              href="mailto:fabrizio.contacto.dev@gmail.com"
+              href={SITE.social.linkedin}
               target="_blank"
               rel="noopener noreferrer"
               role="link"
+              aria-label="LinkedIn"
               class="inline-flex items-center justify-center gap-2 px-2 py-1 max-w-fit"
             >
               <LinkedInIcon class="size-8" /></a
@@ -116,7 +118,7 @@ const navItems = [
           </li>
           <li>
             <a
-              href="mailto:fabrizio.contacto.dev@gmail.com"
+              href={`mailto:${SITE.email}`}
               target="_blank"
               rel="noopener noreferrer"
               role="link"

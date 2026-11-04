@@ -1,4 +1,5 @@
 ---
+import { SITE } from "@/config";
 import Contact from "@/components/Contact/Contact.astro";
 
 const currentYear = new Date().getFullYear();
@@ -15,7 +16,11 @@ const currentYear = new Date().getFullYear();
     </div>
 
     <div class="mx-auto flex w-full max-w-4xl flex-col items-center justify-between gap-3 border-t border-white/10 px-4 py-6 text-sm text-slate-400 sm:flex-row">
-      <span>© {currentYear} · Fabrizio Andrade</span>
+      <span>
+        © {currentYear} · {SITE.name}
+        <!-- Si usás este template, te agradezco que dejes este crédito 🙌 -->
+        <a href="https://github.com/Fabrizio9898/Portfolio.dev" target="_blank" rel="noopener" class="ml-2 text-slate-500 transition hover:text-white">· Template</a>
+      </span>
       <ul class="flex gap-6">
         <li><a href="/#" class="transition hover:text-white" data-i18n="FOOTER_INICIO">Inicio</a></li>
         <li><a href="/#proyectos" class="transition hover:text-white" data-i18n="NAVBAR_PROYECTS">Proyectos</a></li>

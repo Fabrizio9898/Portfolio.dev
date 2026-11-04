@@ -1,4 +1,5 @@
 ---
+import { SITE } from "@/config";
 import Hero from "@/components/Hero/Hero.astro";
 import Layout from "@/layouts/Layout.astro";
 import TitleSection from "@/components/TitleSection/TitleSection.astro";
@@ -19,7 +20,7 @@ const i18n = getI18({ currentLocale: currentLanguage.get() });
 
 <Layout
   title={i18n?.PORTFOLIO_TITLE}
-  description="Fabrizio Andrade — desarrollador web fullstack. Landings, sistemas de reservas, CMS, APIs y apps."
+  description={SITE.description}
 >
   <main class="px-4">
     <SectionContainer id="inicio" class="pb-16 pt-24 md:py-36">

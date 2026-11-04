@@ -22,3 +22,9 @@ pnpm-debug.log*
 
 # jetbrains setting folder
 .idea/
+
+# videos promo generados
+promo/
+
+# netlify local build
+.netlify/

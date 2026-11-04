@@ -1,4 +1,5 @@
 ---
+import { SITE } from "@/config";
 import "@fontsource-variable/onest";
 import Header from "../components/Header/Header.astro";
 import Languages from "@/components/Languages/Languages.astro";
@@ -11,7 +12,7 @@ interface Props {
   image?: string;
 }
 
-const { title, description, showHeader = true, image = "/fotodeperfil.webp" } = Astro.props;
+const { title, description, showHeader = true, image = SITE.avatar } = Astro.props;
 ---
 
 <!doctype html>
