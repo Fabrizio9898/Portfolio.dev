@@ -27,6 +27,8 @@ const easeInOut = (t) => (t < 0.5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) 
 const browser = await chromium.launch({ channel: "chrome" });
 const page = await browser.newPage({ viewport: { width: 1440, height: 900 } });
 await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+// Oculta el badge de Netlify, que no es parte del sitio
+await page.addStyleTag({ content: "#nl-badge-frame { display: none !important; }" });
 
 // Precarga lazy-load recorriendo la página una vez
 await page.evaluate(async () => {

@@ -31,6 +31,8 @@ async function shoot(viewport, deviceScaleFactor, isMobile) {
   const context = await browser.newContext({ viewport, deviceScaleFactor, isMobile, hasTouch: isMobile });
   const page = await context.newPage();
   await page.goto(url, { waitUntil: "networkidle", timeout: 60000 });
+  // Oculta el badge de Netlify, que no es parte del sitio
+  await page.addStyleTag({ content: "#nl-badge-frame { display: none !important; }" });
   await page.waitForTimeout(1500);
   await warmUp(page);
   const viewportShot = await page.screenshot();
